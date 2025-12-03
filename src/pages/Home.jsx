@@ -52,9 +52,10 @@ const Home = () => {
             return randomPhotos;
         }
         if (activeCategory === 'All') {
-            return photos;
+            return shuffleArray(photos);
         }
-        return photos.filter(p => p.category === activeCategory);
+        const categoryPhotos = photos.filter(p => p.category === activeCategory);
+        return shuffleArray(categoryPhotos);
     }, [activeCategory, randomPhotos]);
 
     const handleNext = useCallback(() => {

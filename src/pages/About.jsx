@@ -62,11 +62,10 @@ const styles = {
         height: '100%',
     },
     title: {
-        fontSize: '4.5rem',
+        fontSize: '3rem',
         fontWeight: '700',
         color: 'var(--text-color-primary)',
         textAlign: 'center',
-        textTransform: 'uppercase',
         letterSpacing: '-0.03em',
     },
     imageContainer: {
