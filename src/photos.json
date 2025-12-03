@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "src": "/photos/pets/2ba80e5f9cc9d76e3508314200e577fa.webp",
+    "src": "/photos/pets/2ba80e5f9cc9d76e3508314200e577fa.avif",
     "title": "2ba80e5f9cc9d76e3508314200e577fa",
     "width": 1080,
     "height": 1440,
@@ -16,7 +16,7 @@
   },
   {
     "id": 2,
-    "src": "/photos/pets/6ed909533c3c75f74b7c195c96746af8.webp",
+    "src": "/photos/pets/6ed909533c3c75f74b7c195c96746af8.avif",
     "title": "6ed909533c3c75f74b7c195c96746af8",
     "width": 960,
     "height": 1440,
@@ -46,7 +46,7 @@
   },
   {
     "id": 4,
-    "src": "/photos/pets/WechatIMG321.webp",
+    "src": "/photos/pets/WechatIMG321.avif",
     "title": "WechatIMG321",
     "width": 1280,
     "height": 1707,
@@ -61,17 +61,17 @@
   },
   {
     "id": 5,
-    "src": "/photos/pets/WechatIMG837.webp",
+    "src": "/photos/pets/WechatIMG837.avif",
     "title": "WechatIMG837",
     "width": 6000,
     "height": 4000,
     "category": "Pets",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 2000,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
@@ -91,7 +91,7 @@
   },
   {
     "id": 7,
-    "src": "/photos/pets/WechatIMG902.webp",
+    "src": "/photos/pets/WechatIMG902.avif",
     "title": "WechatIMG902",
     "width": 1216,
     "height": 812,
@@ -106,7 +106,7 @@
   },
   {
     "id": 8,
-    "src": "/photos/pets/WechatIMG903.webp",
+    "src": "/photos/pets/WechatIMG903.avif",
     "title": "WechatIMG903",
     "width": 810,
     "height": 1216,
@@ -136,1157 +136,1172 @@
   },
   {
     "id": 10,
-    "src": "/photos/toys/R0000211.webp",
+    "src": "/photos/toys/R0000211.avif",
     "title": "R0000211",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 11,
+      "aperture": "f/2.8",
+      "shutter": "1/40"
     }
   },
   {
     "id": 11,
-    "src": "/photos/toys/R0000215.webp",
+    "src": "/photos/toys/R0000215.avif",
     "title": "R0000215",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/2.8",
+      "shutter": "1/40"
     }
   },
   {
     "id": 12,
-    "src": "/photos/toys/R0000224.webp",
+    "src": "/photos/toys/R0000224.avif",
     "title": "R0000224",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 9,
+      "aperture": "f/2.8",
+      "shutter": "1/20"
     }
   },
   {
     "id": 13,
-    "src": "/photos/toys/R0000266.webp",
+    "src": "/photos/toys/R0000266.avif",
     "title": "R0000266",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 17,
+      "aperture": "f/2.8",
+      "shutter": "1/15"
     }
   },
   {
     "id": 14,
-    "src": "/photos/toys/R0000277.webp",
+    "src": "/photos/toys/R0000277.avif",
     "title": "R0000277",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 9,
+      "aperture": "f/2.8",
+      "shutter": "1/15"
     }
   },
   {
     "id": 15,
-    "src": "/photos/toys/R0000278.webp",
+    "src": "/photos/toys/R0000278.avif",
     "title": "R0000278",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 12,
+      "aperture": "f/2.8",
+      "shutter": "1/15"
     }
   },
   {
     "id": 16,
-    "src": "/photos/toys/R0000709.webp",
+    "src": "/photos/toys/R0000709.avif",
     "title": "R0000709",
     "width": 4800,
     "height": 3200,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 11,
+      "aperture": "f/2.8",
+      "shutter": "1/50"
     }
   },
   {
     "id": 17,
-    "src": "/photos/toys/R0000778.webp",
+    "src": "/photos/toys/R0000778.avif",
     "title": "R0000778",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 17,
+      "aperture": "f/2.8",
+      "shutter": "1/25"
     }
   },
   {
     "id": 18,
-    "src": "/photos/toys/R0001036.webp",
+    "src": "/photos/toys/R0001036.avif",
     "title": "R0001036",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 19,
-    "src": "/photos/toys/R0001049.webp",
+    "src": "/photos/toys/R0001049.avif",
     "title": "R0001049",
     "width": 3360,
     "height": 2240,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 20,
-    "src": "/photos/toys/R0001051.webp",
+    "src": "/photos/toys/R0001051.avif",
     "title": "R0001051",
-    "width": 2240,
-    "height": 3360,
+    "width": 3360,
+    "height": 2240,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 21,
-    "src": "/photos/toys/R0001113.webp",
+    "src": "/photos/toys/R0001113.avif",
     "title": "R0001113",
-    "width": 2240,
-    "height": 3360,
+    "width": 3360,
+    "height": 2240,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 12,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 22,
-    "src": "/photos/toys/R0001124.webp",
+    "src": "/photos/toys/R0001124.avif",
     "title": "R0001124",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 16,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 23,
-    "src": "/photos/toys/R0001311.webp",
+    "src": "/photos/toys/R0001311.avif",
     "title": "R0001311",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 21,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 24,
-    "src": "/photos/toys/R0001351.webp",
+    "src": "/photos/toys/R0001351.avif",
     "title": "R0001351",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/125"
     }
   },
   {
     "id": 25,
-    "src": "/photos/toys/R0001353.webp",
+    "src": "/photos/toys/R0001353.avif",
     "title": "R0001353",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 26,
-    "src": "/photos/toys/R0001360.webp",
+    "src": "/photos/toys/R0001360.avif",
     "title": "R0001360",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 15,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 27,
-    "src": "/photos/toys/R0001374.webp",
+    "src": "/photos/toys/R0001374.avif",
     "title": "R0001374",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 6,
+      "aperture": "f/2.8",
+      "shutter": "1/20"
     }
   },
   {
     "id": 28,
-    "src": "/photos/toys/R0001722.webp",
+    "src": "/photos/toys/R0001722.avif",
     "title": "R0001722",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 16,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 29,
-    "src": "/photos/toys/R0001724.webp",
+    "src": "/photos/toys/R0001724.avif",
     "title": "R0001724",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 30,
-    "src": "/photos/toys/R0001806.webp",
+    "src": "/photos/toys/R0001806.avif",
     "title": "R0001806",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 31,
-    "src": "/photos/toys/R0001808.webp",
+    "src": "/photos/toys/R0001808.avif",
     "title": "R0001808",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 12,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 32,
-    "src": "/photos/toys/R0001815.webp",
+    "src": "/photos/toys/R0001815.avif",
     "title": "R0001815",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 10,
+      "aperture": "f/2.8",
+      "shutter": "1/40"
     }
   },
   {
     "id": 33,
-    "src": "/photos/toys/R0001823.webp",
+    "src": "/photos/toys/R0001823.avif",
     "title": "R0001823",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/3.5",
+      "shutter": "1/60"
     }
   },
   {
     "id": 34,
-    "src": "/photos/toys/R0001830.webp",
+    "src": "/photos/toys/R0001830.avif",
     "title": "R0001830",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 10,
+      "aperture": "f/2.8",
+      "shutter": "1/60"
     }
   },
   {
     "id": 35,
-    "src": "/photos/toys/R0001870.webp",
+    "src": "/photos/toys/R0001870.avif",
     "title": "R0001870",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 36,
-    "src": "/photos/toys/R0001880.webp",
+    "src": "/photos/toys/R0001880.avif",
     "title": "R0001880",
     "width": 4800,
     "height": 3200,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 37,
-    "src": "/photos/toys/R0001882.webp",
+    "src": "/photos/toys/R0001882.avif",
     "title": "R0001882",
-    "width": 3200,
-    "height": 4800,
+    "width": 4800,
+    "height": 3200,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/3.2",
+      "shutter": "1/100"
     }
   },
   {
     "id": 38,
-    "src": "/photos/toys/R0001883.webp",
+    "src": "/photos/toys/R0001883.avif",
     "title": "R0001883",
     "width": 4800,
     "height": 3200,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 39,
-    "src": "/photos/toys/R0001884.webp",
+    "src": "/photos/toys/R0001884.avif",
     "title": "R0001884",
     "width": 4000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 12,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 40,
-    "src": "/photos/toys/R0001939.webp",
+    "src": "/photos/toys/R0001939.avif",
     "title": "R0001939",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 41,
-    "src": "/photos/toys/R0001944.webp",
+    "src": "/photos/toys/R0001944.avif",
     "title": "R0001944",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 15,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 42,
-    "src": "/photos/toys/R0001952.webp",
+    "src": "/photos/toys/R0001952.avif",
     "title": "R0001952",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/3.5",
+      "shutter": "1/80"
     }
   },
   {
     "id": 43,
-    "src": "/photos/toys/R0001953.webp",
+    "src": "/photos/toys/R0001953.avif",
     "title": "R0001953",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 17,
+      "aperture": "f/3.5",
+      "shutter": "1/80"
     }
   },
   {
     "id": 44,
-    "src": "/photos/toys/R0001955.webp",
+    "src": "/photos/toys/R0001955.avif",
     "title": "R0001955",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 12,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 45,
-    "src": "/photos/toys/R0001986.webp",
+    "src": "/photos/toys/R0001986.avif",
     "title": "R0001986",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 46,
-    "src": "/photos/toys/R0001987.webp",
+    "src": "/photos/toys/R0001987.avif",
     "title": "R0001987",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 47,
-    "src": "/photos/toys/R0002022.webp",
+    "src": "/photos/toys/R0002022.avif",
     "title": "R0002022",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 48,
-    "src": "/photos/toys/R0002025.webp",
+    "src": "/photos/toys/R0002025.avif",
     "title": "R0002025",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 49,
-    "src": "/photos/toys/R0002247.webp",
+    "src": "/photos/toys/R0002247.avif",
     "title": "R0002247",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 11,
+      "aperture": "f/2.8",
+      "shutter": "1/60"
     }
   },
   {
     "id": 50,
-    "src": "/photos/toys/R0002617.webp",
+    "src": "/photos/toys/R0002617.avif",
     "title": "R0002617",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 51,
-    "src": "/photos/toys/R0002672.webp",
+    "src": "/photos/toys/R0002672.avif",
     "title": "R0002672",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 20,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 52,
-    "src": "/photos/toys/R0002990.webp",
+    "src": "/photos/toys/R0002990.avif",
     "title": "R0002990",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 15,
+      "aperture": "f/4",
+      "shutter": "1/60"
     }
   },
   {
     "id": 53,
-    "src": "/photos/toys/R0002992.webp",
+    "src": "/photos/toys/R0002992.avif",
     "title": "R0002992",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 15,
+      "aperture": "f/4",
+      "shutter": "1/60"
     }
   },
   {
     "id": 54,
-    "src": "/photos/toys/R0003020.webp",
+    "src": "/photos/toys/R0003020.avif",
     "title": "R0003020",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 19,
+      "aperture": "f/2.8",
+      "shutter": "1/50"
     }
   },
   {
     "id": 55,
-    "src": "/photos/toys/R0003035.webp",
+    "src": "/photos/toys/R0003035.avif",
     "title": "R0003035",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 15,
+      "aperture": "f/2.8",
+      "shutter": "1/50"
     }
   },
   {
     "id": 56,
-    "src": "/photos/toys/R0003347.webp",
+    "src": "/photos/toys/R0003347.avif",
     "title": "R0003347",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 57,
-    "src": "/photos/toys/R0003350.webp",
+    "src": "/photos/toys/R0003350.avif",
     "title": "R0003350",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 12,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 58,
-    "src": "/photos/toys/R0003352.webp",
+    "src": "/photos/toys/R0003352.avif",
     "title": "R0003352",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 12,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 59,
-    "src": "/photos/toys/R0003392.webp",
+    "src": "/photos/toys/R0003392.avif",
     "title": "R0003392",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/4",
+      "shutter": "1/100"
     }
   },
   {
     "id": 60,
-    "src": "/photos/toys/R0003420.webp",
+    "src": "/photos/toys/R0003420.avif",
     "title": "R0003420",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/60"
     }
   },
   {
     "id": 61,
-    "src": "/photos/toys/R0003423.webp",
+    "src": "/photos/toys/R0003423.avif",
     "title": "R0003423",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 62,
-    "src": "/photos/toys/R0003430.webp",
+    "src": "/photos/toys/R0003430.avif",
     "title": "R0003430",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 11,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 63,
-    "src": "/photos/toys/R0003453.webp",
+    "src": "/photos/toys/R0003453.avif",
     "title": "R0003453",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 64,
-    "src": "/photos/toys/R0003455.webp",
+    "src": "/photos/toys/R0003455.avif",
     "title": "R0003455",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 65,
-    "src": "/photos/toys/R0003457.webp",
+    "src": "/photos/toys/R0003457.avif",
     "title": "R0003457",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 15,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 66,
-    "src": "/photos/toys/R0003458.webp",
+    "src": "/photos/toys/R0003458.avif",
     "title": "R0003458",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 15,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 67,
-    "src": "/photos/toys/R0003462.webp",
+    "src": "/photos/toys/R0003462.avif",
     "title": "R0003462",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 68,
-    "src": "/photos/toys/R0003495.webp",
+    "src": "/photos/toys/R0003495.avif",
     "title": "R0003495",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 15,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 69,
-    "src": "/photos/toys/R0003593.webp",
+    "src": "/photos/toys/R0003593.avif",
     "title": "R0003593",
     "width": 6000,
     "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 8,
+      "aperture": "f/3.2",
+      "shutter": "1/20"
     }
   },
   {
     "id": 70,
-    "src": "/photos/toys/R0003726.webp",
+    "src": "/photos/toys/R0003726.avif",
     "title": "R0003726",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 6,
+      "aperture": "f/5.6",
+      "shutter": "1/100"
     }
   },
   {
     "id": 71,
-    "src": "/photos/toys/R0003782.webp",
+    "src": "/photos/toys/R0003782.avif",
     "title": "R0003782",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 11,
+      "aperture": "f/2.8",
+      "shutter": "1/50"
     }
   },
   {
     "id": 72,
-    "src": "/photos/toys/R0003784.webp",
+    "src": "/photos/toys/R0003784.avif",
     "title": "R0003784",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 15,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 73,
-    "src": "/photos/toys/R0003833.webp",
+    "src": "/photos/toys/R0003833.avif",
     "title": "R0003833",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 12,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 74,
-    "src": "/photos/toys/R0003837.webp",
+    "src": "/photos/toys/R0003837.avif",
     "title": "R0003837",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/4.5",
+      "shutter": "1/80"
     }
   },
   {
     "id": 75,
-    "src": "/photos/toys/R0003845.webp",
+    "src": "/photos/toys/R0003845.avif",
     "title": "R0003845",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 15,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 76,
-    "src": "/photos/toys/R0003860.webp",
+    "src": "/photos/toys/R0003860.avif",
     "title": "R0003860",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 10,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 77,
-    "src": "/photos/toys/R0003883.webp",
+    "src": "/photos/toys/R0003883.avif",
     "title": "R0003883",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 14,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 78,
-    "src": "/photos/toys/R0004526.webp",
+    "src": "/photos/toys/R0004526.avif",
     "title": "R0004526",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 10,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 79,
-    "src": "/photos/toys/R0004530.webp",
+    "src": "/photos/toys/R0004530.avif",
     "title": "R0004530",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 10,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 80,
-    "src": "/photos/toys/R0004721.webp",
+    "src": "/photos/toys/R0004721.avif",
     "title": "R0004721",
-    "width": 3200,
-    "height": 4800,
+    "width": 4800,
+    "height": 3200,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 11,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 81,
-    "src": "/photos/toys/R0004919.webp",
+    "src": "/photos/toys/R0004919.avif",
     "title": "R0004919",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 12,
+      "aperture": "f/3.2",
+      "shutter": "1/80"
     }
   },
   {
     "id": 82,
-    "src": "/photos/toys/R0004944.webp",
+    "src": "/photos/toys/R0004944.avif",
     "title": "R0004944",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 10,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 83,
-    "src": "/photos/toys/R0005003.webp",
+    "src": "/photos/toys/R0005003.avif",
     "title": "R0005003",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 15,
+      "aperture": "f/2.8",
+      "shutter": "1/60"
     }
   },
   {
     "id": 84,
-    "src": "/photos/toys/R0005028.webp",
+    "src": "/photos/toys/R0005028.avif",
     "title": "R0005028",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 12,
+      "aperture": "f/2.8",
+      "shutter": "1/80"
     }
   },
   {
     "id": 85,
-    "src": "/photos/toys/R0005035.webp",
+    "src": "/photos/toys/R0005035.avif",
     "title": "R0005035",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 12,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
     }
   },
   {
     "id": 86,
-    "src": "/photos/toys/R0005091.webp",
+    "src": "/photos/toys/R0005091.avif",
     "title": "R0005091",
-    "width": 4000,
-    "height": 6000,
+    "width": 6000,
+    "height": 4000,
     "category": "Toys",
     "exif": {
-      "camera": "Unknown Camera",
+      "camera": "RICOH GR IIIx",
       "lens": "Unknown Lens",
-      "iso": "",
-      "aperture": "",
-      "shutter": ""
+      "iso": 13,
+      "aperture": "f/2.8",
+      "shutter": "1/100"
+    }
+  },
+  {
+    "id": 87,
+    "src": "/photos/pets/IMG_9979.avif",
+    "title": "IMG_9979",
+    "width": 4032,
+    "height": 3024,
+    "category": "pets",
+    "exif": {
+      "camera": "iPhone 8",
+      "lens": "Unknown Lens",
+      "iso": 20,
+      "aperture": "f/1.8",
+      "shutter": "1/666"
     }
   }
 ]

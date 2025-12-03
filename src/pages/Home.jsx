@@ -153,13 +153,15 @@ const Home = () => {
                             </motion.div>
                             <motion.div style={styles.metadata} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
                                 <h2 style={styles.metadataTitle}>{selectedPhoto.title}</h2>
-                                <div style={styles.exifGrid}>
-                                    <ExifItem label="Camera" value={selectedPhoto.exif.camera} />
-                                    <ExifItem label="Lens" value={selectedPhoto.exif.lens} />
-                                    <ExifItem label="ISO" value={selectedPhoto.exif.iso} />
-                                    <ExifItem label="Aperture" value={selectedPhoto.exif.aperture} />
-                                    <ExifItem label="Shutter" value={selectedPhoto.exif.shutter} />
-                                </div>
+                                {selectedPhoto.exif && (
+                                    <div style={styles.exifGrid}>
+                                        {selectedPhoto.exif.camera && !selectedPhoto.exif.camera.startsWith('Unknown') && <ExifItem label="Camera" value={selectedPhoto.exif.camera} />}
+                                        {selectedPhoto.exif.lens && !selectedPhoto.exif.lens.startsWith('Unknown') && <ExifItem label="Lens" value={selectedPhoto.exif.lens} />}
+                                        {selectedPhoto.exif.iso && <ExifItem label="ISO" value={selectedPhoto.exif.iso} />}
+                                        {selectedPhoto.exif.aperture && <ExifItem label="Aperture" value={selectedPhoto.exif.aperture} />}
+                                        {selectedPhoto.exif.shutter && <ExifItem label="Shutter" value={selectedPhoto.exif.shutter} />}
+                                    </div>
+                                )}
                             </motion.div>
                         </motion.div>
                         
