@@ -16,7 +16,6 @@ const Home = () => {
     const [displayPhotos, setDisplayPhotos] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [filter, setFilter] = useState('All');
-    // Theme state: 'light' or 'dark'
     const [theme, setTheme] = useState(() => {
         if (typeof window !== 'undefined') {
             return localStorage.getItem('theme') || 'light';
@@ -24,16 +23,13 @@ const Home = () => {
         return 'light';
     });
 
-    // Toggle Theme
     const toggleTheme = () => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);
     };
 
-    // Load Data
     useEffect(() => {
-        // Fetch from root (public) directory
         fetch('/photos.json')
             .then(res => res.json())
             .then(data => {
@@ -42,7 +38,6 @@ const Home = () => {
             })
             .catch(err => console.error("Failed to load photos:", err));
 
-        // Inject Fonts
         const link = document.createElement('link');
         link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap';
         link.rel = 'stylesheet';
@@ -51,7 +46,6 @@ const Home = () => {
         return () => document.head.removeChild(link);
     }, []);
 
-    // Apply Theme Variables
     useEffect(() => {
         const root = document.documentElement;
         if (theme === 'dark') {
@@ -61,9 +55,11 @@ const Home = () => {
             root.style.setProperty('--btn-bg', 'rgba(255,255,255,0.1)');
             root.style.setProperty('--btn-bg-active', '#fff');
             root.style.setProperty('--btn-text-active', '#000');
-            root.style.setProperty('--lightbox-bg', 'rgba(0,0,0,0.92)');
+            root.style.setProperty('--lightbox-bg', 'rgba(0,0,0,0.95)');
             root.style.setProperty('--glass-bg', 'rgba(20,20,20,0.7)');
             root.style.setProperty('--glass-border', 'rgba(255,255,255,0.1)');
+            root.style.setProperty('--header-bg', 'rgba(0,0,0,0.85)');
+            root.style.setProperty('--header-border', 'rgba(255,255,255,0.15)');
         } else {
             root.style.setProperty('--bg-color', '#ffffff');
             root.style.setProperty('--text-primary', '#1d1d1f');
@@ -71,20 +67,20 @@ const Home = () => {
             root.style.setProperty('--btn-bg', 'rgba(0,0,0,0.05)');
             root.style.setProperty('--btn-bg-active', '#1d1d1f');
             root.style.setProperty('--btn-text-active', '#fff');
-            root.style.setProperty('--lightbox-bg', 'rgba(255,255,255,0.95)');
+            root.style.setProperty('--lightbox-bg', 'rgba(255,255,255,0.98)');
             root.style.setProperty('--glass-bg', 'rgba(255,255,255,0.8)');
             root.style.setProperty('--glass-border', 'rgba(0,0,0,0.05)');
+            root.style.setProperty('--header-bg', 'rgba(255,255,255,0.85)');
+            root.style.setProperty('--header-border', 'rgba(0,0,0,0.05)');
         }
     }, [theme]);
 
-    // Handle Filter
     useEffect(() => {
         if (photos.length === 0) return;
         let filtered = filter === 'All' ? photos : photos.filter(p => p.category === filter);
         setDisplayPhotos(shuffleArray(filtered));
     }, [filter, photos]);
 
-    // Navigation Logic
     const handleNext = useCallback(() => {
         if (selectedId === null) return;
         const currentIndex = displayPhotos.findIndex(p => p.id === selectedId);
@@ -114,26 +110,24 @@ const Home = () => {
     const selectedPhoto = photos.find(p => p.id === selectedId);
 
     return (
-        <div style={styles.container}>
-            {/* Minimal Header */}
-            <header style={styles.header}>
-                {/* Left spacer for balance if needed, or Logo */}
-                <div style={{ width: '40px' }}></div>
+        <div className="container" style={styles.container}>
+            {/* Header */}
+            <header className="header" style={styles.header}>
+                <div className="logo-spacer" style={{ width: '40px' }}></div>
 
-                {/* Centered Filter Pills */}
-                <nav style={styles.nav}>
+                <nav className="nav-scroll" style={styles.nav}>
                     {categories.map(cat => (
                         <button
                             key={cat}
                             onClick={() => setFilter(cat)}
                             style={filter === cat ? styles.activeFilterButton : styles.filterButton}
+                            className="filter-btn"
                         >
                             {cat}
                         </button>
                     ))}
                 </nav>
 
-                {/* Right Theme Toggle */}
                 <button onClick={toggleTheme} style={styles.themeBtn} aria-label="Toggle Theme">
                     {theme === 'light' ? (
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
@@ -143,13 +137,10 @@ const Home = () => {
                 </button>
             </header>
 
-            {/* Clean Grid */}
-            <motion.div
-                style={styles.grid}
-                layout
-            >
+            {/* Grid */}
+            <motion.div className="grid-container" style={styles.grid} layout>
                 <AnimatePresence mode='popLayout'>
-                    {displayPhotos.map((photo, index) => (
+                    {displayPhotos.map((photo) => (
                         <motion.div
                             key={photo.id}
                             layout
@@ -159,7 +150,8 @@ const Home = () => {
                             transition={{ duration: 0.4 }}
                             style={styles.item}
                             onClick={() => setSelectedId(photo.id)}
-                            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                         >
                             <div style={styles.imageWrapper}>
                                 <img
@@ -168,7 +160,6 @@ const Home = () => {
                                     style={styles.image}
                                     loading="lazy"
                                 />
-                                {/* Minimal Overlay - Only visible on hover */}
                                 <div style={styles.overlay}></div>
                             </div>
                         </motion.div>
@@ -176,7 +167,7 @@ const Home = () => {
                 </AnimatePresence>
             </motion.div>
 
-            {/* Glassmorphism Lightbox */}
+            {/* Lightbox */}
             <AnimatePresence>
                 {selectedId && selectedPhoto && (
                     <motion.div
@@ -185,24 +176,23 @@ const Home = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
                     >
                         <motion.div
+                            className="lightbox-content"
                             style={styles.lightboxContent}
                             onClick={(e) => e.stopPropagation()}
-                            initial={{ scale: 0.98, opacity: 0 }}
+                            initial={{ scale: 0.95, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.98, opacity: 0 }}
-                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
                         >
                             <img
                                 src={selectedPhoto.src}
                                 alt={selectedPhoto.title}
+                                className="lightbox-image"
                                 style={styles.lightboxImage}
                             />
 
-                            {/* Glass Metadata Panel */}
-                            <div style={styles.metadata}>
+                            <div className="metadata-panel" style={styles.metadata}>
                                 <h2 style={styles.metadataTitle}>{selectedPhoto.title}</h2>
                                 {selectedPhoto.exif && (
                                     <div style={styles.exifGrid}>
@@ -215,14 +205,13 @@ const Home = () => {
                                 )}
                             </div>
 
-                            {/* Navigation Arrows */}
-                            <button style={{ ...styles.navBtn, left: '30px' }} onClick={(e) => { e.stopPropagation(); handlePrev(); }}>
+                            <button className="nav-btn nav-left" style={{ ...styles.navBtn, left: '30px' }} onClick={(e) => { e.stopPropagation(); handlePrev(); }}>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
                             </button>
-                            <button style={{ ...styles.navBtn, right: '30px' }} onClick={(e) => { e.stopPropagation(); handleNext(); }}>
+                            <button className="nav-btn nav-right" style={{ ...styles.navBtn, right: '30px' }} onClick={(e) => { e.stopPropagation(); handleNext(); }}>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
                             </button>
-                            <button style={styles.closeBtn} onClick={() => setSelectedId(null)}>
+                            <button className="close-btn" style={styles.closeBtn} onClick={() => setSelectedId(null)}>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </button>
                         </motion.div>
@@ -230,20 +219,96 @@ const Home = () => {
                 )}
             </AnimatePresence>
 
-            {/* Global Styles for CSS Variables & Scrollbar */}
+            {/* Mobile Responsive Styles */}
             <style>{`
                 body {
                     background-color: var(--bg-color);
                     color: var(--text-primary);
-                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+                    font-family: 'Inter', sans-serif;
                     transition: background-color 0.3s ease, color 0.3s ease;
                     margin: 0;
+                    -webkit-tap-highlight-color: transparent;
                 }
                 ::-webkit-scrollbar { width: 0px; background: transparent; }
+
+                /* Desktop Defaults */
+                .grid-container { column-count: 3; column-gap: 2rem; }
+                .nav-scroll { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+
+                /* Mobile Optimization */
+                @media (max-width: 1024px) { .grid-container { column-count: 2; } }
                 
-                /* Responsive Columns */
-                @media (max-width: 1200px) { .grid-container { column-count: 2 !important; } }
-                @media (max-width: 600px) { .grid-container { column-count: 1 !important; } }
+                @media (max-width: 768px) {
+                    .container { padding: 0 1rem 1rem 1rem !important; }
+                    
+                    /* Header Mobile */
+                    .header { 
+                        margin: 0 -1rem 1rem -1rem !important; 
+                        padding: 0.8rem 1rem !important;
+                    }
+                    .logo-spacer { display: none; }
+                    
+                    /* Scrollable Nav */
+                    .nav-scroll {
+                        flex-wrap: nowrap !important;
+                        overflow-x: auto;
+                        justify-content: flex-start !important;
+                        padding-right: 2rem;
+                        -webkit-overflow-scrolling: touch;
+                        scrollbar-width: none;
+                        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+                    }
+                    .nav-scroll::-webkit-scrollbar { display: none; }
+                    .filter-btn { white-space: nowrap; flex-shrink: 0; }
+
+                    /* Grid Mobile */
+                    .grid-container { column-count: 1; column-gap: 1rem; }
+                    
+                    /* Lightbox Mobile */
+                    .lightbox-content {
+                        width: 100% !important;
+                        height: 100% !important;
+                        max-height: 100vh !important;
+                        justify-content: center;
+                    }
+                    .lightbox-image {
+                        max-height: 55vh !important;
+                        width: 100% !important;
+                        object-fit: contain !important;
+                    }
+                    .metadata-panel {
+                        padding: 1rem !important;
+                        width: 90% !important;
+                        margin-top: 1rem !important;
+                        background: rgba(20,20,20,0.85) !important; /* Always dark bg for readability on mobile */
+                        color: #fff !important;
+                    }
+                    .metadata-panel h2 { font-size: 1.1rem !important; margin-bottom: 0.5rem !important; }
+                    
+                    /* Nav Buttons Mobile */
+                    .nav-btn {
+                        width: 44px !important;
+                        height: 44px !important;
+                        background: rgba(0,0,0,0.3) !important;
+                        backdrop-filter: blur(5px);
+                        border: none !important;
+                        color: white !important;
+                        top: auto !important;
+                        bottom: 20px !important;
+                        transform: none !important;
+                    }
+                    .nav-left { left: 20px !important; }
+                    .nav-right { right: 20px !important; }
+                    
+                    .close-btn {
+                        top: 15px !important;
+                        right: 15px !important;
+                        background: rgba(0,0,0,0.3) !important;
+                        color: white !important;
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
             `}</style>
         </div>
     );
@@ -270,12 +335,16 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '2rem 0 3rem 0',
+        margin: '0 -2rem 2rem -2rem',
+        padding: '1rem 2rem',
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        backgroundColor: 'var(--bg-color)', // Opaque background for sticky header
-        transition: 'background-color 0.3s ease',
+        backgroundColor: 'var(--header-bg)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        borderBottom: '1px solid var(--header-border)',
+        transition: 'background-color 0.3s ease, border-color 0.3s ease',
     },
     nav: {
         display: 'flex',
@@ -323,22 +392,20 @@ const styles = {
         transition: 'all 0.2s ease',
     },
     grid: {
-        columnCount: 3,
-        columnGap: '2rem',
-        className: 'grid-container', // Used for media queries in style tag
+        // columnCount handled by CSS class
     },
     item: {
         breakInside: 'avoid',
         marginBottom: '2rem',
         cursor: 'pointer',
-        borderRadius: '12px', // Apple-like smooth corners
+        borderRadius: '12px',
         overflow: 'hidden',
     },
     imageWrapper: {
         position: 'relative',
         borderRadius: '12px',
         overflow: 'hidden',
-        background: 'var(--btn-bg)', // Placeholder color
+        background: 'var(--btn-bg)',
     },
     image: {
         width: '100%',
@@ -349,7 +416,7 @@ const styles = {
     overlay: {
         position: 'absolute',
         top: 0, left: 0, right: 0, bottom: 0,
-        background: 'rgba(0,0,0,0.05)', // Subtle darkening on hover
+        background: 'rgba(0,0,0,0.05)',
         opacity: 0,
         transition: 'opacity 0.3s',
         pointerEvents: 'none',
@@ -358,7 +425,7 @@ const styles = {
         position: 'fixed',
         top: 0, left: 0, right: 0, bottom: 0,
         background: 'var(--lightbox-bg)',
-        backdropFilter: 'blur(20px)', // Strong blur for background
+        backdropFilter: 'blur(20px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

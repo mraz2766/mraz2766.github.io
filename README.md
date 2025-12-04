@@ -1,62 +1,71 @@
-# Lens
+# Portfolio
 
-一个基于 React 和 Vite 构建的极简摄影作品集，设计灵感源于 Apple 的美学。它会自动扫描照片、读取 EXIF 数据，并以优雅的瀑布流布局展示您的作品。
+A minimalist photography portfolio built with modern web technologies. Designed to showcase visual work with zero distractions.
 
----
+![License](https://img.shields.io/badge/license-MIT-000000.svg?style=flat-square)
+![React](https://img.shields.io/badge/react-19.0-000000.svg?style=flat-square)
+![Vite](https://img.shields.io/badge/vite-6.0-000000.svg?style=flat-square)
 
-## ✨ 核心功能
+## Philosophy
 
-- **📁 文件夹即分类**: 只需在 `public/photos` 目录中创建子文件夹，系统即会自动生成对应的作品分类。
-- **🎲 随机首页**: “Home”按钮会随机展示所有分类中的精选照片。
-- **🏞️ 瀑布流布局**: 自动适应不同尺寸的照片，以非对称的瀑布流形式优雅地排列。
-- **📷 EXIF 数据**: 自动读取并展示照片的相机、镜头、光圈等元数据。
-- **🎨 极简美学**: 干净、现代的界面，让视觉焦点完全落在您的作品上。
+**"Obsidian & Glass"**
 
----
+The design language focuses on two elements:
+- **Obsidian**: Deep, immersive backgrounds that allow photographs to pop with vivid color.
+- **Glass**: Translucent, frosted UI elements that provide context without obscuring the content.
 
-## 🛠️ 使用方式
+## Features
 
-### 1. 添加照片
+- **Smart Gallery**:
+  - **Auto-Shuffle**: A fresh layout on every visit.
+  - **Masonry Grid**: Perfectly aligned waterfall layout for mixed aspect ratios.
+  - **Lazy Loading**: Blazing fast performance with WebP thumbnails.
 
-将您的照片（`.jpg`, `.png` 等）放入 `public/photos` 文件夹。您可以创建子文件夹来对照片进行分类，例如：
+- **Automated Workflow**:
+  - Simply drop photos into `public/photos`.
+  - The build script automatically rotates, resizes, compresses, and extracts EXIF data.
+  - No database required.
 
-- `public/photos/萌宠/`
-- `public/photos/玩具/`
-- `public/photos/旅行/`
+- **Premium UX**:
+  - **Dark/Light Mode**: Seamless switching with smooth transitions.
+  - **Glassmorphism**: Adaptive frosted glass effects for headers and overlays.
+  - **Mobile First**: Optimized touch interactions and responsive layouts.
 
-### 2. 更新图库
+## Tech Stack
 
-在添加、删除或移动照片后，只需在项目根目录运行以下命令：
+- **Core**: React 19, Vite
+- **Animation**: Framer Motion
+- **Image Processing**: Sharp (Node.js)
+- **Metadata**: ExifReader
+
+## Usage
+
+### 1. Add Photos
+Place your high-res JPG/PNG files into the `public/photos` directory. You can organize them into subfolders (e.g., `public/photos/Portrait`), which will automatically become categories.
+
+### 2. Generate Gallery
+Run the script to process images and generate the data file:
 
 ```bash
 npm run gen-gallery
 ```
 
-此命令会更新图库数据，包括照片的尺寸、分类和 EXIF 信息。
+### 3. Develop
+Start the local development server:
+
+```bash
+npm run dev
+```
+
+### 4. Deploy
+Build for production (automatically regenerates gallery data):
+
+```bash
+npm run build
+```
+
+The output in `dist` is ready to be deployed to GitHub Pages or any static host.
 
 ---
 
-## 本地调试
-
-1.  **安装依赖:**
-    ```bash
-    npm install
-    ```
-
-2.  **启动开发服务器:**
-    ```bash
-    npm run dev
-    ```
-    项目将在 `http://localhost:5173` (或另一个可用端口) 上运行。
-
----
-
-## 部署到 GitHub Pages
-
-本项目已配置好通过 GitHub Actions 自动部署。
-
-1.  **仓库设置:** 在您的 GitHub 仓库设置中，找到 "Pages" 选项。确保 “Build and deployment” 的 “Source” 设置为 **“GitHub Actions”**。
-
-2.  **推送代码:** 每当您将新的代码或提交推送到 `main` 分支时，GitHub Actions 会自动运行，构建您的项目，并将最新的版本部署到您的 GitHub Pages 网址。
-
-您无需手动构建或上传任何文件。
+© 2025 Photography Portfolio. All rights reserved.
