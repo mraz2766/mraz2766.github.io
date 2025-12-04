@@ -285,11 +285,11 @@ const Home = () => {
                             />
 
                             <div className="metadata-panel" style={styles.metadata}>
-                                <div style={styles.exifGrid}>
-                                    <span style={styles.metadataTitle}>{selectedPhoto.title}</span>
+                                <div style={styles.exifGrid} className="exif-grid">
+                                    <span style={styles.metadataTitle} className="metadata-title">{selectedPhoto.title}</span>
                                     {selectedPhoto.exif && (
                                         <>
-                                            <span style={styles.separator}>|</span>
+                                            <span style={styles.separator} className="separator">|</span>
                                             <ExifItem value={selectedPhoto.exif.camera} />
                                             <ExifItem value={selectedPhoto.exif.lens} />
                                             <ExifItem value={selectedPhoto.exif.iso ? `ISO ${selectedPhoto.exif.iso}` : ''} />
@@ -384,13 +384,14 @@ const Home = () => {
                         width: 90% !important;
                         margin-top: 1rem !important;
                     .metadata-panel {
-                        padding: 0.8rem 1.2rem !important;
+                        padding: 0.6rem 1rem !important;
                         width: auto !important;
-                        max-width: 90% !important;
+                        max-width: 95% !important;
                         margin-top: 1rem !important;
-                        /* Removed dark background override to match PC style */
                     }
-                    .metadata-panel h2 { font-size: 1rem !important; margin-bottom: 0 !important; }
+                    .metadata-title { font-size: 0.7rem !important; margin-right: 0.3rem !important; }
+                    .exif-grid { font-size: 0.6rem !important; gap: 0.3rem !important; }
+                    .separator { margin: 0 0.2rem !important; }
                     
                     /* Nav Buttons Mobile */
                     .nav-btn {
@@ -572,8 +573,7 @@ const styles = {
         fontSize: '1.1rem',
         fontWeight: '600',
         marginRight: '0.8rem',
-        fontFamily: "'Playfair Display', serif", // Editorial touch
-        fontStyle: 'italic',
+        // Removed Playfair Display to match EXIF font
     },
     separator: {
         margin: '0 0.5rem',
