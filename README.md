@@ -1,71 +1,68 @@
-# Portfolio
+# Minimalist Lens
 
-A minimalist photography portfolio built with modern web technologies. Designed to showcase visual work with zero distractions.
+A curated photography portfolio designed with a focus on minimalism, fine typography, and immersive viewing experiences.
 
-![License](https://img.shields.io/badge/license-MIT-000000.svg?style=flat-square)
-![React](https://img.shields.io/badge/react-19.0-000000.svg?style=flat-square)
-![Vite](https://img.shields.io/badge/vite-6.0-000000.svg?style=flat-square)
+## Design Philosophy
 
-## Philosophy
-
-**"Obsidian & Glass"**
-
-The design language focuses on two elements:
-- **Obsidian**: Deep, immersive backgrounds that allow photographs to pop with vivid color.
-- **Glass**: Translucent, frosted UI elements that provide context without obscuring the content.
+*   **Obsidian & Glass**: A visual language built on deep contrasts (pure black/white) and translucent glassmorphism elements.
+*   **Editorial Typography**: Utilizing `Inter` for clean UI elements and `Playfair Display` for artistic accents, creating a magazine-like reading experience.
+*   **Cinematic Motion**: Subtle animations, such as the Ken Burns effect on the About page and smooth layout transitions, bring static images to life.
+*   **Adaptive Layout**: A responsive masonry grid that shifts density based on device and user preference (Compact/Default modes).
 
 ## Features
 
-- **Smart Gallery**:
-  - **Auto-Shuffle**: A fresh layout on every visit.
-  - **Masonry Grid**: Perfectly aligned waterfall layout for mixed aspect ratios.
-  - **Lazy Loading**: Blazing fast performance with WebP thumbnails.
-
-- **Automated Workflow**:
-  - Simply drop photos into `public/photos`.
-  - The build script automatically rotates, resizes, compresses, and extracts EXIF data.
-  - No database required.
-
-- **Premium UX**:
-  - **Dark/Light Mode**: Seamless switching with smooth transitions.
-  - **Glassmorphism**: Adaptive frosted glass effects for headers and overlays.
-  - **Mobile First**: Optimized touch interactions and responsive layouts.
+*   **Smart Gallery**:
+    *   **Masonry Grid**: Perfectly aligned waterfall layout for mixed aspect ratios.
+    *   **View Modes**: Switch between Default (immersive) and Compact (high-density) views.
+        *   *PC*: 3 columns / 7 columns
+        *   *Mobile*: 2 columns / 5 columns
+    *   **Infinite Scroll**: Seamlessly loads more photos as you scroll, optimized with pre-fetching.
+*   **Immersive Lightbox**:
+    *   **Distraction-Free**: Full-screen viewing with minimal UI.
+    *   **Floating Metadata**: EXIF data (Camera, Lens, ISO, Aperture, Shutter) displayed in a non-intrusive, floating glass capsule below the image.
+    *   **Keyboard Navigation**: Support for Arrow keys and Escape.
+*   **About Page**:
+    *   **Cinematic Intro**: A random selection from the portfolio displayed with a slow-motion breathing effect.
+    *   **Minimalist Contact**: Clean, editorial-style contact information.
+*   **Performance**:
+    *   **Automated Build**: Node.js script (`update-gallery.js`) automatically generates thumbnails and extracts EXIF data.
+    *   **Incremental Builds**: Only processes new or modified images to save build time.
+    *   **Lazy Loading**: Native lazy loading for grid images.
 
 ## Tech Stack
 
-- **Core**: React 19, Vite
-- **Animation**: Framer Motion
-- **Image Processing**: Sharp (Node.js)
-- **Metadata**: ExifReader
+*   **Frontend**: React, Vite
+*   **Styling**: CSS Modules, Framer Motion (Animations)
+*   **Image Processing**: Sharp, ExifReader (Node.js)
+*   **Deployment**: GitHub Pages
 
-## Usage
+## Development
 
-### 1. Add Photos
-Place your high-res JPG/PNG files into the `public/photos` directory. You can organize them into subfolders (e.g., `public/photos/Portrait`), which will automatically become categories.
+1.  **Install Dependencies**:
+    ```bash
+    npm install
+    ```
 
-### 2. Generate Gallery
-Run the script to process images and generate the data file:
+2.  **Add Photos**:
+    Place your high-res photos in `public/photos`.
 
-```bash
-npm run gen-gallery
-```
+3.  **Generate Gallery**:
+    Run the script to generate thumbnails and `photos.json`:
+    ```bash
+    npm run update-gallery
+    ```
 
-### 3. Develop
-Start the local development server:
+4.  **Start Dev Server**:
+    ```bash
+    npm run dev
+    ```
 
-```bash
-npm run dev
-```
+5.  **Build & Deploy**:
+    ```bash
+    npm run build
+    # The build output is in the 'dist' folder
+    ```
 
-### 4. Deploy
-Build for production (automatically regenerates gallery data):
+## License
 
-```bash
-npm run build
-```
-
-The output in `dist` is ready to be deployed to GitHub Pages or any static host.
-
----
-
-© 2025 Photography Portfolio. All rights reserved.
+© 2025 Minimalist Lens. All rights reserved.
