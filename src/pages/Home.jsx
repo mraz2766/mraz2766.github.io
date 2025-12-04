@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Utility to shuffle array
@@ -11,11 +11,29 @@ const shuffleArray = (array) => {
     return newArr;
 };
 
+const PAGE_SIZE = 15; // Number of photos to load per batch
+
 const Home = () => {
-    const [photos, setPhotos] = useState([]);
-    const [displayPhotos, setDisplayPhotos] = useState([]);
+    const [allPhotos, setAllPhotos] = useState([]); // Store ALL photos
+    const [filteredPhotos, setFilteredPhotos] = useState([]); // Store photos after category filter
+    const [displayPhotos, setDisplayPhotos] = useState([]); // Store photos currently visible (paginated)
     const [selectedId, setSelectedId] = useState(null);
     const [filter, setFilter] = useState('All');
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+
+    // Observer for infinite scroll
+    const observer = useRef();
+    const lastPhotoElementRef = useCallback(node => {
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasMore) {
+                setPage(prevPage => prevPage + 1);
+            }
+        });
+        if (node) observer.current.observe(node);
+    }, [hasMore]);
+
     const [theme, setTheme] = useState(() => {
         if (typeof window !== 'undefined') {
             return localStorage.getItem('theme') || 'light';
@@ -29,12 +47,17 @@ const Home = () => {
         localStorage.setItem('theme', newTheme);
     };
 
+    // 1. Load Initial Data
     useEffect(() => {
         fetch('/photos.json')
             .then(res => res.json())
             .then(data => {
-                setPhotos(data);
-                setDisplayPhotos(shuffleArray(data));
+                setAllPhotos(data);
+                // Initial shuffle and filter
+                const shuffled = shuffleArray(data);
+                setFilteredPhotos(shuffled);
+                setDisplayPhotos(shuffled.slice(0, PAGE_SIZE));
+                setHasMore(shuffled.length > PAGE_SIZE);
             })
             .catch(err => console.error("Failed to load photos:", err));
 
@@ -46,6 +69,7 @@ const Home = () => {
         return () => document.head.removeChild(link);
     }, []);
 
+    // 2. Handle Theme
     useEffect(() => {
         const root = document.documentElement;
         if (theme === 'dark') {
@@ -75,25 +99,44 @@ const Home = () => {
         }
     }, [theme]);
 
+    // 3. Handle Filter Change (Reset Page)
     useEffect(() => {
-        if (photos.length === 0) return;
-        let filtered = filter === 'All' ? photos : photos.filter(p => p.category === filter);
-        setDisplayPhotos(shuffleArray(filtered));
-    }, [filter, photos]);
+        if (allPhotos.length === 0) return;
+
+        let filtered = filter === 'All' ? allPhotos : allPhotos.filter(p => p.category === filter);
+        const shuffled = shuffleArray(filtered);
+
+        setFilteredPhotos(shuffled);
+        setPage(1); // Reset to page 1
+        setDisplayPhotos(shuffled.slice(0, PAGE_SIZE));
+        setHasMore(shuffled.length > PAGE_SIZE);
+
+        // Scroll to top when filter changes
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [filter, allPhotos]);
+
+    // 4. Handle Pagination (Append Data)
+    useEffect(() => {
+        if (page === 1) return; // Initial load handled by Filter effect
+
+        const nextBatch = filteredPhotos.slice(0, page * PAGE_SIZE);
+        setDisplayPhotos(nextBatch);
+        setHasMore(filteredPhotos.length > nextBatch.length);
+    }, [page, filteredPhotos]);
 
     const handleNext = useCallback(() => {
         if (selectedId === null) return;
-        const currentIndex = displayPhotos.findIndex(p => p.id === selectedId);
-        const nextIndex = (currentIndex + 1) % displayPhotos.length;
-        setSelectedId(displayPhotos[nextIndex].id);
-    }, [selectedId, displayPhotos]);
+        const currentIndex = filteredPhotos.findIndex(p => p.id === selectedId); // Use filteredPhotos for navigation context
+        const nextIndex = (currentIndex + 1) % filteredPhotos.length;
+        setSelectedId(filteredPhotos[nextIndex].id);
+    }, [selectedId, filteredPhotos]);
 
     const handlePrev = useCallback(() => {
         if (selectedId === null) return;
-        const currentIndex = displayPhotos.findIndex(p => p.id === selectedId);
-        const prevIndex = (currentIndex - 1 + displayPhotos.length) % displayPhotos.length;
-        setSelectedId(displayPhotos[prevIndex].id);
-    }, [selectedId, displayPhotos]);
+        const currentIndex = filteredPhotos.findIndex(p => p.id === selectedId);
+        const prevIndex = (currentIndex - 1 + filteredPhotos.length) % filteredPhotos.length;
+        setSelectedId(filteredPhotos[prevIndex].id);
+    }, [selectedId, filteredPhotos]);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -106,8 +149,8 @@ const Home = () => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [selectedId, handleNext, handlePrev]);
 
-    const categories = ['All', ...new Set(photos.map(p => p.category))];
-    const selectedPhoto = photos.find(p => p.id === selectedId);
+    const categories = ['All', ...new Set(allPhotos.map(p => p.category))];
+    const selectedPhoto = allPhotos.find(p => p.id === selectedId);
 
     return (
         <div className="container" style={styles.container}>
@@ -140,32 +183,70 @@ const Home = () => {
             {/* Grid */}
             <motion.div className="grid-container" style={styles.grid} layout>
                 <AnimatePresence mode='popLayout'>
-                    {displayPhotos.map((photo) => (
-                        <motion.div
-                            key={photo.id}
-                            layout
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            transition={{ duration: 0.4 }}
-                            style={styles.item}
-                            onClick={() => setSelectedId(photo.id)}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                        >
-                            <div style={styles.imageWrapper}>
-                                <img
-                                    src={photo.thumbnail || photo.src}
-                                    alt={photo.title}
-                                    style={styles.image}
-                                    loading="lazy"
-                                />
-                                <div style={styles.overlay}></div>
-                            </div>
-                        </motion.div>
-                    ))}
+                    {displayPhotos.map((photo, index) => {
+                        // Attach ref to the last element to trigger infinite scroll
+                        if (displayPhotos.length === index + 1) {
+                            return (
+                                <motion.div
+                                    ref={lastPhotoElementRef}
+                                    key={photo.id}
+                                    layout
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    transition={{ duration: 0.4 }}
+                                    style={styles.item}
+                                    onClick={() => setSelectedId(photo.id)}
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <div style={styles.imageWrapper}>
+                                        <img
+                                            src={photo.thumbnail || photo.src}
+                                            alt={photo.title}
+                                            style={styles.image}
+                                            loading="lazy"
+                                        />
+                                        <div style={styles.overlay}></div>
+                                    </div>
+                                </motion.div>
+                            );
+                        } else {
+                            return (
+                                <motion.div
+                                    key={photo.id}
+                                    layout
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    transition={{ duration: 0.4 }}
+                                    style={styles.item}
+                                    onClick={() => setSelectedId(photo.id)}
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <div style={styles.imageWrapper}>
+                                        <img
+                                            src={photo.thumbnail || photo.src}
+                                            alt={photo.title}
+                                            style={styles.image}
+                                            loading="lazy"
+                                        />
+                                        <div style={styles.overlay}></div>
+                                    </div>
+                                </motion.div>
+                            );
+                        }
+                    })}
                 </AnimatePresence>
             </motion.div>
+
+            {/* Loading Indicator */}
+            {hasMore && (
+                <div style={{ textAlign: 'center', padding: '2rem', opacity: 0.5 }}>
+                    <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Loading more...</span>
+                </div>
+            )}
 
             {/* Lightbox */}
             <AnimatePresence>
