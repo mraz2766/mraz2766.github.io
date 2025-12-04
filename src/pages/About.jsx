@@ -1,46 +1,51 @@
-import React, { useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import photosData from '../photos.json'; // Import photos data
 
 const About = () => {
-    // Select a random photo from the available photos
-    const randomPhoto = useMemo(() => {
-        if (!photosData || photosData.length === 0) {
-            // Fallback if no photos are available
-            return {
-                src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
-                alt: 'Default Portrait'
-            };
-        }
-        const randomIndex = Math.floor(Math.random() * photosData.length);
-        return {
-            src: photosData[randomIndex].src,
-            alt: photosData[randomIndex].title || 'Gallery Image'
-        };
-    }, [photosData]);
+    const [randomPhoto, setRandomPhoto] = useState(null);
+
+    useEffect(() => {
+        fetch('/photos.json')
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * data.length);
+                    setRandomPhoto(data[randomIndex]);
+                }
+            })
+            .catch(e => console.error("Failed to load photo for About:", e));
+    }, []);
 
     return (
         <div style={styles.container}>
             <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                style={styles.content}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                style={styles.imageWrapper}
+                className="about-image-wrapper"
             >
-                <h1 style={styles.title}>No excuse</h1>
+                {randomPhoto ? (
+                    <img
+                        src={randomPhoto.src}
+                        alt={randomPhoto.title || 'Gallery Image'}
+                        style={styles.image}
+                    />
+                ) : (
+                    <div style={styles.placeholder} />
+                )}
             </motion.div>
 
             <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-                style={styles.imageContainer}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                style={styles.contactWrapper}
             >
-                <img
-                    src={randomPhoto.src}
-                    alt={randomPhoto.alt}
-                    style={styles.image}
-                />
+                <span style={styles.label}>Get in touch</span>
+                <a href="mailto:huangl2766@gmail.com" style={styles.email} className="about-email">
+                    huangl2766@gmail.com
+                </a>
             </motion.div>
         </div>
     );
@@ -48,38 +53,73 @@ const About = () => {
 
 const styles = {
     container: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-        gap: 'var(--spacing-xl)',
-        alignItems: 'center',
-        minHeight: '70vh',
-    },
-    content: {
-        maxWidth: '550px',
+        minHeight: '90vh', // Increased for better vertical centering
         display: 'flex',
-        justifyContent: 'center',
+        flexDirection: 'column',
         alignItems: 'center',
-        height: '100%',
+        justifyContent: 'center',
+        padding: '2rem',
+        gap: '3rem',
     },
-    title: {
-        fontSize: '3rem',
-        fontWeight: '700',
-        color: 'var(--text-color-primary)',
-        textAlign: 'center',
-        letterSpacing: '-0.03em',
-    },
-    imageContainer: {
+    imageWrapper: {
         width: '100%',
-        height: '600px',
-        borderRadius: '16px',
+        maxWidth: '1200px',
+        height: '65vh',
+        borderRadius: '12px',
         overflow: 'hidden',
-        boxShadow: '0 8px 30px rgba(0,0,0,0.1)',
+        boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
+        backgroundColor: 'var(--btn-bg)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     image: {
         width: '100%',
         height: '100%',
         objectFit: 'cover',
+    },
+    placeholder: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'var(--btn-bg)',
+    },
+    contactWrapper: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '0.8rem',
+    },
+    label: {
+        fontSize: '0.75rem',
+        textTransform: 'uppercase',
+        letterSpacing: '0.15em',
+        color: 'var(--text-secondary)',
+        fontWeight: '600',
+    },
+    email: {
+        fontSize: '1.2rem',
+        color: 'var(--text-primary)',
+        textDecoration: 'none',
+        fontWeight: '400',
+        borderBottom: '1px solid transparent',
+        transition: 'border-color 0.2s',
+        fontFamily: "'Inter', sans-serif",
     }
 };
+
+// Inject styles for hover and responsive adjustments
+const styleSheet = document.createElement("style");
+styleSheet.innerText = `
+    .about-email:hover {
+        border-bottom-color: var(--text-primary) !important;
+    }
+    @media (max-width: 768px) {
+        .about-image-wrapper {
+            height: 50vh !important;
+            border-radius: 8px !important;
+        }
+    }
+`;
+document.head.appendChild(styleSheet);
 
 export default About;

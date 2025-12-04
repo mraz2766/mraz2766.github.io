@@ -11,7 +11,7 @@ const shuffleArray = (array) => {
     return newArr;
 };
 
-const PAGE_SIZE = 15; // Number of photos to load per batch
+const PAGE_SIZE = 35; // Increased batch size for smoother scrolling
 
 const Home = () => {
     const [allPhotos, setAllPhotos] = useState([]); // Store ALL photos
@@ -31,7 +31,7 @@ const Home = () => {
             if (entries[0].isIntersecting && hasMore) {
                 setPage(prevPage => prevPage + 1);
             }
-        });
+        }, { rootMargin: '500px' }); // Preload before reaching bottom
         if (node) observer.current.observe(node);
     }, [hasMore]);
 
@@ -324,7 +324,11 @@ const Home = () => {
                 ::-webkit-scrollbar { width: 0px; background: transparent; }
 
                 /* Desktop Defaults */
-                .grid-container { column-count: 3; column-gap: 2rem; }
+                /* Desktop Defaults */
+                .grid-container { 
+                    column-count: ${isCompact ? 7 : 3}; 
+                    column-gap: ${isCompact ? '0.5rem' : '2rem'}; 
+                }
                 .nav-scroll { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
 
                 /* Mobile Optimization */
@@ -356,8 +360,8 @@ const Home = () => {
                     /* Grid Mobile */
                     /* Grid Mobile */
                     .grid-container { 
-                        column-count: ${isCompact ? 3 : 1} !important; 
-                        column-gap: ${isCompact ? '0.2rem' : '1rem'} !important;
+                        column-count: ${isCompact ? 5 : 2} !important; 
+                        column-gap: ${isCompact ? '0.2rem' : '0.5rem'} !important;
                     }
                     
                     /* Lightbox Mobile */
