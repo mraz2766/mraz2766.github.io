@@ -356,8 +356,8 @@ const Home = () => {
                     /* Grid Mobile */
                     /* Grid Mobile */
                     .grid-container { 
-                        column-count: ${isCompact ? 2 : 1} !important; 
-                        column-gap: ${isCompact ? '0.5rem' : '1rem'} !important;
+                        column-count: ${isCompact ? 3 : 1} !important; 
+                        column-gap: ${isCompact ? '0.2rem' : '1rem'} !important;
                     }
                     
                     /* Lightbox Mobile */
