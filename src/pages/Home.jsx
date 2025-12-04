@@ -33,7 +33,8 @@ const Home = () => {
 
     // Load Data
     useEffect(() => {
-        fetch('/src/photos.json')
+        // Fetch from root (public) directory
+        fetch('/photos.json')
             .then(res => res.json())
             .then(data => {
                 setPhotos(data);
