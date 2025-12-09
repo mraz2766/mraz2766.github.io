@@ -11,7 +11,7 @@ const shuffleArray = (array) => {
     return newArr;
 };
 
-const PAGE_SIZE = 35; // Increased batch size for smoother scrolling
+const PAGE_SIZE = 20; // Reduced batch size for better performance
 
 const Home = () => {
     const [allPhotos, setAllPhotos] = useState([]); // Store ALL photos
@@ -217,6 +217,7 @@ const Home = () => {
                                             alt={photo.title}
                                             style={styles.image}
                                             loading="lazy"
+                                            decoding="async"
                                         />
                                         <div style={styles.overlay}></div>
                                     </div>
@@ -242,6 +243,7 @@ const Home = () => {
                                             alt={photo.title}
                                             style={styles.image}
                                             loading="lazy"
+                                            decoding="async"
                                         />
                                         <div style={styles.overlay}></div>
                                     </div>
