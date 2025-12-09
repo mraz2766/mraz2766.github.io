@@ -23,19 +23,28 @@ const Home = () => {
     const [hasMore, setHasMore] = useState(false); // Default to false
     const [loading, setLoading] = useState(true); // Initial loading state
     const [isCompact, setIsCompact] = useState(false);
+    const sentinelRef = useRef(null);
 
     // Observer for infinite scroll
-    const observer = useRef();
-    const lastPhotoElementRef = useCallback(node => {
-        if (loading) return; // Don't observe while loading
-        if (observer.current) observer.current.disconnect();
-        observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && hasMore) {
+    useEffect(() => {
+        const observer = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasMore && !loading) {
                 setPage(prevPage => prevPage + 1);
             }
-        }, { rootMargin: '500px' }); // Preload before reaching bottom
-        if (node) observer.current.observe(node);
-    }, [loading, hasMore]);
+        }, {
+            rootMargin: '400px',
+            threshold: 0.1
+        });
+
+        if (sentinelRef.current) {
+            observer.observe(sentinelRef.current);
+        }
+
+        return () => {
+            if (sentinelRef.current) observer.unobserve(sentinelRef.current);
+            observer.disconnect();
+        };
+    }, [hasMore, loading]);
 
     const [theme, setTheme] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -123,11 +132,14 @@ const Home = () => {
 
         setFilteredPhotos(shuffled);
         setPage(1); // Reset to page 1
+
+        // Immediate set to avoid flash
+        const nextHasMore = shuffled.length > PAGE_SIZE;
+        setHasMore(nextHasMore);
         setDisplayPhotos(shuffled.slice(0, PAGE_SIZE));
-        setHasMore(shuffled.length > PAGE_SIZE);
 
         // Scroll to top when filter changes
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'auto' });
     }, [filter, allPhotos]);
 
     // 4. Handle Pagination (Append Data)
@@ -208,74 +220,63 @@ const Home = () => {
             {/* Grid */}
             <motion.div className="grid-container" style={styles.grid} layout>
                 <AnimatePresence mode='popLayout'>
-                    {displayPhotos.map((photo, index) => {
-                        // Attach ref to the last element to trigger infinite scroll
-                        if (displayPhotos.length === index + 1) {
-                            return (
-                                <motion.div
-                                    ref={lastPhotoElementRef}
-                                    key={photo.id}
-                                    layout
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ duration: 0.4 }}
-                                    style={styles.item}
-                                    onClick={() => setSelectedId(photo.id)}
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    <div style={styles.imageWrapper}>
-                                        <img
-                                            src={photo.thumbnail || photo.src}
-                                            alt={photo.title}
-                                            style={styles.image}
-                                            loading="lazy"
-                                            decoding="async"
-                                        />
-                                        <div style={styles.overlay}></div>
-                                    </div>
-                                </motion.div>
-                            );
-                        } else {
-                            return (
-                                <motion.div
-                                    key={photo.id}
-                                    layout
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ duration: 0.4 }}
-                                    style={styles.item}
-                                    onClick={() => setSelectedId(photo.id)}
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    <div style={styles.imageWrapper}>
-                                        <img
-                                            src={photo.thumbnail || photo.src}
-                                            alt={photo.title}
-                                            style={styles.image}
-                                            loading="lazy"
-                                            decoding="async"
-                                        />
-                                        <div style={styles.overlay}></div>
-                                    </div>
-                                </motion.div>
-                            );
-                        }
-                    })}
+                    {displayPhotos.map((photo) => (
+                        <motion.div
+                            key={photo.id}
+                            layout
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.4 }}
+                            style={styles.item}
+                            onClick={() => setSelectedId(photo.id)}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                        >
+                            <div style={styles.imageWrapper}>
+                                <img
+                                    src={photo.thumbnail || photo.src}
+                                    alt={photo.title}
+                                    style={styles.image}
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                                <div style={styles.overlay}></div>
+                            </div>
+                        </motion.div>
+                    ))}
                 </AnimatePresence>
             </motion.div>
 
+            {/* Sentinel Element */}
+            <div ref={sentinelRef} style={{ height: '20px', width: '100%', pointerEvents: 'none' }} />
+
             {/* Loading Indicator */}
             {(hasMore || loading) && (
-                <div style={{ textAlign: 'center', padding: '2rem', opacity: 0.5 }}>
-                    <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                        {loading ? 'Loading...' : 'Loading more...'}
+                <div style={{ textAlign: 'center', padding: '2rem', opacity: 0.6 }}>
+                    <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                        {loading ? (
+                            <>
+                                <span className="spinner" style={styles.spinner}></span>
+                                Loading...
+                            </>
+                        ) : 'Scroll for more'}
                     </span>
                 </div>
             )}
+
+            <style>{`
+                @keyframes spin { to { transform: rotate(360deg); } }
+                .spinner {
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid var(--text-secondary);
+                    border-top-color: transparent;
+                    border-radius: 50%;
+                    animation: spin 0.8s linear infinite;
+                    display: inline-block;
+                }
+            `}</style>
 
             {/* Lightbox */}
             <AnimatePresence>
