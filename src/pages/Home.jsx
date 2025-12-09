@@ -20,12 +20,14 @@ const Home = () => {
     const [selectedId, setSelectedId] = useState(null);
     const [filter, setFilter] = useState('All');
     const [page, setPage] = useState(1);
-    const [hasMore, setHasMore] = useState(true);
+    const [hasMore, setHasMore] = useState(false); // Default to false
+    const [loading, setLoading] = useState(true); // Initial loading state
     const [isCompact, setIsCompact] = useState(false);
 
     // Observer for infinite scroll
     const observer = useRef();
     const lastPhotoElementRef = useCallback(node => {
+        if (loading) return; // Don't observe while loading
         if (observer.current) observer.current.disconnect();
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting && hasMore) {
@@ -33,7 +35,7 @@ const Home = () => {
             }
         }, { rootMargin: '500px' }); // Preload before reaching bottom
         if (node) observer.current.observe(node);
-    }, [hasMore]);
+    }, [loading, hasMore]);
 
     const [theme, setTheme] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -50,17 +52,29 @@ const Home = () => {
 
     // 1. Load Initial Data
     useEffect(() => {
+        setLoading(true);
         fetch('/photos.json')
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error('Network response was not ok');
+                return res.json();
+            })
             .then(data => {
                 setAllPhotos(data);
                 // Initial shuffle and filter
                 const shuffled = shuffleArray(data);
                 setFilteredPhotos(shuffled);
-                setDisplayPhotos(shuffled.slice(0, PAGE_SIZE));
+
+                // Only enable infinite scroll if we have more results than the page size
+                const initialBatch = shuffled.slice(0, PAGE_SIZE);
+                setDisplayPhotos(initialBatch);
                 setHasMore(shuffled.length > PAGE_SIZE);
+                setLoading(false);
             })
-            .catch(err => console.error("Failed to load photos:", err));
+            .catch(err => {
+                console.error("Failed to load photos:", err);
+                setHasMore(false);
+                setLoading(false);
+            });
 
         const link = document.createElement('link');
         link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap';
@@ -255,9 +269,11 @@ const Home = () => {
             </motion.div>
 
             {/* Loading Indicator */}
-            {hasMore && (
+            {(hasMore || loading) && (
                 <div style={{ textAlign: 'center', padding: '2rem', opacity: 0.5 }}>
-                    <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Loading more...</span>
+                    <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                        {loading ? 'Loading...' : 'Loading more...'}
+                    </span>
                 </div>
             )}
 
