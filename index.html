@@ -1,16 +1,54 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico?v=2" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lens</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico?v=2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minimalist Lens | Photography Portfolio</title>
+  <meta name="description"
+    content="A curated photography portfolio designed with a focus on minimalism, fine typography, and immersive viewing experiences." />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mraz2766.github.io/" />
+  <meta property="og:title" content="Minimalist Lens | Photography Portfolio" />
+  <meta property="og:description"
+    content="A curated photography portfolio designed with a focus on minimalism, fine typography, and immersive viewing experiences." />
+  <meta property="og:image" content="https://mraz2766.github.io/og-image.jpg" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://mraz2766.github.io/" />
+  <meta property="twitter:title" content="Minimalist Lens | Photography Portfolio" />
+  <meta property="twitter:description"
+    content="A curated photography portfolio designed with a focus on minimalism, fine typography, and immersive viewing experiences." />
+  <meta property="twitter:image" content="https://mraz2766.github.io/og-image.jpg" />
+
+  <!-- SPA Redirect Handling -->
+  <script type="text/javascript">
+    // Parallel to 404.html, this script checks if there is a redirect from 404.html
+    (function (l) {
+      if (l.search[1] === '/') {
+        var decoded = l.search.slice(1).split('&').map(function (s) {
+          return s.replace(/~and~/g, '&')
+        }).join('?');
+        window.history.replaceState(null, null,
+          l.pathname.slice(0, -1) + decoded + l.hash
+        );
+      }
+    }(window.location))
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

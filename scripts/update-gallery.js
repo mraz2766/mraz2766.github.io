@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 
 const PHOTOS_DIR = path.join(__dirname, '../public/photos');
 const THUMBNAILS_DIR = path.join(__dirname, '../public/photos/thumbnails');
+const LARGE_DIR = path.join(__dirname, '../public/photos/large');
 const OUTPUT_FILE = path.join(__dirname, '../public/photos.json'); // Changed to public for fetch access
 
 // Ensure directories exist
@@ -19,6 +20,10 @@ if (!fs.existsSync(PHOTOS_DIR)) {
 if (!fs.existsSync(THUMBNAILS_DIR)) {
     fs.mkdirSync(THUMBNAILS_DIR, { recursive: true });
     console.log('Created thumbnails directory:', THUMBNAILS_DIR);
+}
+if (!fs.existsSync(LARGE_DIR)) {
+    fs.mkdirSync(LARGE_DIR, { recursive: true });
+    console.log('Created large photos directory:', LARGE_DIR);
 }
 
 async function generateGallery() {
@@ -46,22 +51,35 @@ async function generateGallery() {
     for (const [index, file] of files.entries()) {
         const filePath = path.join(PHOTOS_DIR, file);
         const thumbPath = path.join(THUMBNAILS_DIR, file); // Keep original extension for simplicity
+        const largePath = path.join(LARGE_DIR, file);
         
-        // Generate thumbnail if it doesn't exist
+        // 1. Generate Thumbnail
         if (!fs.existsSync(thumbPath)) {
             console.log(`Generating thumbnail for ${file}...`);
             try {
                 // Resize to width 600px, maintain aspect ratio
-                // Use slightly lower quality for thumbnails to ensure small file size
                 await sharp(filePath)
                     .resize(600, null, { withoutEnlargement: true })
                     .withMetadata() // Keep orientation
-                    .jpeg({ quality: 70, mozjpeg: true }) // Convert/Compress to efficiently
+                    .jpeg({ quality: 70, mozjpeg: true })
                     .toFile(thumbPath);
             } catch (err) {
                 console.error(`Error generating thumbnail for ${file}:`, err);
-                // Fallback: If thumbnail generation fails, we just won't have a thumbnail property
-                // causing the UI to fall back to the main image.
+            }
+        }
+
+        // 2. Generate Large Web Version
+        if (!fs.existsSync(largePath)) {
+            console.log(`Generating large web version for ${file}...`);
+            try {
+                // Resize to width 1920px (HD), maintain aspect ratio
+                await sharp(filePath)
+                    .resize(1920, null, { withoutEnlargement: true })
+                    .withMetadata()
+                    .jpeg({ quality: 85, mozjpeg: true })
+                    .toFile(largePath);
+            } catch (err) {
+                console.error(`Error generating large image for ${file}:`, err);
             }
         }
 
@@ -87,7 +105,8 @@ async function generateGallery() {
 
         const photo = {
             id: index + 1,
-            src: `/photos/${file}`,
+            src: `/photos/${file}`, // Original (fallback)
+            large: `/photos/large/${file}`, // Web Optimized
             thumbnail: `/photos/thumbnails/${file}`,
             title: file.replace(/\.[^/.]+$/, "").replace(/-/g, ' '),
             category: 'Photography',
