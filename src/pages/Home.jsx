@@ -339,6 +339,8 @@ const Home = ({ theme, onToggleTheme }) => {
             position: 'fixed',
             top: 0, left: 0, right: 0, bottom: 0,
             background: 'var(--viewer-backdrop)',
+            backdropFilter: 'blur(16px) saturate(0.9)',
+            WebkitBackdropFilter: 'blur(16px) saturate(0.9)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
