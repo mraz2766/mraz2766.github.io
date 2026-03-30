@@ -18,24 +18,21 @@ const Lightbox = ({ photo, onClose, onNext, onPrev, styles }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
         >
             <Motion.div
                 className="lightbox-content"
                 style={styles.lightboxContent}
                 onClick={(e) => e.stopPropagation()}
-                initial={{ y: 18, opacity: 0 }}
+                initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 12, opacity: 0 }}
-                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                exit={{ y: 8, opacity: 0 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
                 <div className="viewer-stage" style={styles.viewerStage}>
-                    <Motion.div
+                    <div
                         className="viewer-image-shell"
                         style={styles.imageShell}
-                        initial={{ scale: 0.985, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0.99, opacity: 0 }}
-                        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <img
                             src={photo.large || photo.src}
@@ -44,16 +41,18 @@ const Lightbox = ({ photo, onClose, onNext, onPrev, styles }) => {
                             width={photo.width}
                             height={photo.height}
                             style={styles.lightboxImage}
+                            loading="eager"
+                            decoding="sync"
                         />
-                    </Motion.div>
+                    </div>
 
                     <Motion.aside
                         className="metadata-panel"
                         style={styles.metadata}
-                        initial={{ y: 10, opacity: 0 }}
+                        initial={{ opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: 8, opacity: 0 }}
-                        transition={{ delay: 0.06, duration: 0.24 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ delay: 0.03, duration: 0.18 }}
                     >
                         <div style={styles.metadataHeader}>
                             <span style={styles.metadataEyebrow}>Selected Work</span>

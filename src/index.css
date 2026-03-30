@@ -21,7 +21,7 @@
   --control-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
   --glass-shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.08);
   --glass-shadow-strong: 0 18px 42px rgba(15, 23, 42, 0.14);
-  --viewer-backdrop: rgba(14, 18, 26, 0.78);
+  --viewer-backdrop: rgba(14, 18, 26, 0.88);
   --viewer-panel: rgba(255, 255, 255, 0.92);
   --viewer-panel-border: rgba(15, 23, 42, 0.08);
 
@@ -57,7 +57,7 @@
   --control-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
   --glass-shadow-soft: 0 14px 34px rgba(0, 0, 0, 0.22);
   --glass-shadow-strong: 0 20px 46px rgba(0, 0, 0, 0.3);
-  --viewer-backdrop: rgba(4, 7, 10, 0.86);
+  --viewer-backdrop: rgba(4, 7, 10, 0.9);
   --viewer-panel: rgba(15, 18, 23, 0.92);
   --viewer-panel-border: rgba(255, 255, 255, 0.08);
 }
@@ -195,12 +195,12 @@ button {
 .close-btn:hover,
 .close-btn:focus-visible {
   opacity: 1 !important;
-  transform: translateY(-50%) scale(1.02);
+  transform: translateY(-50%) scale(1.01);
 }
 
 .close-btn:hover,
 .close-btn:focus-visible {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 .gallery-page .header {
@@ -402,23 +402,23 @@ button {
 
   .viewer-stage {
     grid-template-columns: 1fr !important;
-    gap: 0.85rem !important;
+    gap: 0.78rem !important;
   }
 
   .viewer-image-shell {
-    min-height: 58vh !important;
+    min-height: 56vh !important;
     border-radius: 22px !important;
   }
 
   .lightbox-image {
-    max-height: 58vh !important;
+    max-height: 56vh !important;
     width: 100% !important;
     object-fit: contain !important;
   }
 
   .metadata-panel {
     min-height: auto !important;
-    padding: 0.9rem 0.95rem !important;
+    padding: 0.85rem 0.9rem !important;
     width: 100% !important;
     max-width: none !important;
     margin-top: 0 !important;
