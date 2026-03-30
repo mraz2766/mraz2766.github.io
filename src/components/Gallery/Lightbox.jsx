@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 
 const ExifItem = ({ value }) => {
     if (!value || value.toString().startsWith('Unknown')) return null;
@@ -12,14 +12,14 @@ const Lightbox = ({ photo, onClose, onNext, onPrev, styles }) => {
     if (!photo) return null;
 
     return (
-        <motion.div
+        <Motion.div
             style={styles.lightbox}
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
         >
-            <motion.div
+            <Motion.div
                 className="lightbox-content"
                 style={styles.lightboxContent}
                 onClick={(e) => e.stopPropagation()}
@@ -60,8 +60,8 @@ const Lightbox = ({ photo, onClose, onNext, onPrev, styles }) => {
                 <button className="close-btn" style={styles.closeBtn} onClick={onClose}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
-            </motion.div>
-        </motion.div>
+            </Motion.div>
+        </Motion.div>
     );
 };
 

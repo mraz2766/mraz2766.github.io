@@ -1,9 +1,12 @@
 import React from 'react';
 
-const FilterBar = ({ categories, currentFilter, onFilterChange, isCompact, onToggleView, theme, onToggleTheme, styles }) => {
+const FilterBar = ({ categories, currentFilter, onFilterChange, isCompact, onToggleView, theme, onToggleTheme, photoCount, styles }) => {
     return (
         <header className="header" style={styles.header}>
-            <div className="logo-spacer" style={{ width: '40px' }}></div>
+            <div style={styles.metaBlock}>
+                <span style={styles.metaEyebrow}>Gallery</span>
+                <span style={styles.metaText}>{currentFilter} · {photoCount} 张</span>
+            </div>
 
             <nav className="nav-scroll" style={styles.nav}>
                 {categories.map(cat => (

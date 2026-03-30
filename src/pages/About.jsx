@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 
 const About = () => {
     const [randomPhoto, setRandomPhoto] = useState(null);
@@ -18,7 +18,7 @@ const About = () => {
 
     return (
         <div style={styles.container}>
-            <motion.div
+            <Motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -26,7 +26,7 @@ const About = () => {
                 className="about-image-wrapper"
             >
                 {randomPhoto ? (
-                    <motion.img
+                    <Motion.img
                         src={randomPhoto.src}
                         alt={randomPhoto.title || 'Gallery Image'}
                         style={styles.image}
@@ -37,9 +37,9 @@ const About = () => {
                 ) : (
                     <div style={styles.placeholder} />
                 )}
-            </motion.div>
+            </Motion.div>
 
-            <motion.div
+            <Motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
@@ -49,7 +49,7 @@ const About = () => {
                 <a href="mailto:huangl2766@gmail.com" style={styles.email} className="about-email">
                     huangl2766@gmail.com
                 </a>
-            </motion.div>
+            </Motion.div>
         </div>
     );
 };
@@ -68,10 +68,11 @@ const styles = {
         width: '100%',
         maxWidth: '1200px',
         height: '65vh',
-        borderRadius: '12px',
+        borderRadius: '24px',
         overflow: 'hidden',
-        boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
-        backgroundColor: 'var(--btn-bg)',
+        boxShadow: 'var(--card-shadow)',
+        backgroundColor: 'var(--surface-muted)',
+        border: '1px solid var(--glass-border)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -107,24 +108,9 @@ const styles = {
         textDecoration: 'none',
         fontWeight: '400',
         borderBottom: '1px solid transparent',
-        transition: 'border-color 0.2s',
+        transition: 'border-color 0.2s ease, opacity 0.2s ease',
         fontFamily: "'Playfair Display', serif", // Editorial touch
     }
 };
-
-// Inject styles for hover and responsive adjustments
-const styleSheet = document.createElement("style");
-styleSheet.innerText = `
-    .about-email:hover {
-        border-bottom-color: var(--text-primary) !important;
-    }
-    @media (max-width: 768px) {
-        .about-image-wrapper {
-            height: 50vh !important;
-            border-radius: 8px !important;
-        }
-    }
-`;
-document.head.appendChild(styleSheet);
 
 export default About;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import FilterBar from '../components/Gallery/FilterBar';
 import MasonryGrid from '../components/Gallery/MasonryGrid';
 import Lightbox from '../components/Gallery/Lightbox';
@@ -16,34 +16,38 @@ const shuffleArray = (array) => {
 
 const PAGE_SIZE = 20;
 
-const Home = () => {
+const Home = ({ theme, onToggleTheme }) => {
     const [allPhotos, setAllPhotos] = useState([]);
     const [filteredPhotos, setFilteredPhotos] = useState([]);
-    const [displayPhotos, setDisplayPhotos] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [filter, setFilter] = useState('All');
     const [page, setPage] = useState(1);
-    const [hasMore, setHasMore] = useState(false);
     const [loading, setLoading] = useState(true);
     const [isCompact, setIsCompact] = useState(false);
     const sentinelRef = useRef(null);
 
-    // Theme Management
-    const [theme, setTheme] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem('theme') || 'light';
-        }
-        return 'light';
-    });
+    const displayPhotos = useMemo(
+        () => filteredPhotos.slice(0, page * PAGE_SIZE),
+        [filteredPhotos, page]
+    );
+    const hasMore = displayPhotos.length < filteredPhotos.length;
 
-    const toggleTheme = () => {
-        const newTheme = theme === 'light' ? 'dark' : 'light';
-        setTheme(newTheme);
-        localStorage.setItem('theme', newTheme);
-    };
+    const applyFilter = useCallback((nextFilter, sourcePhotos) => {
+        const basePhotos = sourcePhotos ?? allPhotos;
+        const scopedPhotos = nextFilter === 'All'
+            ? basePhotos
+            : basePhotos.filter((photo) => photo.category === nextFilter);
+
+        setFilter(nextFilter);
+        setFilteredPhotos(shuffleArray(scopedPhotos));
+        setPage(1);
+        setSelectedId(null);
+        window.scrollTo({ top: 0, behavior: 'auto' });
+    }, [allPhotos]);
 
     // Observer for infinite scroll
     useEffect(() => {
+        const target = sentinelRef.current;
         const observer = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting && hasMore && !loading) {
                 setPage(prevPage => prevPage + 1);
@@ -53,19 +57,18 @@ const Home = () => {
             threshold: 0.1
         });
 
-        if (sentinelRef.current) {
-            observer.observe(sentinelRef.current);
+        if (target) {
+            observer.observe(target);
         }
 
         return () => {
-            if (sentinelRef.current) observer.unobserve(sentinelRef.current);
+            if (target) observer.unobserve(target);
             observer.disconnect();
         };
     }, [hasMore, loading]);
 
     // Load Initial Data
     useEffect(() => {
-        setLoading(true);
         fetch('/photos.json')
             .then(res => {
                 if (!res.ok) throw new Error('Network response was not ok');
@@ -73,16 +76,12 @@ const Home = () => {
             })
             .then(data => {
                 setAllPhotos(data);
-                const shuffled = shuffleArray(data);
-                setFilteredPhotos(shuffled);
-                const initialBatch = shuffled.slice(0, PAGE_SIZE);
-                setDisplayPhotos(initialBatch);
-                setHasMore(shuffled.length > PAGE_SIZE);
+                applyFilter('All', data);
                 setLoading(false);
             })
             .catch(err => {
                 console.error("Failed to load photos:", err);
-                setHasMore(false);
+                setFilteredPhotos([]);
                 setLoading(false);
             });
 
@@ -92,62 +91,7 @@ const Home = () => {
         document.head.appendChild(link);
 
         return () => document.head.removeChild(link);
-    }, []);
-
-    // Handle Theme Effects
-    useEffect(() => {
-        const root = document.documentElement;
-        if (theme === 'dark') {
-            root.style.setProperty('--bg-color', '#000000');
-            root.style.setProperty('--text-primary', '#f5f5f7');
-            root.style.setProperty('--text-secondary', '#86868b');
-            root.style.setProperty('--btn-bg', 'rgba(255,255,255,0.1)');
-            root.style.setProperty('--btn-bg-active', '#fff');
-            root.style.setProperty('--btn-text-active', '#000');
-            root.style.setProperty('--lightbox-bg', 'rgba(0,0,0,0.95)');
-            root.style.setProperty('--glass-bg', 'rgba(20,20,20,0.7)');
-            root.style.setProperty('--glass-border', 'rgba(255,255,255,0.1)');
-            root.style.setProperty('--header-bg', 'rgba(0,0,0,0.85)');
-            root.style.setProperty('--header-border', 'rgba(255,255,255,0.15)');
-        } else {
-            root.style.setProperty('--bg-color', '#ffffff');
-            root.style.setProperty('--text-primary', '#1d1d1f');
-            root.style.setProperty('--text-secondary', '#86868b');
-            root.style.setProperty('--btn-bg', 'rgba(0,0,0,0.05)');
-            root.style.setProperty('--btn-bg-active', '#1d1d1f');
-            root.style.setProperty('--btn-text-active', '#fff');
-            root.style.setProperty('--lightbox-bg', 'rgba(255,255,255,0.98)');
-            root.style.setProperty('--glass-bg', 'rgba(255,255,255,0.8)');
-            root.style.setProperty('--glass-border', 'rgba(0,0,0,0.05)');
-            root.style.setProperty('--header-bg', 'rgba(255,255,255,0.85)');
-            root.style.setProperty('--header-border', 'rgba(0,0,0,0.05)');
-        }
-    }, [theme]);
-
-    // Handle Filter Change
-    useEffect(() => {
-        if (allPhotos.length === 0) return;
-
-        let filtered = filter === 'All' ? allPhotos : allPhotos.filter(p => p.category === filter);
-        const shuffled = shuffleArray(filtered);
-
-        setFilteredPhotos(shuffled);
-        setPage(1);
-
-        const nextHasMore = shuffled.length > PAGE_SIZE;
-        setHasMore(nextHasMore);
-        setDisplayPhotos(shuffled.slice(0, PAGE_SIZE));
-
-        window.scrollTo({ top: 0, behavior: 'auto' });
-    }, [filter, allPhotos]);
-
-    // Handle Pagination
-    useEffect(() => {
-        if (page === 1) return;
-        const nextBatch = filteredPhotos.slice(0, page * PAGE_SIZE);
-        setDisplayPhotos(nextBatch);
-        setHasMore(filteredPhotos.length > nextBatch.length);
-    }, [page, filteredPhotos]);
+    }, [applyFilter]);
 
     // Navigation Handlers
     const handleNext = useCallback(() => {
@@ -191,16 +135,34 @@ const Home = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            gap: '1.2rem',
             margin: '0 -2rem 2rem -2rem',
-            padding: '1rem 2rem',
+            padding: '1rem 2rem 1.25rem 2rem',
             position: 'sticky',
-            top: 0,
-            zIndex: 100,
+            top: '77px',
+            zIndex: 200,
             backgroundColor: 'var(--header-bg)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             borderBottom: '1px solid var(--header-border)',
             transition: 'background-color 0.3s ease, border-color 0.3s ease',
+        },
+        metaBlock: {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.2rem',
+            minWidth: '110px',
+            flexShrink: 0,
+        },
+        metaEyebrow: {
+            fontSize: '0.72rem',
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            color: 'var(--text-secondary)',
+        },
+        metaText: {
+            fontSize: '0.92rem',
+            color: 'var(--text-primary)',
         },
         nav: {
             display: 'flex',
@@ -209,6 +171,8 @@ const Home = () => {
             padding: '0.3rem',
             borderRadius: '999px',
             backdropFilter: 'blur(20px)',
+            border: '1px solid var(--glass-border)',
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)',
         },
         filterButton: {
             background: 'transparent',
@@ -232,12 +196,12 @@ const Home = () => {
             fontFamily: 'inherit',
             fontSize: '0.9rem',
             fontWeight: '500',
-            boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.12)',
         },
         iconBtn: {
             background: 'var(--btn-bg)',
             border: '1px solid var(--header-border)',
-            borderRadius: '50%',
+            borderRadius: '999px',
             width: '40px',
             height: '40px',
             display: 'flex',
@@ -246,34 +210,35 @@ const Home = () => {
             color: 'var(--text-primary)',
             cursor: 'pointer',
             transition: 'all 0.2s ease',
+            boxShadow: 'var(--control-shadow)',
         },
         grid: {
-            columnCount: isCompact ? 7 : 3,
-            columnGap: isCompact ? '0.5rem' : '2rem',
+            '--gallery-columns': isCompact ? 6 : 3,
+            '--gallery-gap': isCompact ? '0.65rem' : '1.4rem',
         },
+        gridClassName: isCompact ? 'gallery-grid-compact' : 'gallery-grid-regular',
         item: {
-            breakInside: 'avoid',
-            marginBottom: '2rem',
             cursor: 'pointer',
-            borderRadius: '12px',
-            overflow: 'hidden',
+            minWidth: 0,
         },
         imageWrapper: {
             position: 'relative',
-            borderRadius: '12px',
+            borderRadius: '20px',
             overflow: 'hidden',
-            background: 'var(--btn-bg)',
+            background: 'var(--surface-muted)',
+            border: '1px solid var(--glass-border)',
+            boxShadow: 'var(--card-shadow)',
         },
         image: {
             width: '100%',
             height: 'auto',
             display: 'block',
-            transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            transition: 'transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s ease',
         },
         overlay: {
             position: 'absolute',
             top: 0, left: 0, right: 0, bottom: 0,
-            background: 'rgba(0,0,0,0.05)',
+            background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(15,23,42,0.08) 100%)',
             opacity: 0,
             transition: 'opacity 0.3s',
             pointerEvents: 'none',
@@ -376,64 +341,17 @@ const Home = () => {
         },
     };
 
-    // Inject mobile media queries
-    const mobileStyles = `
-        @media (max-width: 1024px) { .grid-container { column-count: 2 !important; } }
-        @media (max-width: 768px) {
-            .container { padding: 0 1rem 1rem 1rem !important; }
-            .header { margin: 0 -1rem 1rem -1rem !important; padding: 0.8rem 1rem !important; }
-            .logo-spacer { display: none; }
-            .nav-scroll {
-                flex-wrap: nowrap !important;
-                overflow-x: auto;
-                justify-content: flex-start !important;
-                padding-right: 2rem;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                mask-image: linear-gradient(to right, black 85%, transparent 100%);
-            }
-            .nav-scroll::-webkit-scrollbar { display: none; }
-            .filter-btn { white-space: nowrap; flex-shrink: 0; }
-            .grid-container { 
-                column-count: ${isCompact ? 5 : 2} !important; 
-                column-gap: ${isCompact ? '0.2rem' : '0.5rem'} !important;
-            }
-            .lightbox-content {
-                width: 100% !important; height: 100% !important; max-height: 100vh !important;
-                justify-content: center;
-            }
-            .lightbox-image {
-                max-height: 55vh !important; width: 100% !important; object-fit: contain !important;
-            }
-            .metadata-panel {
-                padding: 0.6rem 1rem !important; width: auto !important; max-width: 95% !important; margin-top: 1rem !important;
-            }
-            .metadata-title { font-size: 0.7rem !important; margin-right: 0.3rem !important; }
-            .exif-grid { font-size: 0.6rem !important; gap: 0.3rem !important; }
-            .separator { margin: 0 0.2rem !important; }
-            .nav-btn {
-                width: 44px !important; height: 44px !important; top: auto !important; bottom: 20px !important;
-                background: rgba(0,0,0,0.3) !important; border: none !important; color: white !important; transform: none !important;
-            }
-            .nav-left { left: 20px !important; }
-            .nav-right { right: 20px !important; }
-            .close-btn {
-                top: 15px !important; right: 15px !important; background: rgba(0,0,0,0.3) !important; color: white !important;
-                width: 40px; height: 40px;
-            }
-        }
-    `;
-
     return (
-        <div className="container" style={styles.container}>
+        <div className={`container gallery-page ${isCompact ? 'is-compact' : 'is-regular'}`} style={styles.container}>
             <FilterBar
                 categories={categories}
                 currentFilter={filter}
-                onFilterChange={setFilter}
+                onFilterChange={applyFilter}
                 isCompact={isCompact}
                 onToggleView={() => setIsCompact(!isCompact)}
                 theme={theme}
-                onToggleTheme={toggleTheme}
+                onToggleTheme={onToggleTheme}
+                photoCount={filteredPhotos.length}
                 styles={styles}
             />
 
@@ -468,7 +386,6 @@ const Home = () => {
             )}
 
             <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-            <style>{mobileStyles}</style>
 
             <AnimatePresence>
                 {selectedId && selectedPhoto && (

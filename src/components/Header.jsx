@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 const Header = () => {
   const location = useLocation();
@@ -38,12 +37,15 @@ const Header = () => {
 
 const styles = {
   header: {
-    padding: '2rem 0',
+    padding: '1.25rem 0',
     position: 'sticky',
     top: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    backdropFilter: 'blur(5px)',
-    zIndex: 100,
+    backgroundColor: 'var(--header-bg)',
+    backdropFilter: 'blur(18px)',
+    WebkitBackdropFilter: 'blur(18px)',
+    borderBottom: '1px solid var(--header-border)',
+    zIndex: 300,
+    transition: 'background-color 0.3s ease, border-color 0.3s ease',
   },
   container: {
     display: 'flex',
@@ -71,7 +73,7 @@ const styles = {
     letterSpacing: '0.1em',
     color: 'var(--text-primary)',
     textDecoration: 'none',
-    transition: 'opacity 0.2s',
+    transition: 'opacity 0.2s ease, color 0.2s ease',
   }
 };
 
