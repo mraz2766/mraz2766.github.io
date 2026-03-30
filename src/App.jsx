@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Layout from './components/Layout';
-import Home from './pages/Home';
-import About from './pages/About';
+
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
 
 function AnimatedRoutes({ theme, onToggleTheme }) {
   const location = useLocation();
 
   return (
     <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home theme={theme} onToggleTheme={onToggleTheme} />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
+      <Suspense fallback={<div style={styles.routeFallback}>Loading...</div>}>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home theme={theme} onToggleTheme={onToggleTheme} />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Suspense>
     </AnimatePresence>
   );
 }
@@ -43,5 +46,16 @@ function App() {
     </Router>
   );
 }
+
+const styles = {
+  routeFallback: {
+    minHeight: '60vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'var(--text-secondary)',
+    fontSize: '0.95rem',
+  },
+};
 
 export default App;

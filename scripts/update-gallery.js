@@ -8,9 +8,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const PHOTOS_DIR = path.join(__dirname, '../public/photos');
-const THUMBNAILS_DIR = path.join(__dirname, '../public/photos/thumbnails');
+const THUMBNAILS_DIR = path.join(__dirname, '../public/thumbnails');
+const MEDIUM_DIR = path.join(__dirname, '../public/photos/medium');
 const LARGE_DIR = path.join(__dirname, '../public/photos/large');
 const OUTPUT_FILE = path.join(__dirname, '../public/photos.json'); // Changed to public for fetch access
+const EXIF_OUTPUT_FILE = path.join(__dirname, '../public/photos-exif.json');
 
 // Ensure directories exist
 if (!fs.existsSync(PHOTOS_DIR)) {
@@ -25,6 +27,32 @@ if (!fs.existsSync(LARGE_DIR)) {
     fs.mkdirSync(LARGE_DIR, { recursive: true });
     console.log('Created large photos directory:', LARGE_DIR);
 }
+if (!fs.existsSync(MEDIUM_DIR)) {
+    fs.mkdirSync(MEDIUM_DIR, { recursive: true });
+    console.log('Created medium photos directory:', MEDIUM_DIR);
+}
+
+function walkPhotos(dir, parent = '') {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    const files = [];
+
+    for (const entry of entries) {
+        const relativePath = parent ? path.join(parent, entry.name) : entry.name;
+        const fullPath = path.join(dir, entry.name);
+
+        if (entry.isDirectory()) {
+            files.push(...walkPhotos(fullPath, relativePath));
+            continue;
+        }
+
+        const ext = path.extname(entry.name).toLowerCase();
+        if (['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) {
+            files.push(relativePath);
+        }
+    }
+
+    return files;
+}
 
 async function generateGallery() {
     console.log('Scanning for photos in:', PHOTOS_DIR);
@@ -34,9 +62,9 @@ async function generateGallery() {
         return;
     }
 
-    const files = fs.readdirSync(PHOTOS_DIR).filter(file => {
-        const ext = path.extname(file).toLowerCase();
-        return ['.jpg', '.jpeg', '.png', '.webp'].includes(ext);
+    const files = walkPhotos(PHOTOS_DIR).filter((file) => {
+        const dirname = path.dirname(file);
+        return !dirname.startsWith('large') && !dirname.startsWith('medium') && !dirname.startsWith('thumbnails');
     });
 
     if (files.length === 0) {
@@ -45,34 +73,54 @@ async function generateGallery() {
     }
 
     const photos = [];
+    const exifById = {};
 
     console.log(`Found ${files.length} photos. Processing...`);
 
     for (const [index, file] of files.entries()) {
         const filePath = path.join(PHOTOS_DIR, file);
-        const thumbPath = path.join(THUMBNAILS_DIR, file); // Keep original extension for simplicity
+        const relativeDir = path.dirname(file) === '.' ? '' : path.dirname(file);
+        const baseName = path.basename(file, path.extname(file));
+        const thumbnailRelative = path.join(relativeDir, `${baseName}.webp`);
+        const mediumRelative = path.join(relativeDir, `${baseName}.webp`);
+        const thumbPath = path.join(THUMBNAILS_DIR, thumbnailRelative);
+        const mediumPath = path.join(MEDIUM_DIR, mediumRelative);
         const largePath = path.join(LARGE_DIR, file);
+
+        fs.mkdirSync(path.dirname(thumbPath), { recursive: true });
+        fs.mkdirSync(path.dirname(mediumPath), { recursive: true });
+        fs.mkdirSync(path.dirname(largePath), { recursive: true });
         
         // 1. Generate Thumbnail
         if (!fs.existsSync(thumbPath)) {
             console.log(`Generating thumbnail for ${file}...`);
             try {
-                // Resize to width 600px, maintain aspect ratio
                 await sharp(filePath)
-                    .resize(600, null, { withoutEnlargement: true })
-                    .withMetadata() // Keep orientation
-                    .jpeg({ quality: 70, mozjpeg: true })
+                    .resize(420, null, { withoutEnlargement: true })
+                    .webp({ quality: 68 })
                     .toFile(thumbPath);
             } catch (err) {
                 console.error(`Error generating thumbnail for ${file}:`, err);
             }
         }
 
-        // 2. Generate Large Web Version
+        // 2. Generate Medium Web Version
+        if (!fs.existsSync(mediumPath)) {
+            console.log(`Generating medium image for ${file}...`);
+            try {
+                await sharp(filePath)
+                    .resize(1200, null, { withoutEnlargement: true })
+                    .webp({ quality: 76 })
+                    .toFile(mediumPath);
+            } catch (err) {
+                console.error(`Error generating medium image for ${file}:`, err);
+            }
+        }
+
+        // 3. Generate Large Web Version
         if (!fs.existsSync(largePath)) {
             console.log(`Generating large web version for ${file}...`);
             try {
-                // Resize to width 1920px (HD), maintain aspect ratio
                 await sharp(filePath)
                     .resize(1920, null, { withoutEnlargement: true })
                     .withMetadata()
@@ -84,6 +132,7 @@ async function generateGallery() {
         }
 
         const fileBuffer = fs.readFileSync(filePath);
+        const metadata = await sharp(filePath).metadata();
         let tags = {};
 
         try {
@@ -103,29 +152,34 @@ async function generateGallery() {
             return '';
         };
 
+        const photoId = index + 1;
         const photo = {
-            id: index + 1,
+            id: photoId,
             src: `/photos/${file}`, // Original (fallback)
-            large: `/photos/large/${file}`, // Web Optimized
-            thumbnail: `/photos/thumbnails/${file}`,
+            medium: `/photos/medium/${mediumRelative.replace(/\\/g, '/')}`,
+            large: `/photos/large/${file.replace(/\\/g, '/')}`, // Web Optimized
+            thumbnail: `/thumbnails/${thumbnailRelative.replace(/\\/g, '/')}`,
             title: file.replace(/\.[^/.]+$/, "").replace(/-/g, ' '),
-            category: 'Photography',
-            exif: {
-                camera: getTag('Model') || getTag('Make') || 'Unknown Camera',
-                lens: getTag('LensModel') || getTag('Lens') || getTag('LensInfo') || 'Unknown Lens',
-                iso: getTag('ISOSpeedRatings') || getTag('ISO') || '',
-                aperture: getTag('FNumber') || getTag('ApertureValue') || '',
-                shutter: getTag('ExposureTime') || getTag('ShutterSpeedValue') || '',
-            }
+            width: metadata.width || null,
+            height: metadata.height || null,
+            category: relativeDir ? relativeDir.split(path.sep)[0].replace(/^\w/, (char) => char.toUpperCase()) : 'Photography',
         };
 
         photos.push(photo);
-        // console.log(`Processed: ${file}`);
+        exifById[String(photoId)] = {
+            camera: getTag('Model') || getTag('Make') || 'Unknown Camera',
+            lens: getTag('LensModel') || getTag('Lens') || getTag('LensInfo') || 'Unknown Lens',
+            iso: getTag('ISOSpeedRatings') || getTag('ISO') || '',
+            aperture: getTag('FNumber') || getTag('ApertureValue') || '',
+            shutter: getTag('ExposureTime') || getTag('ShutterSpeedValue') || '',
+        };
     }
 
     fs.writeFileSync(OUTPUT_FILE, JSON.stringify(photos, null, 2));
+    fs.writeFileSync(EXIF_OUTPUT_FILE, JSON.stringify(exifById, null, 2));
     console.log(`\nSuccessfully generated gallery with ${photos.length} photos!`);
     console.log(`Data saved to: ${OUTPUT_FILE}`);
+    console.log(`EXIF saved to: ${EXIF_OUTPUT_FILE}`);
 }
 
 generateGallery().catch(console.error);

@@ -73,6 +73,11 @@ const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
         <div className={`gallery-grid ${styles.gridClassName}`} style={styles.grid}>
             <AnimatePresence initial={false} mode="popLayout">
                 {photos.map((photo) => (
+                    (() => {
+                        const variantStyle = getVariantStyle(photo);
+                        const shouldPrioritize = photo.priorityIndex < 8;
+
+                        return (
                     <Motion.article
                         key={photo.id}
                         initial={enableEnterAnimation ? { opacity: 0, y: 12 } : false}
@@ -80,7 +85,7 @@ const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
                         exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                         style={styles.item}
-                        className={`gallery-cell ${getVariantStyle(photo).className}`}
+                        className={`gallery-cell ${variantStyle.className}`}
                         onClick={() => onPhotoClick(photo.id)}
                         whileHover={{ y: -3 }}
                         whileTap={{ scale: 0.99 }}
@@ -89,21 +94,24 @@ const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
                             className="gallery-card"
                             style={{
                                 ...styles.imageWrapper,
-                                ...getVariantStyle(photo).wrapper,
+                                ...variantStyle.wrapper,
                             }}
                         >
                             <img
-                                src={photo.thumbnail || photo.src}
+                                src={photo.thumbnail || photo.medium || photo.src}
                                 alt={photo.title}
                                 width={photo.width}
                                 height={photo.height}
-                                style={{ ...styles.image, ...getVariantStyle(photo).image }}
-                                loading="lazy"
+                                style={{ ...styles.image, ...variantStyle.image }}
+                                loading={shouldPrioritize ? 'eager' : 'lazy'}
+                                fetchPriority={shouldPrioritize ? 'high' : 'low'}
                                 decoding="async"
                             />
                             <div style={styles.overlay}></div>
                         </div>
                     </Motion.article>
+                        );
+                    })()
                 ))}
             </AnimatePresence>
         </div>

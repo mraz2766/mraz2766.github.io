@@ -29,7 +29,7 @@ const Lightbox = ({ photo, onClose, onNext, onPrev, styles }) => {
             >
                 {/* Use the optimized large image if available, fallback to original src */}
                 <img
-                    src={photo.large || photo.src}
+                    src={photo.large || photo.medium || photo.src}
                     alt={photo.title}
                     className="lightbox-image"
                     width={photo.width}
