@@ -99,7 +99,7 @@ const Home = ({ theme, onToggleTheme }) => {
     const [filter, setFilter] = useState('All');
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
-    const [viewMode, setViewMode] = useState('default');
+    const [viewMode, setViewMode] = useState('micro');
     const sentinelRef = useRef(null);
 
     const displayPhotos = useMemo(
