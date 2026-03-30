@@ -5,8 +5,19 @@ import MasonryGrid from '../components/Gallery/MasonryGrid';
 import Lightbox from '../components/Gallery/Lightbox';
 
 const PAGE_SIZE = 20;
+const VIEW_MODE_SEQUENCE = ['default', 'compact', 'micro'];
 let photosCache = null;
 let photosRequest = null;
+let shuffledAllCache = null;
+
+const shuffleArray = (array) => {
+    const cloned = [...array];
+    for (let i = cloned.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cloned[i], cloned[j]] = [cloned[j], cloned[i]];
+    }
+    return cloned;
+};
 
 const loadPhotos = async () => {
     if (photosCache) return photosCache;
@@ -19,6 +30,7 @@ const loadPhotos = async () => {
             })
             .then((data) => {
                 photosCache = data;
+                shuffledAllCache = shuffleArray(data);
                 return data;
             })
             .catch((error) => {
@@ -37,7 +49,7 @@ const Home = ({ theme, onToggleTheme }) => {
     const [filter, setFilter] = useState('All');
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
-    const [isCompact, setIsCompact] = useState(false);
+    const [viewMode, setViewMode] = useState('default');
     const sentinelRef = useRef(null);
 
     const displayPhotos = useMemo(
@@ -45,11 +57,12 @@ const Home = ({ theme, onToggleTheme }) => {
         [filteredPhotos, page]
     );
     const hasMore = displayPhotos.length < filteredPhotos.length;
+    const compactLevel = viewMode === 'compact' ? 1 : viewMode === 'micro' ? 2 : 0;
 
     const applyFilter = useCallback((nextFilter, sourcePhotos) => {
         const basePhotos = sourcePhotos ?? allPhotos;
         const scopedPhotos = nextFilter === 'All'
-            ? basePhotos
+            ? (sourcePhotos ? (shuffledAllCache ?? shuffleArray(basePhotos)) : (shuffledAllCache ?? basePhotos))
             : basePhotos.filter((photo) => photo.category === nextFilter);
 
         setFilter(nextFilter);
@@ -133,13 +146,19 @@ const Home = ({ theme, onToggleTheme }) => {
 
     const categories = ['All', ...new Set(allPhotos.map(p => p.category))];
     const selectedPhoto = allPhotos.find(p => p.id === selectedId);
+    const handleToggleView = useCallback(() => {
+        setViewMode((currentMode) => {
+            const currentIndex = VIEW_MODE_SEQUENCE.indexOf(currentMode);
+            return VIEW_MODE_SEQUENCE[(currentIndex + 1) % VIEW_MODE_SEQUENCE.length];
+        });
+    }, []);
 
     // Styles (moved from original file, but kept here to pass down)
     const styles = {
         container: {
             maxWidth: '1800px',
             margin: '0 auto',
-            padding: '0 2rem 2rem 2rem',
+            padding: '0 2rem 3rem 2rem',
             minHeight: '100vh',
         },
         header: {
@@ -147,37 +166,37 @@ const Home = ({ theme, onToggleTheme }) => {
             justifyContent: 'space-between',
             alignItems: 'center',
             gap: '1.2rem',
-            margin: '0 -2rem 2rem -2rem',
-            padding: '0.95rem 2rem 1.1rem 2rem',
-            position: 'sticky',
-            top: '77px',
-            zIndex: 200,
+            margin: '0 0 1.4rem 0',
+            padding: '0.1rem 0 0.2rem 0',
+            position: 'relative',
+            zIndex: 1,
             backgroundColor: 'var(--header-bg)',
-            backdropFilter: 'blur(14px)',
-            WebkitBackdropFilter: 'blur(14px)',
-            borderBottom: '1px solid var(--header-border)',
+            backdropFilter: 'none',
+            WebkitBackdropFilter: 'none',
+            borderBottom: 'none',
             transition: 'background-color 0.3s ease, border-color 0.3s ease',
         },
         metaBlock: {
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.2rem',
-            minWidth: '110px',
+            gap: '0.3rem',
+            minWidth: '128px',
             flexShrink: 0,
         },
         metaEyebrow: {
-            fontSize: '0.72rem',
+            fontSize: '0.68rem',
             letterSpacing: '0.18em',
             textTransform: 'uppercase',
             color: 'var(--text-secondary)',
         },
         metaText: {
-            fontSize: '0.92rem',
+            fontSize: '0.98rem',
+            fontWeight: '500',
             color: 'var(--text-primary)',
         },
         actions: {
             display: 'flex',
-            gap: '0.8rem',
+            gap: '0.65rem',
             alignItems: 'center',
             justifyContent: 'flex-end',
             minWidth: '104px',
@@ -221,8 +240,8 @@ const Home = ({ theme, onToggleTheme }) => {
             background: 'var(--glass-bg-soft)',
             border: '1px solid var(--header-border)',
             borderRadius: '999px',
-            width: '40px',
-            height: '40px',
+            width: '42px',
+            height: '42px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -232,21 +251,21 @@ const Home = ({ theme, onToggleTheme }) => {
             boxShadow: 'var(--control-shadow), inset 0 1px 0 var(--glass-highlight)',
         },
         grid: {
-            '--gallery-columns': isCompact ? 6 : 4,
-            '--gallery-gap': isCompact ? '0.7rem' : '1.25rem',
+            '--gallery-columns': compactLevel === 2 ? 8 : compactLevel === 1 ? 6 : 4,
+            '--gallery-gap': compactLevel === 2 ? '0.45rem' : compactLevel === 1 ? '0.7rem' : '1.15rem',
         },
-        gridClassName: isCompact ? 'gallery-grid-compact' : 'gallery-grid-regular',
+        gridClassName: compactLevel === 2 ? 'gallery-grid-micro' : compactLevel === 1 ? 'gallery-grid-compact' : 'gallery-grid-regular',
         item: {
             cursor: 'pointer',
             minWidth: 0,
         },
         imageWrapper: {
             position: 'relative',
-            borderRadius: '20px',
+            borderRadius: compactLevel === 2 ? '14px' : compactLevel === 1 ? '16px' : '20px',
             overflow: 'hidden',
             background: 'var(--surface-muted)',
             border: '1px solid var(--glass-border)',
-            boxShadow: 'var(--card-shadow)',
+            boxShadow: compactLevel === 2 ? 'var(--card-shadow-soft)' : 'var(--card-shadow)',
         },
         image: {
             width: '100%',
@@ -362,13 +381,13 @@ const Home = ({ theme, onToggleTheme }) => {
     };
 
     return (
-        <div className={`container gallery-page ${isCompact ? 'is-compact' : 'is-regular'}`} style={styles.container}>
+        <div className={`container gallery-page view-${viewMode}`} style={styles.container}>
             <FilterBar
                 categories={categories}
                 currentFilter={filter}
                 onFilterChange={applyFilter}
-                isCompact={isCompact}
-                onToggleView={() => setIsCompact(!isCompact)}
+                viewMode={viewMode}
+                onToggleView={handleToggleView}
                 theme={theme}
                 onToggleTheme={onToggleTheme}
                 photoCount={filteredPhotos.length}

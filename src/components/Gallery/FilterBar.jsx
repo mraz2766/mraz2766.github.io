@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FilterBar = ({ categories, currentFilter, onFilterChange, isCompact, onToggleView, theme, onToggleTheme, photoCount, styles }) => {
+const FilterBar = ({ categories, currentFilter, onFilterChange, viewMode, onToggleView, theme, onToggleTheme, photoCount, styles }) => {
     return (
         <header className="header" style={styles.header}>
             <div style={styles.metaBlock}>
@@ -22,8 +22,12 @@ const FilterBar = ({ categories, currentFilter, onFilterChange, isCompact, onTog
             </nav>
 
             <div style={styles.actions}>
-                <button onClick={onToggleView} style={styles.iconBtn} aria-label="Toggle View">
-                    {isCompact ? (
+                <button onClick={onToggleView} style={styles.iconBtn} aria-label="切换缩略图大小">
+                    {viewMode === 'micro' ? (
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M4 4h4v4H4zM10 4h4v4h-4zM16 4h4v4h-4zM4 10h4v4H4zM10 10h4v4h-4zM16 10h4v4h-4zM4 16h4v4H4zM10 16h4v4h-4zM16 16h4v4h-4z" />
+                        </svg>
+                    ) : viewMode === 'compact' ? (
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /></svg>
                     ) : (
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" /></svg>

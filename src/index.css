@@ -16,6 +16,7 @@
   --surface-muted: #eef2f6;
   --page-gradient: radial-gradient(circle at top left, rgba(186, 215, 255, 0.22), transparent 32%), radial-gradient(circle at top right, rgba(255, 223, 190, 0.14), transparent 26%);
   --card-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+  --card-shadow-soft: 0 8px 22px rgba(15, 23, 42, 0.06);
   --control-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
   --glass-shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.08);
   --glass-shadow-strong: 0 18px 42px rgba(15, 23, 42, 0.14);
@@ -47,6 +48,7 @@
   --surface-muted: #0d1115;
   --page-gradient: radial-gradient(circle at top left, rgba(31, 58, 102, 0.3), transparent 28%), radial-gradient(circle at top right, rgba(79, 52, 33, 0.18), transparent 24%);
   --card-shadow: 0 16px 42px rgba(0, 0, 0, 0.34);
+  --card-shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.24);
   --control-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
   --glass-shadow-soft: 0 14px 34px rgba(0, 0, 0, 0.22);
   --glass-shadow-strong: 0 20px 46px rgba(0, 0, 0, 0.3);
@@ -113,10 +115,13 @@ button {
   grid-template-columns: repeat(var(--gallery-columns, 3), minmax(0, 1fr));
   gap: var(--gallery-gap, 1rem);
   align-items: start;
+  grid-auto-flow: dense;
 }
 
 .gallery-card {
   isolation: isolate;
+  content-visibility: auto;
+  contain-intrinsic-size: 320px 420px;
 }
 
 .gallery-card:hover img {
@@ -157,6 +162,7 @@ button {
 
 .gallery-page .header {
   position: relative;
+  background: transparent !important;
 }
 
 .gallery-page .header::before {
@@ -165,8 +171,19 @@ button {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(180deg, var(--glass-highlight) 0%, transparent 70%);
-  opacity: 0.6;
+  background: none;
+  opacity: 0;
+}
+
+.gallery-page .header > * {
+  position: relative;
+  z-index: 1;
+}
+
+.gallery-page .header .nav-scroll,
+.gallery-page .header > div:last-child {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .about-email:hover,
@@ -189,8 +206,12 @@ button {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .gallery-page.is-compact .gallery-grid {
+  .gallery-page.view-compact .gallery-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .gallery-page.view-micro .gallery-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
 
@@ -200,9 +221,8 @@ button {
   }
 
   .gallery-page .header {
-    margin: 0 -1rem 1rem -1rem !important;
-    padding: 0.8rem 1rem 1rem 1rem !important;
-    top: 69px !important;
+    margin: 0 0 1rem 0 !important;
+    padding: 0 !important;
     gap: 0.8rem !important;
   }
 
@@ -222,7 +242,7 @@ button {
   }
 
   .gallery-page .header > :first-child {
-    display: none !important;
+    display: flex !important;
   }
 
   .gallery-grid {
@@ -230,9 +250,14 @@ button {
     gap: 0.65rem;
   }
 
-  .gallery-page.is-compact .gallery-grid {
+  .gallery-page.view-compact .gallery-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.4rem;
+  }
+
+  .gallery-page.view-micro .gallery-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.32rem;
   }
 
   .about-image-wrapper {

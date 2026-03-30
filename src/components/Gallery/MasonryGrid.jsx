@@ -1,6 +1,16 @@
 import React from 'react';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
 
+const getCardRatio = (photo) => {
+    if (!photo.width || !photo.height) return '4 / 5';
+
+    const ratio = photo.width / photo.height;
+    if (ratio >= 1.55) return '3 / 2';
+    if (ratio >= 1.1) return '4 / 3';
+    if (ratio >= 0.82) return '1 / 1';
+    return '4 / 5';
+};
+
 const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
     const [enableEnterAnimation, setEnableEnterAnimation] = React.useState(false);
 
@@ -29,7 +39,7 @@ const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
                             className="gallery-card"
                             style={{
                                 ...styles.imageWrapper,
-                                aspectRatio: photo.width && photo.height ? `${photo.width} / ${photo.height}` : undefined,
+                                aspectRatio: getCardRatio(photo),
                             }}
                         >
                             <img
