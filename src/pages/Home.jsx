@@ -10,6 +10,56 @@ let photosCache = null;
 let photosRequest = null;
 let shuffledAllCache = null;
 
+const getOrientation = (photo) => {
+    if (!photo.width || !photo.height) return 'square';
+    const ratio = photo.width / photo.height;
+    if (ratio >= 1.18) return 'landscape';
+    if (ratio <= 0.84) return 'portrait';
+    return 'square';
+};
+
+const assignLayoutVariants = (photos, viewMode) => {
+    if (viewMode === 'micro') {
+        return photos.map((photo) => ({
+            ...photo,
+            orientation: getOrientation(photo),
+            layoutVariant: 'micro',
+        }));
+    }
+
+    const defaultPattern = ['hero', 'tall', 'standard', 'wide', 'standard', 'tall', 'standard', 'standard'];
+    const compactPattern = ['wide', 'standard', 'tall', 'standard', 'standard', 'wide'];
+    const pattern = viewMode === 'compact' ? compactPattern : defaultPattern;
+
+    let patternIndex = 0;
+
+    return photos.map((photo) => {
+        const orientation = getOrientation(photo);
+        const preferredVariant = pattern[patternIndex % pattern.length];
+        patternIndex += 1;
+
+        let layoutVariant = 'standard';
+
+        if (orientation === 'landscape') {
+            if (preferredVariant === 'hero' || preferredVariant === 'wide') {
+                layoutVariant = preferredVariant;
+            } else {
+                layoutVariant = 'landscape';
+            }
+        } else if (orientation === 'portrait') {
+            layoutVariant = preferredVariant === 'hero' ? 'tall' : 'portrait';
+        } else {
+            layoutVariant = preferredVariant === 'wide' ? 'square-wide' : 'square';
+        }
+
+        return {
+            ...photo,
+            orientation,
+            layoutVariant,
+        };
+    });
+};
+
 const shuffleArray = (array) => {
     const cloned = [...array];
     for (let i = cloned.length - 1; i > 0; i -= 1) {
@@ -55,6 +105,10 @@ const Home = ({ theme, onToggleTheme }) => {
     const displayPhotos = useMemo(
         () => filteredPhotos.slice(0, page * PAGE_SIZE),
         [filteredPhotos, page]
+    );
+    const arrangedPhotos = useMemo(
+        () => assignLayoutVariants(displayPhotos, viewMode),
+        [displayPhotos, viewMode]
     );
     const hasMore = displayPhotos.length < filteredPhotos.length;
     const compactLevel = viewMode === 'compact' ? 1 : viewMode === 'micro' ? 2 : 0;
@@ -158,16 +212,16 @@ const Home = ({ theme, onToggleTheme }) => {
         container: {
             maxWidth: '1800px',
             margin: '0 auto',
-            padding: '0 2rem 3rem 2rem',
+            padding: '0 2rem 3.5rem 2rem',
             minHeight: '100vh',
         },
         header: {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            gap: '1.2rem',
-            margin: '0 0 1.4rem 0',
-            padding: '0.1rem 0 0.2rem 0',
+            gap: '1rem',
+            margin: '0 0 1.6rem 0',
+            padding: '0.1rem 0 0.35rem 0',
             position: 'relative',
             zIndex: 1,
             backgroundColor: 'var(--header-bg)',
@@ -179,8 +233,8 @@ const Home = ({ theme, onToggleTheme }) => {
         metaBlock: {
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.3rem',
-            minWidth: '128px',
+            gap: '0.35rem',
+            minWidth: '144px',
             flexShrink: 0,
         },
         metaEyebrow: {
@@ -190,7 +244,7 @@ const Home = ({ theme, onToggleTheme }) => {
             color: 'var(--text-secondary)',
         },
         metaText: {
-            fontSize: '0.98rem',
+            fontSize: '1rem',
             fontWeight: '500',
             color: 'var(--text-primary)',
         },
@@ -240,8 +294,8 @@ const Home = ({ theme, onToggleTheme }) => {
             background: 'var(--glass-bg-soft)',
             border: '1px solid var(--header-border)',
             borderRadius: '999px',
-            width: '42px',
-            height: '42px',
+            width: '44px',
+            height: '44px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -251,8 +305,8 @@ const Home = ({ theme, onToggleTheme }) => {
             boxShadow: 'var(--control-shadow), inset 0 1px 0 var(--glass-highlight)',
         },
         grid: {
-            '--gallery-columns': compactLevel === 2 ? 8 : compactLevel === 1 ? 6 : 4,
-            '--gallery-gap': compactLevel === 2 ? '0.45rem' : compactLevel === 1 ? '0.7rem' : '1.15rem',
+            '--gallery-columns': compactLevel === 2 ? 8 : compactLevel === 1 ? 5 : 4,
+            '--gallery-gap': compactLevel === 2 ? '0.42rem' : compactLevel === 1 ? '0.82rem' : '1.1rem',
         },
         gridClassName: compactLevel === 2 ? 'gallery-grid-micro' : compactLevel === 1 ? 'gallery-grid-compact' : 'gallery-grid-regular',
         item: {
@@ -271,7 +325,6 @@ const Home = ({ theme, onToggleTheme }) => {
             width: '100%',
             height: '100%',
             display: 'block',
-            objectFit: 'cover',
             transition: 'transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.25s ease',
         },
         overlay: {
@@ -395,7 +448,7 @@ const Home = ({ theme, onToggleTheme }) => {
             />
 
             <MasonryGrid
-                photos={displayPhotos}
+                photos={arrangedPhotos}
                 onPhotoClick={setSelectedId}
                 styles={styles}
             />

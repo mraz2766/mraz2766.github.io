@@ -32,6 +32,8 @@ const Lightbox = ({ photo, onClose, onNext, onPrev, styles }) => {
                     src={photo.large || photo.src}
                     alt={photo.title}
                     className="lightbox-image"
+                    width={photo.width}
+                    height={photo.height}
                     style={styles.lightboxImage}
                 />
 

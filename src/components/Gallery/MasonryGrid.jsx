@@ -1,14 +1,63 @@
 import React from 'react';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
 
-const getCardRatio = (photo) => {
-    if (!photo.width || !photo.height) return '4 / 5';
-
-    const ratio = photo.width / photo.height;
-    if (ratio >= 1.55) return '3 / 2';
-    if (ratio >= 1.1) return '4 / 3';
-    if (ratio >= 0.82) return '1 / 1';
-    return '4 / 5';
+const getVariantStyle = (photo) => {
+    switch (photo.layoutVariant) {
+        case 'hero':
+            return {
+                wrapper: { aspectRatio: '16 / 10' },
+                image: { objectFit: 'cover' },
+                className: 'variant-hero',
+            };
+        case 'wide':
+            return {
+                wrapper: { aspectRatio: '3 / 2' },
+                image: { objectFit: 'cover' },
+                className: 'variant-wide',
+            };
+        case 'landscape':
+            return {
+                wrapper: { aspectRatio: '4 / 3' },
+                image: { objectFit: 'cover' },
+                className: 'variant-landscape',
+            };
+        case 'tall':
+            return {
+                wrapper: { aspectRatio: '4 / 5', padding: '0.55rem' },
+                image: { objectFit: 'contain' },
+                className: 'variant-tall',
+            };
+        case 'portrait':
+            return {
+                wrapper: { aspectRatio: '4 / 5', padding: '0.45rem' },
+                image: { objectFit: 'contain' },
+                className: 'variant-portrait',
+            };
+        case 'square-wide':
+            return {
+                wrapper: { aspectRatio: '1 / 1' },
+                image: { objectFit: 'cover' },
+                className: 'variant-square-wide',
+            };
+        case 'square':
+            return {
+                wrapper: { aspectRatio: '1 / 1' },
+                image: { objectFit: 'cover' },
+                className: 'variant-square',
+            };
+        case 'micro':
+            return {
+                wrapper: { aspectRatio: '1 / 1', padding: photo.orientation === 'portrait' ? '0.16rem' : 0 },
+                image: { objectFit: photo.orientation === 'portrait' ? 'contain' : 'cover' },
+                className: 'variant-micro',
+            };
+        default:
+            return {
+                wrapper: { aspectRatio: '4 / 5' },
+                image: { objectFit: 'cover' },
+                className: 'variant-standard',
+            };
+    }
 };
 
 const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
@@ -24,13 +73,14 @@ const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
         <div className={`gallery-grid ${styles.gridClassName}`} style={styles.grid}>
             <AnimatePresence initial={false} mode="popLayout">
                 {photos.map((photo) => (
-                    <Motion.div
+                    <Motion.article
                         key={photo.id}
                         initial={enableEnterAnimation ? { opacity: 0, y: 12 } : false}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                         style={styles.item}
+                        className={`gallery-cell ${getVariantStyle(photo).className}`}
                         onClick={() => onPhotoClick(photo.id)}
                         whileHover={{ y: -3 }}
                         whileTap={{ scale: 0.99 }}
@@ -39,7 +89,7 @@ const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
                             className="gallery-card"
                             style={{
                                 ...styles.imageWrapper,
-                                aspectRatio: getCardRatio(photo),
+                                ...getVariantStyle(photo).wrapper,
                             }}
                         >
                             <img
@@ -47,13 +97,13 @@ const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
                                 alt={photo.title}
                                 width={photo.width}
                                 height={photo.height}
-                                style={styles.image}
+                                style={{ ...styles.image, ...getVariantStyle(photo).image }}
                                 loading="lazy"
                                 decoding="async"
                             />
                             <div style={styles.overlay}></div>
                         </div>
-                    </Motion.div>
+                    </Motion.article>
                 ))}
             </AnimatePresence>
         </div>

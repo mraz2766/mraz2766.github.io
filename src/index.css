@@ -17,6 +17,7 @@
   --page-gradient: radial-gradient(circle at top left, rgba(186, 215, 255, 0.22), transparent 32%), radial-gradient(circle at top right, rgba(255, 223, 190, 0.14), transparent 26%);
   --card-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
   --card-shadow-soft: 0 8px 22px rgba(15, 23, 42, 0.06);
+  --card-shell: rgba(255, 255, 255, 0.78);
   --control-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
   --glass-shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.08);
   --glass-shadow-strong: 0 18px 42px rgba(15, 23, 42, 0.14);
@@ -49,6 +50,7 @@
   --page-gradient: radial-gradient(circle at top left, rgba(31, 58, 102, 0.3), transparent 28%), radial-gradient(circle at top right, rgba(79, 52, 33, 0.18), transparent 24%);
   --card-shadow: 0 16px 42px rgba(0, 0, 0, 0.34);
   --card-shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.24);
+  --card-shell: rgba(17, 20, 24, 0.88);
   --control-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
   --glass-shadow-soft: 0 14px 34px rgba(0, 0, 0, 0.22);
   --glass-shadow-strong: 0 20px 46px rgba(0, 0, 0, 0.3);
@@ -115,13 +117,18 @@ button {
   grid-template-columns: repeat(var(--gallery-columns, 3), minmax(0, 1fr));
   gap: var(--gallery-gap, 1rem);
   align-items: start;
-  grid-auto-flow: dense;
+  grid-auto-flow: row dense;
+}
+
+.gallery-cell {
+  min-width: 0;
 }
 
 .gallery-card {
   isolation: isolate;
   content-visibility: auto;
   contain-intrinsic-size: 320px 420px;
+  background: var(--card-shell);
 }
 
 .gallery-card:hover img {
@@ -163,6 +170,7 @@ button {
 .gallery-page .header {
   position: relative;
   background: transparent !important;
+  align-items: flex-end !important;
 }
 
 .gallery-page .header::before {
@@ -184,6 +192,34 @@ button {
 .gallery-page .header > div:last-child {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+}
+
+.gallery-page .header > :first-child {
+  padding-bottom: 0.3rem;
+}
+
+.gallery-cell.variant-hero {
+  grid-column: span 2;
+}
+
+.gallery-cell.variant-wide {
+  grid-column: span 2;
+}
+
+.gallery-cell.variant-tall {
+  grid-row: span 2;
+}
+
+.gallery-cell.variant-portrait .gallery-card,
+.gallery-cell.variant-tall .gallery-card,
+.gallery-cell.variant-micro .gallery-card {
+  background: linear-gradient(180deg, var(--card-shell) 0%, var(--surface-muted) 100%);
+}
+
+.gallery-cell.variant-portrait img,
+.gallery-cell.variant-tall img,
+.gallery-cell.variant-micro img {
+  border-radius: inherit;
 }
 
 .about-email:hover,
@@ -213,17 +249,23 @@ button {
   .gallery-page.view-micro .gallery-grid {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
+
+  .gallery-cell.variant-hero {
+    grid-column: span 2;
+  }
 }
 
 @media (max-width: 768px) {
   .gallery-page.container {
-    padding: 0 1rem 1rem 1rem !important;
+    padding: 0 0.92rem 1.2rem 0.92rem !important;
   }
 
   .gallery-page .header {
     margin: 0 0 1rem 0 !important;
-    padding: 0 !important;
-    gap: 0.8rem !important;
+    padding: 0.2rem 0 0.1rem 0 !important;
+    gap: 0.7rem !important;
+    align-items: stretch !important;
+    flex-wrap: wrap;
   }
 
   .gallery-page .nav-scroll {
@@ -236,28 +278,78 @@ button {
     mask-image: linear-gradient(to right, black 88%, transparent 100%);
   }
 
+  .gallery-page .header > :first-child {
+    order: 1;
+    width: 100%;
+    padding-bottom: 0 !important;
+  }
+
+  .gallery-page .header .nav-scroll {
+    order: 3;
+    width: 100%;
+  }
+
+  .gallery-page .header > div:last-child {
+    order: 2;
+    margin-left: auto;
+  }
+
   .filter-btn {
     white-space: nowrap;
     flex-shrink: 0;
+    min-height: 44px;
+    padding-inline: 1rem !important;
   }
 
-  .gallery-page .header > :first-child {
-    display: flex !important;
+  .gallery-page .header button {
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.65rem;
+    gap: 0.58rem;
   }
 
   .gallery-page.view-compact .gallery-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.4rem;
+    gap: 0.38rem;
   }
 
   .gallery-page.view-micro .gallery-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.32rem;
+  }
+
+  .gallery-cell.variant-hero,
+  .gallery-cell.variant-wide {
+    grid-column: span 2;
+  }
+
+  .gallery-cell.variant-tall {
+    grid-row: span 1;
+  }
+
+  .gallery-cell.variant-hero .gallery-card,
+  .gallery-cell.variant-wide .gallery-card {
+    aspect-ratio: 16 / 10 !important;
+  }
+
+  .gallery-cell.variant-portrait .gallery-card,
+  .gallery-cell.variant-tall .gallery-card {
+    aspect-ratio: 4 / 5 !important;
+    padding: 0.28rem !important;
+  }
+
+  .gallery-page.view-micro .gallery-cell.variant-hero,
+  .gallery-page.view-micro .gallery-cell.variant-wide,
+  .gallery-page.view-micro .gallery-cell.variant-tall {
+    grid-column: span 1;
+  }
+
+  .gallery-page.view-micro .gallery-cell .gallery-card {
+    aspect-ratio: 1 / 1 !important;
+    padding: 0.12rem !important;
   }
 
   .about-image-wrapper {
@@ -279,20 +371,23 @@ button {
   }
 
   .metadata-panel {
-    padding: 0.6rem 1rem !important;
-    width: auto !important;
-    max-width: 95% !important;
-    margin-top: 1rem !important;
+    padding: 0.72rem 0.95rem !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin-top: 0.85rem !important;
+    border-radius: 18px !important;
   }
 
   .metadata-title {
-    font-size: 0.7rem !important;
-    margin-right: 0.3rem !important;
+    font-size: 0.78rem !important;
+    margin-right: 0.2rem !important;
   }
 
   .exif-grid {
-    font-size: 0.6rem !important;
-    gap: 0.3rem !important;
+    font-size: 0.64rem !important;
+    gap: 0.26rem !important;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .separator {
@@ -303,7 +398,7 @@ button {
     width: 44px !important;
     height: 44px !important;
     top: auto !important;
-    bottom: 20px !important;
+    bottom: 18px !important;
     background: rgba(0, 0, 0, 0.3) !important;
     border: none !important;
     color: white !important;
