@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import FilterBar from '../components/Gallery/FilterBar';
 import MasonryGrid from '../components/Gallery/MasonryGrid';
-import { getPhotoExif, loadPhotosList, shuffleArray } from '../lib/photoData';
-
-const Lightbox = lazy(() => import('../components/Gallery/Lightbox'));
+import Lightbox from '../components/Gallery/Lightbox';
 
 const PAGE_SIZE = 20;
 const VIEW_MODE_SEQUENCE = ['default', 'compact', 'micro'];
+let photosCache = null;
+let photosRequest = null;
 let shuffledAllCache = null;
 
 const getOrientation = (photo) => {
@@ -61,6 +60,38 @@ const assignLayoutVariants = (photos, viewMode) => {
     });
 };
 
+const shuffleArray = (array) => {
+    const cloned = [...array];
+    for (let i = cloned.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cloned[i], cloned[j]] = [cloned[j], cloned[i]];
+    }
+    return cloned;
+};
+
+const loadPhotos = async () => {
+    if (photosCache) return photosCache;
+
+    if (!photosRequest) {
+        photosRequest = fetch('/photos.json')
+            .then((res) => {
+                if (!res.ok) throw new Error('Network response was not ok');
+                return res.json();
+            })
+            .then((data) => {
+                photosCache = data;
+                shuffledAllCache = shuffleArray(data);
+                return data;
+            })
+            .catch((error) => {
+                photosRequest = null;
+                throw error;
+            });
+    }
+
+    return photosRequest;
+};
+
 const Home = ({ theme, onToggleTheme }) => {
     const [allPhotos, setAllPhotos] = useState([]);
     const [filteredPhotos, setFilteredPhotos] = useState([]);
@@ -72,10 +103,7 @@ const Home = ({ theme, onToggleTheme }) => {
     const sentinelRef = useRef(null);
 
     const displayPhotos = useMemo(
-        () => filteredPhotos.slice(0, page * PAGE_SIZE).map((photo, index) => ({
-            ...photo,
-            priorityIndex: index,
-        })),
+        () => filteredPhotos.slice(0, page * PAGE_SIZE),
         [filteredPhotos, page]
     );
     const arrangedPhotos = useMemo(
@@ -124,10 +152,9 @@ const Home = ({ theme, onToggleTheme }) => {
     useEffect(() => {
         let isMounted = true;
 
-        loadPhotosList()
+        loadPhotos()
             .then(data => {
                 if (!isMounted) return;
-                shuffledAllCache = shuffledAllCache ?? shuffleArray(data);
                 setAllPhotos(data);
                 applyFilter('All', data);
                 setLoading(false);
@@ -143,32 +170,6 @@ const Home = ({ theme, onToggleTheme }) => {
             isMounted = false;
         };
     }, [applyFilter]);
-
-    useEffect(() => {
-        if (!selectedId) return;
-
-        const selectedBase = allPhotos.find((photo) => photo.id === selectedId);
-        if (!selectedBase || selectedBase.exif) return;
-
-        let isMounted = true;
-        getPhotoExif(selectedId)
-            .then((exif) => {
-                if (!isMounted || !exif) return;
-                setAllPhotos((currentPhotos) => currentPhotos.map((photo) => (
-                    photo.id === selectedId ? { ...photo, exif } : photo
-                )));
-                setFilteredPhotos((currentPhotos) => currentPhotos.map((photo) => (
-                    photo.id === selectedId ? { ...photo, exif } : photo
-                )));
-            })
-            .catch((error) => {
-                console.error('Failed to load EXIF:', error);
-            });
-
-        return () => {
-            isMounted = false;
-        };
-    }, [allPhotos, selectedId]);
 
     // Navigation Handlers
     const handleNext = useCallback(() => {
@@ -480,15 +481,13 @@ const Home = ({ theme, onToggleTheme }) => {
 
             <AnimatePresence>
                 {selectedId && selectedPhoto && (
-                    <Suspense fallback={null}>
-                        <Lightbox
-                            photo={selectedPhoto}
-                            onClose={() => setSelectedId(null)}
-                            onNext={handleNext}
-                            onPrev={handlePrev}
-                            styles={styles}
-                        />
-                    </Suspense>
+                    <Lightbox
+                        photo={selectedPhoto}
+                        onClose={() => setSelectedId(null)}
+                        onNext={handleNext}
+                        onPrev={handlePrev}
+                        styles={styles}
+                    />
                 )}
             </AnimatePresence>
         </div>
