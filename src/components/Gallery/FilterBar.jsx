@@ -21,7 +21,7 @@ const FilterBar = ({ categories, currentFilter, onFilterChange, isCompact, onTog
                 ))}
             </nav>
 
-            <div style={{ display: 'flex', gap: '0.8rem' }}>
+            <div style={styles.actions}>
                 <button onClick={onToggleView} style={styles.iconBtn} aria-label="Toggle View">
                     {isCompact ? (
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /></svg>

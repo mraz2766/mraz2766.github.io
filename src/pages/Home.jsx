@@ -4,17 +4,31 @@ import FilterBar from '../components/Gallery/FilterBar';
 import MasonryGrid from '../components/Gallery/MasonryGrid';
 import Lightbox from '../components/Gallery/Lightbox';
 
-// Utility to shuffle array
-const shuffleArray = (array) => {
-    const newArr = [...array];
-    for (let i = newArr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
-    }
-    return newArr;
-};
-
 const PAGE_SIZE = 20;
+let photosCache = null;
+let photosRequest = null;
+
+const loadPhotos = async () => {
+    if (photosCache) return photosCache;
+
+    if (!photosRequest) {
+        photosRequest = fetch('/photos.json')
+            .then((res) => {
+                if (!res.ok) throw new Error('Network response was not ok');
+                return res.json();
+            })
+            .then((data) => {
+                photosCache = data;
+                return data;
+            })
+            .catch((error) => {
+                photosRequest = null;
+                throw error;
+            });
+    }
+
+    return photosRequest;
+};
 
 const Home = ({ theme, onToggleTheme }) => {
     const [allPhotos, setAllPhotos] = useState([]);
@@ -39,7 +53,7 @@ const Home = ({ theme, onToggleTheme }) => {
             : basePhotos.filter((photo) => photo.category === nextFilter);
 
         setFilter(nextFilter);
-        setFilteredPhotos(shuffleArray(scopedPhotos));
+        setFilteredPhotos(scopedPhotos);
         setPage(1);
         setSelectedId(null);
         window.scrollTo({ top: 0, behavior: 'auto' });
@@ -69,28 +83,25 @@ const Home = ({ theme, onToggleTheme }) => {
 
     // Load Initial Data
     useEffect(() => {
-        fetch('/photos.json')
-            .then(res => {
-                if (!res.ok) throw new Error('Network response was not ok');
-                return res.json();
-            })
+        let isMounted = true;
+
+        loadPhotos()
             .then(data => {
+                if (!isMounted) return;
                 setAllPhotos(data);
                 applyFilter('All', data);
                 setLoading(false);
             })
             .catch(err => {
+                if (!isMounted) return;
                 console.error("Failed to load photos:", err);
                 setFilteredPhotos([]);
                 setLoading(false);
             });
 
-        const link = document.createElement('link');
-        link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap';
-        link.rel = 'stylesheet';
-        document.head.appendChild(link);
-
-        return () => document.head.removeChild(link);
+        return () => {
+            isMounted = false;
+        };
     }, [applyFilter]);
 
     // Navigation Handlers
@@ -137,13 +148,13 @@ const Home = ({ theme, onToggleTheme }) => {
             alignItems: 'center',
             gap: '1.2rem',
             margin: '0 -2rem 2rem -2rem',
-            padding: '1rem 2rem 1.25rem 2rem',
+            padding: '0.95rem 2rem 1.1rem 2rem',
             position: 'sticky',
             top: '77px',
             zIndex: 200,
             backgroundColor: 'var(--header-bg)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(14px)',
+            WebkitBackdropFilter: 'blur(14px)',
             borderBottom: '1px solid var(--header-border)',
             transition: 'background-color 0.3s ease, border-color 0.3s ease',
         },
@@ -164,15 +175,23 @@ const Home = ({ theme, onToggleTheme }) => {
             fontSize: '0.92rem',
             color: 'var(--text-primary)',
         },
+        actions: {
+            display: 'flex',
+            gap: '0.8rem',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            minWidth: '104px',
+            flexShrink: 0,
+        },
         nav: {
             display: 'flex',
             gap: '0.5rem',
-            background: 'var(--btn-bg)',
-            padding: '0.3rem',
+            background: 'var(--glass-bg-soft)',
+            padding: '0.35rem',
             borderRadius: '999px',
-            backdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(12px)',
             border: '1px solid var(--glass-border)',
-            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)',
+            boxShadow: 'var(--glass-shadow-soft), inset 0 1px 0 var(--glass-highlight)',
         },
         filterButton: {
             background: 'transparent',
@@ -196,10 +215,10 @@ const Home = ({ theme, onToggleTheme }) => {
             fontFamily: 'inherit',
             fontSize: '0.9rem',
             fontWeight: '500',
-            boxShadow: '0 10px 30px rgba(0,0,0,0.12)',
+            boxShadow: 'var(--glass-shadow-soft)',
         },
         iconBtn: {
-            background: 'var(--btn-bg)',
+            background: 'var(--glass-bg-soft)',
             border: '1px solid var(--header-border)',
             borderRadius: '999px',
             width: '40px',
@@ -210,11 +229,11 @@ const Home = ({ theme, onToggleTheme }) => {
             color: 'var(--text-primary)',
             cursor: 'pointer',
             transition: 'all 0.2s ease',
-            boxShadow: 'var(--control-shadow)',
+            boxShadow: 'var(--control-shadow), inset 0 1px 0 var(--glass-highlight)',
         },
         grid: {
-            '--gallery-columns': isCompact ? 6 : 3,
-            '--gallery-gap': isCompact ? '0.65rem' : '1.4rem',
+            '--gallery-columns': isCompact ? 6 : 4,
+            '--gallery-gap': isCompact ? '0.7rem' : '1.25rem',
         },
         gridClassName: isCompact ? 'gallery-grid-compact' : 'gallery-grid-regular',
         item: {
@@ -231,23 +250,24 @@ const Home = ({ theme, onToggleTheme }) => {
         },
         image: {
             width: '100%',
-            height: 'auto',
+            height: '100%',
             display: 'block',
-            transition: 'transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s ease',
+            objectFit: 'cover',
+            transition: 'transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.25s ease',
         },
         overlay: {
             position: 'absolute',
             top: 0, left: 0, right: 0, bottom: 0,
-            background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(15,23,42,0.08) 100%)',
+            background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(15,23,42,0.12) 100%)',
             opacity: 0,
-            transition: 'opacity 0.3s',
+            transition: 'opacity 0.2s ease',
             pointerEvents: 'none',
         },
         lightbox: {
             position: 'fixed',
             top: 0, left: 0, right: 0, bottom: 0,
             background: 'var(--lightbox-bg)',
-            backdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(18px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -276,9 +296,9 @@ const Home = ({ theme, onToggleTheme }) => {
             background: 'var(--glass-bg)',
             padding: '0.6rem 1.2rem',
             borderRadius: '999px',
-            backdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(16px)',
             border: '1px solid var(--glass-border)',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+            boxShadow: 'var(--glass-shadow-strong), inset 0 1px 0 var(--glass-highlight)',
             maxWidth: '90%',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
@@ -321,7 +341,7 @@ const Home = ({ theme, onToggleTheme }) => {
             justifyContent: 'center',
             transition: 'all 0.2s',
             backdropFilter: 'blur(10px)',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            boxShadow: 'var(--glass-shadow-soft), inset 0 1px 0 var(--glass-highlight)',
         },
         closeBtn: {
             position: 'absolute',
@@ -337,7 +357,7 @@ const Home = ({ theme, onToggleTheme }) => {
             alignItems: 'center',
             justifyContent: 'center',
             backdropFilter: 'blur(10px)',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            boxShadow: 'var(--glass-shadow-soft), inset 0 1px 0 var(--glass-highlight)',
         },
     };
 
