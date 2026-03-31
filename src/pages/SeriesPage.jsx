@@ -31,8 +31,8 @@ const SeriesPage = ({ theme, onToggleTheme }) => {
         theme={theme}
         onToggleTheme={onToggleTheme}
         introEyebrow={series.seriesTitle}
-        introTitle={series.heroTitle}
-        introBody={series.archiveSummary}
+        introTitle={series.seriesTitle}
+        introBody=""
         initialFilter={seriesKey}
         lockedFilter={seriesKey}
         selectedIdFromState={location.state?.selectedId ?? null}

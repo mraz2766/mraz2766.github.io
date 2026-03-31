@@ -439,7 +439,7 @@ const GalleryBrowser = ({
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [viewMode, setViewMode] = useState('default');
+  const [viewMode, setViewMode] = useState('micro');
   const sentinelRef = useRef(null);
   const initialSelectionConsumed = useRef(false);
 
@@ -567,11 +567,11 @@ const GalleryBrowser = ({
         <div style={styles.introText}>
           <span style={styles.introEyebrow}>{introEyebrow}</span>
           <h1 style={styles.introTitle}>{introTitle}</h1>
-          <p style={styles.introBody}>{introBody}</p>
+          {introBody ? <p style={styles.introBody}>{introBody}</p> : null}
         </div>
 
         <div style={styles.utilityMeta}>
-          <span>当前浏览密度：{viewModeMeta.label}</span>
+          <span>{viewModeMeta.label}</span>
           <span>已展开 {progressLabel}</span>
         </div>
       </section>
@@ -612,7 +612,7 @@ const GalleryBrowser = ({
           <div ref={sentinelRef} style={{ height: '20px', width: '100%', pointerEvents: 'none' }} />
 
           <div style={styles.sectionStatus}>
-            <span>{loading ? '正在整理图像…' : hasMore ? '继续向下阅读，进入完整序列。' : '已经读到这个专题的末尾。'}</span>
+            <span>{loading ? '正在整理图像…' : hasMore ? '继续下滑查看更多。' : '已经到达末尾。'}</span>
             <span>{filteredPhotos.length ? `当前已展开 ${displayPhotos.length} 幅图像` : '暂无图像'}</span>
           </div>
         </>
