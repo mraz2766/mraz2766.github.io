@@ -33,7 +33,7 @@ const Home = () => {
             </div>
 
             <div className="editorial-home-actions">
-              <Link to="/works" className="editorial-link-primary">查看专题归档</Link>
+              <Link to="/works" className="editorial-link-primary">进入作品</Link>
               <Link to="/about" className="editorial-link-secondary">阅读作者自述</Link>
             </div>
           </Motion.div>

@@ -15,7 +15,7 @@ const Works = ({ theme, onToggleTheme }) => {
       <section className="editorial-archive-lead">
         <div className="editorial-archive-copy">
           <span className="editorial-kicker">{WORKS_ARCHIVE_TITLE}</span>
-          <h1 className="editorial-archive-title">摄影栏目按专题归档。</h1>
+          <h1 className="editorial-archive-title">所有图像</h1>
         </div>
 
         <div className="editorial-archive-nav" aria-label="专题目录">
@@ -31,8 +31,8 @@ const Works = ({ theme, onToggleTheme }) => {
       <GalleryBrowser
         theme={theme}
         onToggleTheme={onToggleTheme}
-        introEyebrow="全部专题"
-        introTitle="专题归档"
+        introEyebrow=""
+        introTitle="所有图像"
         introBody=""
         selectedIdFromState={location.state?.selectedId ?? null}
       />

@@ -5,8 +5,8 @@ export const HOME_HERO_TITLE = '把陪伴与收藏，写成两篇可以反复翻
 export const HOME_HERO_TEXT = '这里不再是单纯的作品瀑布流，而是一份按系列整理的摄影栏目。先读题头，再进入图像本身。';
 export const HOME_SECTION_TITLE = '最新专题';
 export const HOME_SECTION_BODY = '两个系列构成目前的全部栏目：一个更靠近生活关系，一个更靠近物件陈列。';
-export const WORKS_ARCHIVE_TITLE = '专题归档';
-export const WORKS_ARCHIVE_BODY = '所有内容都按系列归档。你可以先浏览摘要，再进入完整专题与图像序列。';
+export const WORKS_ARCHIVE_TITLE = '作品';
+export const WORKS_ARCHIVE_BODY = '所有内容都按系列整理，你可以直接进入不同主题浏览。';
 export const ABOUT_TITLE = '关于这个站点';
 export const ABOUT_BODY = '我习惯把日常里值得回看的瞬间整理成专题，而不是简单存成相册。宠物与玩具是目前最稳定的两条线索：前者记录关系与情绪，后者记录陈列、表面与收藏的秩序。';
 
@@ -25,12 +25,12 @@ export const SERIES_SLUGS = {
 export const SERIES_CONTENT = {
   All: {
     label: '全部',
-    eyebrow: '专题归档',
+    eyebrow: '',
     heroTitle: '从陪伴与收藏出发，整理两组持续更新的图像专题。',
     heroText: '这里更像归档页而不是传统图库。先浏览每个专题的题头与摘要，再决定进入哪一条观看线索。',
-    seriesTitle: '全部专题',
+    seriesTitle: '全部作品',
     seriesDescription: '宠物与玩具交替出现，构成这个站点最稳定的两条观察路径。',
-    archiveTitle: '全部专题',
+    archiveTitle: '全部作品',
     archiveSummary: '按系列整理的摄影归档，适合从摘要进入，再回到图像序列。',
     issue: '2026 春',
     byline: '栏目整理',

@@ -76,8 +76,7 @@ const createStyles = (compactLevel) => ({
   },
   introWrap: {
     display: 'grid',
-    gridTemplateColumns: 'minmax(0, 1fr) auto',
-    gap: '1.25rem',
+    gap: '0.8rem',
     alignItems: 'end',
     padding: '0 0 1.4rem',
     marginBottom: '1rem',
@@ -104,15 +103,6 @@ const createStyles = (compactLevel) => ({
     color: 'var(--text-secondary)',
     maxWidth: '38rem',
     lineHeight: 1.8,
-  },
-  utilityMeta: {
-    display: 'flex',
-    gap: '1rem',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    fontSize: '0.78rem',
-    color: 'var(--text-secondary)',
-    letterSpacing: '0.08em',
   },
   header: {
     display: 'grid',
@@ -256,16 +246,48 @@ const createStyles = (compactLevel) => ({
     lineHeight: 1.08,
     fontFamily: 'var(--font-heading)',
   },
-  sectionStatus: {
+  pagination: {
     display: 'flex',
-    justifyContent: 'space-between',
-    gap: '1rem',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '1.25rem',
-    color: 'var(--text-secondary)',
-    fontSize: '0.84rem',
-    paddingTop: '0.9rem',
+    flexWrap: 'wrap',
+    gap: '0.55rem',
+    marginTop: '1.4rem',
+    paddingTop: '1rem',
     borderTop: '1px solid var(--header-border)',
+  },
+  paginationButton: {
+    border: '1px solid var(--header-border)',
+    background: 'transparent',
+    color: 'var(--text-primary)',
+    borderRadius: '999px',
+    minWidth: '42px',
+    minHeight: '42px',
+    padding: '0.65rem 0.9rem',
+    cursor: 'pointer',
+    transition: 'background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease',
+  },
+  activePaginationButton: {
+    border: '1px solid var(--text-primary)',
+    background: 'var(--text-primary)',
+    color: 'var(--bg-color)',
+    borderRadius: '999px',
+    minWidth: '42px',
+    minHeight: '42px',
+    padding: '0.65rem 0.9rem',
+    cursor: 'pointer',
+    transition: 'background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease',
+  },
+  disabledPaginationButton: {
+    border: '1px solid var(--header-border)',
+    background: 'transparent',
+    color: 'var(--text-soft)',
+    borderRadius: '999px',
+    minWidth: '42px',
+    minHeight: '42px',
+    padding: '0.65rem 0.9rem',
+    cursor: 'not-allowed',
+    opacity: 0.56,
   },
   utilityButton: {
     border: '1px solid var(--header-border)',
@@ -436,18 +458,25 @@ const GalleryBrowser = ({
   const [filteredPhotos, setFilteredPhotos] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [filter, setFilter] = useState(lockedFilter || initialFilter);
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [viewMode, setViewMode] = useState('micro');
-  const sentinelRef = useRef(null);
   const initialSelectionConsumed = useRef(false);
 
-  const displayPhotos = useMemo(() => filteredPhotos.slice(0, page * PAGE_SIZE), [filteredPhotos, page]);
-  const arrangedPhotos = useMemo(() => assignLayoutVariants(displayPhotos, viewMode), [displayPhotos, viewMode]);
-  const hasMore = displayPhotos.length < filteredPhotos.length;
+  const totalPages = Math.max(1, Math.ceil(filteredPhotos.length / PAGE_SIZE));
+  const pageStart = (currentPage - 1) * PAGE_SIZE;
+  const pagePhotos = useMemo(
+    () => filteredPhotos.slice(pageStart, pageStart + PAGE_SIZE),
+    [filteredPhotos, pageStart]
+  );
+  const arrangedPhotos = useMemo(() => assignLayoutVariants(pagePhotos, viewMode), [pagePhotos, viewMode]);
   const compactLevel = viewMode === 'compact' ? 1 : viewMode === 'micro' ? 2 : 0;
   const styles = useMemo(() => createStyles(compactLevel), [compactLevel]);
+  const pageNumbers = useMemo(
+    () => Array.from({ length: totalPages }, (_, index) => index + 1),
+    [totalPages]
+  );
 
   const applyFilter = useCallback((nextFilter, sourcePhotos) => {
     const resolvedFilter = lockedFilter || nextFilter;
@@ -456,7 +485,7 @@ const GalleryBrowser = ({
 
     setFilter(resolvedFilter);
     setFilteredPhotos(scopedPhotos);
-    setPage(1);
+    setCurrentPage(1);
     setSelectedId(null);
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, [allPhotos, lockedFilter]);
@@ -489,49 +518,33 @@ const GalleryBrowser = ({
       return;
     }
 
-    const exists = filteredPhotos.some((photo) => photo.id === selectedIdFromState);
-    if (exists) {
+    const selectedIndex = filteredPhotos.findIndex((photo) => photo.id === selectedIdFromState);
+    if (selectedIndex !== -1) {
+      setCurrentPage(Math.floor(selectedIndex / PAGE_SIZE) + 1);
       setSelectedId(selectedIdFromState);
     }
     initialSelectionConsumed.current = true;
   }, [filteredPhotos, selectedIdFromState]);
 
   useEffect(() => {
-    const target = sentinelRef.current;
-    if (!target) return undefined;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting && hasMore && !loading) {
-          setPage((currentPage) => currentPage + 1);
-        }
-      },
-      {
-        rootMargin: '360px',
-        threshold: 0.1,
-      }
-    );
-
-    observer.observe(target);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [hasMore, loading]);
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   const handleNext = useCallback(() => {
-    if (selectedId === null || !filteredPhotos.length) return;
-    const currentIndex = filteredPhotos.findIndex((photo) => photo.id === selectedId);
-    const nextIndex = (currentIndex + 1) % filteredPhotos.length;
-    setSelectedId(filteredPhotos[nextIndex].id);
-  }, [filteredPhotos, selectedId]);
+    if (selectedId === null || !pagePhotos.length) return;
+    const currentIndex = pagePhotos.findIndex((photo) => photo.id === selectedId);
+    const nextIndex = (currentIndex + 1) % pagePhotos.length;
+    setSelectedId(pagePhotos[nextIndex].id);
+  }, [pagePhotos, selectedId]);
 
   const handlePrev = useCallback(() => {
-    if (selectedId === null || !filteredPhotos.length) return;
-    const currentIndex = filteredPhotos.findIndex((photo) => photo.id === selectedId);
-    const prevIndex = (currentIndex - 1 + filteredPhotos.length) % filteredPhotos.length;
-    setSelectedId(filteredPhotos[prevIndex].id);
-  }, [filteredPhotos, selectedId]);
+    if (selectedId === null || !pagePhotos.length) return;
+    const currentIndex = pagePhotos.findIndex((photo) => photo.id === selectedId);
+    const prevIndex = (currentIndex - 1 + pagePhotos.length) % pagePhotos.length;
+    setSelectedId(pagePhotos[prevIndex].id);
+  }, [pagePhotos, selectedId]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -550,9 +563,8 @@ const GalleryBrowser = ({
     : SERIES_ORDER.filter((category) => category === 'All' || allPhotos.some((photo) => photo.category === category));
   const activeSeries = getSeriesContent(filter);
   const viewModeMeta = getViewModeMeta(viewMode);
-  const selectedPhoto = filteredPhotos.find((photo) => photo.id === selectedId) || allPhotos.find((photo) => photo.id === selectedId);
-  const selectedPhotoIndex = selectedPhoto ? filteredPhotos.findIndex((photo) => photo.id === selectedPhoto.id) : -1;
-  const progressLabel = filteredPhotos.length ? `${displayPhotos.length} / ${filteredPhotos.length}` : '0 / 0';
+  const selectedPhoto = pagePhotos.find((photo) => photo.id === selectedId) || null;
+  const selectedPhotoIndex = selectedPhoto ? pagePhotos.findIndex((photo) => photo.id === selectedPhoto.id) : -1;
 
   const handleToggleView = useCallback(() => {
     setViewMode((currentMode) => {
@@ -561,18 +573,23 @@ const GalleryBrowser = ({
     });
   }, []);
 
+  const handlePageChange = useCallback((nextPage) => {
+    if (nextPage < 1 || nextPage > totalPages || nextPage === currentPage) {
+      return;
+    }
+
+    setCurrentPage(nextPage);
+    setSelectedId(null);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [currentPage, totalPages]);
+
   return (
     <div className={`gallery-page view-${viewMode}`} style={styles.page}>
       <section className="gallery-intro" style={styles.introWrap}>
         <div style={styles.introText}>
-          <span style={styles.introEyebrow}>{introEyebrow}</span>
+          {introEyebrow ? <span style={styles.introEyebrow}>{introEyebrow}</span> : null}
           <h1 style={styles.introTitle}>{introTitle}</h1>
           {introBody ? <p style={styles.introBody}>{introBody}</p> : null}
-        </div>
-
-        <div style={styles.utilityMeta}>
-          <span>{viewModeMeta.label}</span>
-          <span>已展开 {progressLabel}</span>
         </div>
       </section>
 
@@ -609,12 +626,40 @@ const GalleryBrowser = ({
       ) : (
         <>
           <MasonryGrid photos={arrangedPhotos} onPhotoClick={setSelectedId} styles={styles} />
-          <div ref={sentinelRef} style={{ height: '20px', width: '100%', pointerEvents: 'none' }} />
-
-          <div style={styles.sectionStatus}>
-            <span>{loading ? '正在整理图像…' : hasMore ? '继续下滑查看更多。' : '已经到达末尾。'}</span>
-            <span>{filteredPhotos.length ? `当前已展开 ${displayPhotos.length} 幅图像` : '暂无图像'}</span>
-          </div>
+          {totalPages > 1 ? (
+            <nav style={styles.pagination} aria-label="分页导航">
+              <button
+                type="button"
+                style={currentPage === 1 ? styles.disabledPaginationButton : styles.paginationButton}
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                aria-label="上一页"
+              >
+                上一页
+              </button>
+              {pageNumbers.map((pageNumber) => (
+                <button
+                  key={pageNumber}
+                  type="button"
+                  style={pageNumber === currentPage ? styles.activePaginationButton : styles.paginationButton}
+                  onClick={() => handlePageChange(pageNumber)}
+                  aria-current={pageNumber === currentPage ? 'page' : undefined}
+                  aria-label={`第 ${pageNumber} 页`}
+                >
+                  {pageNumber}
+                </button>
+              ))}
+              <button
+                type="button"
+                style={currentPage === totalPages ? styles.disabledPaginationButton : styles.paginationButton}
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                aria-label="下一页"
+              >
+                下一页
+              </button>
+            </nav>
+          ) : null}
         </>
       )}
 
@@ -623,7 +668,7 @@ const GalleryBrowser = ({
           <Lightbox
             photo={selectedPhoto}
             photoIndex={selectedPhotoIndex}
-            total={filteredPhotos.length}
+            total={pagePhotos.length}
             viewLabel={activeSeries.seriesTitle}
             onClose={() => setSelectedId(null)}
             onNext={handleNext}
