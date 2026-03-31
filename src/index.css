@@ -70,6 +70,11 @@
 
 html {
   background-color: var(--bg-color);
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 body {
@@ -114,6 +119,17 @@ button {
   font: inherit;
 }
 
+button,
+a,
+[role='button'] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.7);
+  outline-offset: 3px;
+}
+
 #root {
   min-height: 100vh;
 }
@@ -144,6 +160,16 @@ button {
 
 .gallery-card:hover > div,
 .gallery-card:hover::after {
+  opacity: 1;
+}
+
+.gallery-card-caption {
+  opacity: 0;
+}
+
+.gallery-cell:hover .gallery-card-caption,
+.gallery-cell:focus-visible .gallery-card-caption,
+.gallery-cell:focus-within .gallery-card-caption {
   opacity: 1;
 }
 
@@ -263,6 +289,16 @@ button {
   border-bottom-color: var(--text-primary) !important;
 }
 
+.gallery-hero {
+  position: relative;
+}
+
+.gallery-page .header button:hover,
+.gallery-page .header button:focus-visible,
+.gallery-cell:focus-visible {
+  transform: translateY(-1px);
+}
+
 .fade-in {
   animation: fadeIn 0.8s ease-out forwards;
   opacity: 0;
@@ -274,6 +310,14 @@ button {
 }
 
 @media (max-width: 1180px) {
+  .gallery-hero {
+    grid-template-columns: 1fr !important;
+  }
+
+  .about-panel {
+    grid-template-columns: 1fr !important;
+  }
+
   .gallery-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -294,6 +338,11 @@ button {
 @media (max-width: 768px) {
   .gallery-page.container {
     padding: 0 0.92rem 1.2rem 0.92rem !important;
+  }
+
+  .gallery-hero {
+    gap: 1rem !important;
+    padding-top: 0.7rem !important;
   }
 
   .gallery-page .header {
@@ -389,8 +438,12 @@ button {
   }
 
   .about-image-wrapper {
-    height: 50vh !important;
+    min-height: 44vh !important;
     border-radius: 14px !important;
+  }
+
+  .about-panel {
+    gap: 1rem !important;
   }
 
   .lightbox-content {
@@ -441,6 +494,11 @@ button {
     gap: 0.35rem !important;
   }
 
+  .container > .gallery-hero h1,
+  .container > .gallery-hero h2 {
+    font-size: clamp(2rem, 10vw, 3.2rem) !important;
+  }
+
   .nav-btn {
     width: 42px !important;
     height: 42px !important;
@@ -468,5 +526,20 @@ button {
     color: white !important;
     width: 42px !important;
     height: 42px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .gallery-card:hover img {
+    transform: none;
   }
 }

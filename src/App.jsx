@@ -21,7 +21,7 @@ function AnimatedRoutes({ theme, onToggleTheme }) {
 function App() {
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') || 'light';
+      return document.documentElement.dataset.theme || localStorage.getItem('theme') || 'light';
     }
     return 'light';
   });

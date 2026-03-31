@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './Header';
+import { SITE_TITLE } from '../data/siteContent';
 
 const Layout = ({ children }) => {
     return (
@@ -10,7 +11,7 @@ const Layout = ({ children }) => {
             </main>
             <footer style={styles.footer}>
                 <div className="container">
-                    <p style={styles.copyright}>© 2025 Minimalist Lens. All rights reserved.</p>
+                    <p style={styles.copyright}>© 2026 {SITE_TITLE}. 个人作品集。</p>
                 </div>
             </footer>
         </>

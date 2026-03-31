@@ -1,117 +1,101 @@
 import React from 'react';
 import { motion as Motion } from 'framer-motion';
+import { getVisibleExif } from '../../data/siteContent';
 
-const ExifItem = ({ value }) => {
-    if (!value || value.toString().startsWith('Unknown')) return null;
-    return (
-        <span style={styles.exifValue}>{value}</span>
-    );
-};
+const Lightbox = ({ photo, photoIndex, total, viewLabel, onClose, onNext, onPrev, styles }) => {
+  if (!photo) return null;
 
-const Lightbox = ({ photo, onClose, onNext, onPrev, styles }) => {
-    if (!photo) return null;
+  const exifItems = getVisibleExif(photo.exif);
+  const positionLabel = total > 0 ? `第 ${photoIndex + 1} 张 / 共 ${total} 张` : '';
 
-    return (
-        <Motion.div
-            style={styles.lightbox}
-            onClick={onClose}
+  return (
+    <Motion.div
+      style={styles.lightbox}
+      onClick={onClose}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.18 }}
+    >
+      <Motion.div
+        className="lightbox-content"
+        style={styles.lightboxContent}
+        onClick={(event) => event.stopPropagation()}
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 8, opacity: 0 }}
+        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="viewer-stage" style={styles.viewerStage}>
+          <div className="viewer-image-shell" style={styles.imageShell}>
+            <img
+              src={photo.src}
+              alt={photo.displayTitle}
+              className="lightbox-image"
+              width={photo.width}
+              height={photo.height}
+              style={styles.lightboxImage}
+              loading="eager"
+              decoding="sync"
+            />
+          </div>
+
+          <Motion.aside
+            className="metadata-panel"
+            style={styles.metadata}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={{ y: 0, opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-        >
-            <Motion.div
-                className="lightbox-content"
-                style={styles.lightboxContent}
-                onClick={(e) => e.stopPropagation()}
-                initial={{ y: 10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 8, opacity: 0 }}
-                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            >
-                <div className="viewer-stage" style={styles.viewerStage}>
-                    <div
-                        className="viewer-image-shell"
-                        style={styles.imageShell}
-                    >
-                        <img
-                            src={photo.large || photo.src}
-                            alt={photo.title}
-                            className="lightbox-image"
-                            width={photo.width}
-                            height={photo.height}
-                            style={styles.lightboxImage}
-                            loading="eager"
-                            decoding="sync"
-                        />
-                    </div>
+            transition={{ delay: 0.03, duration: 0.18 }}
+          >
+            <div style={styles.metadataHeader}>
+              <span style={styles.metadataEyebrow}>{viewLabel}</span>
+              <h2 style={styles.metadataTitle} className="metadata-title">{photo.displayTitle}</h2>
+            </div>
 
-                    <Motion.aside
-                        className="metadata-panel"
-                        style={styles.metadata}
-                        initial={{ opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ delay: 0.03, duration: 0.18 }}
-                    >
-                        <div style={styles.metadataHeader}>
-                            <span style={styles.metadataEyebrow}>Selected Work</span>
-                            <h2 style={styles.metadataTitle} className="metadata-title">{photo.title}</h2>
-                        </div>
+            <div style={styles.metadataMeta} className="metadata-meta">
+              {photo.category && <span style={styles.metaBadge}>{photo.category}</span>}
+              {photo.featured && <span style={styles.metaBadge}>精选</span>}
+              {positionLabel && <span style={styles.metaMuted}>{positionLabel}</span>}
+            </div>
 
-                        <div style={styles.metadataMeta}>
-                            {photo.category && <span style={styles.metaBadge}>{photo.category}</span>}
-                            {photo.width && photo.height && <span style={styles.metaMuted}>{photo.width} × {photo.height}</span>}
-                        </div>
+            <p style={styles.metaParagraph}>{photo.seriesDescription}</p>
 
-                        {photo.exif && (
-                            <div style={styles.exifGrid} className="exif-grid">
-                                <ExifItem value={photo.exif.camera} />
-                                <ExifItem value={photo.exif.lens} />
-                                <ExifItem value={photo.exif.iso ? `ISO ${photo.exif.iso}` : ''} />
-                                <ExifItem value={photo.exif.aperture} />
-                                <ExifItem value={photo.exif.shutter ? `${photo.exif.shutter}s` : ''} />
-                            </div>
-                        )}
-                    </Motion.aside>
-                </div>
+            {photo.width && photo.height ? (
+              <p style={styles.metaParagraph}>画面尺寸 {photo.width} × {photo.height}，适合在安静浏览里停留片刻。</p>
+            ) : null}
 
-                <button className="nav-btn nav-left" style={{ ...styles.navBtn, left: '18px' }} onClick={(e) => { e.stopPropagation(); onPrev(); }}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
-                </button>
-                <button className="nav-btn nav-right" style={{ ...styles.navBtn, right: '18px' }} onClick={(e) => { e.stopPropagation(); onNext(); }}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
-                </button>
-                <button className="close-btn" style={styles.closeBtn} onClick={onClose}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </button>
-            </Motion.div>
-        </Motion.div>
-    );
-};
+            {exifItems.length ? (
+              <div style={styles.exifGrid} className="exif-grid">
+                {exifItems.map((item) => (
+                  <span key={item} style={styles.exifValue}>{item}</span>
+                ))}
+              </div>
+            ) : (
+              <p style={styles.metaMuted}>这张作品没有可用的拍摄信息，保留为纯观看模式。</p>
+            )}
+          </Motion.aside>
+        </div>
 
-const styles = {
-    // Re-using styles from Home.jsx, but they will be passed as props or imported.
-    // For now we assume they are passed or basic inline styles for specific parts.
-    // Ideally we should move styles to a separate file or CSS module.
-    exifValue: {
-        color: 'var(--text-secondary)',
-        fontWeight: '400',
-    },
-    metaBadge: {
-        display: 'inline-flex',
-        alignItems: 'center',
-        padding: '0.35rem 0.7rem',
-        borderRadius: '999px',
-        background: 'var(--btn-bg)',
-        color: 'var(--text-primary)',
-        fontSize: '0.78rem',
-    },
-    metaMuted: {
-        color: 'var(--text-secondary)',
-        fontSize: '0.78rem',
-    },
-    // ... other internal lightbox styles if not passed via props (we will pass them for now to minimize refactor risk)
+        <button type="button" className="nav-btn nav-left" style={{ ...styles.navBtn, left: '18px' }} onClick={(event) => { event.stopPropagation(); onPrev(); }} aria-label="上一张">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <button type="button" className="nav-btn nav-right" style={{ ...styles.navBtn, right: '18px' }} onClick={(event) => { event.stopPropagation(); onNext(); }} aria-label="下一张">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+        <button type="button" className="close-btn" style={styles.closeBtn} onClick={onClose} aria-label="关闭查看">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </Motion.div>
+    </Motion.div>
+  );
 };
 
 export default Lightbox;

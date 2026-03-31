@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8" />
@@ -10,39 +10,45 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
     rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Minimalist Lens | Photography Portfolio</title>
+  <meta name="theme-color" content="#f7f7f4" />
+  <title>Minimalist Lens | 克制的个人作品集</title>
   <meta name="description"
-    content="A curated photography portfolio designed with a focus on minimalism, fine typography, and immersive viewing experiences." />
+    content="Minimalist Lens 是一个围绕 Pets 与 Toys 两组作品展开的克制型个人图像作品集。" />
 
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
   <meta property="og:url" content="https://mraz2766.github.io/" />
-  <meta property="og:title" content="Minimalist Lens | Photography Portfolio" />
+  <meta property="og:title" content="Minimalist Lens | 克制的个人作品集" />
   <meta property="og:description"
-    content="A curated photography portfolio designed with a focus on minimalism, fine typography, and immersive viewing experiences." />
-  <meta property="og:image" content="https://mraz2766.github.io/og-image.jpg" />
+    content="关于陪伴、收藏与日常观看的个人图像整理，先看精选，再进入完整系列。" />
 
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://mraz2766.github.io/" />
-  <meta property="twitter:title" content="Minimalist Lens | Photography Portfolio" />
+  <meta property="twitter:title" content="Minimalist Lens | 克制的个人作品集" />
   <meta property="twitter:description"
-    content="A curated photography portfolio designed with a focus on minimalism, fine typography, and immersive viewing experiences." />
-  <meta property="twitter:image" content="https://mraz2766.github.io/og-image.jpg" />
+    content="关于陪伴、收藏与日常观看的个人图像整理，先看精选，再进入完整系列。" />
 
-  <!-- SPA Redirect Handling -->
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.dataset.theme = theme;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    }());
+  </script>
+
   <script type="text/javascript">
-    // Parallel to 404.html, this script checks if there is a redirect from 404.html
     (function (l) {
       if (l.search[1] === '/') {
         var decoded = l.search.slice(1).split('&').map(function (s) {
           return s.replace(/~and~/g, '&')
         }).join('?');
         window.history.replaceState(null, null,
-          l.pathname.slice(0, -1) + decoded + l.hash
-        );
+          l.pathname.slice(0, -1) + decoded + l.hash);
       }
-    }(window.location))
+    }(window.location));
   </script>
 </head>
 
