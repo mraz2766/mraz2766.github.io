@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
     return (
         <>
             <Header />
-            <main className="container" style={{ paddingBottom: '4rem' }}>
+            <main className="site-shell">
                 {children}
             </main>
             <footer style={styles.footer}>
@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
 
 const styles = {
     footer: {
-        padding: '2rem 0',
+        padding: '2.4rem 0 3rem',
         textAlign: 'center',
         borderTop: '1px solid var(--footer-border)',
         color: 'var(--text-secondary)',

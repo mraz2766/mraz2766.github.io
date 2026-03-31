@@ -35,7 +35,7 @@ const FilterBar = ({
               aria-pressed={currentFilter === category}
               title={categoryContent.seriesDescription}
             >
-              {categoryContent.label}
+              <span>{categoryContent.label}</span>
             </button>
           );
         })}
@@ -77,6 +77,7 @@ const FilterBar = ({
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           )}
+          <span style={styles.iconBtnText}>{theme === 'light' ? '浅色' : '深色'}</span>
         </button>
       </div>
     </header>

@@ -111,6 +111,7 @@ const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
                   <span style={styles.captionEyebrow}>{photo.category}</span>
                   <span style={styles.captionTitle}>{photo.displayTitle}</span>
                 </div>
+                {photo.featured ? <span className="gallery-card-mark">Selected</span> : null}
               </div>
             </Motion.button>
           );

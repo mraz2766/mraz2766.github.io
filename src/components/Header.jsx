@@ -8,7 +8,7 @@ const Header = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header style={styles.header}>
+    <header className="site-header" style={styles.header}>
       <div className="container" style={styles.container}>
         <Link to="/" style={styles.logo} aria-label="首页">
           <span style={styles.logoMark}>
@@ -41,13 +41,13 @@ const Header = () => {
 
 const styles = {
   header: {
-    padding: '1.25rem 0',
+    padding: '1.1rem 0',
     position: 'sticky',
     top: 0,
-    backgroundColor: 'var(--header-bg)',
-    backdropFilter: 'blur(18px)',
-    WebkitBackdropFilter: 'blur(18px)',
-    borderBottom: '1px solid var(--header-border)',
+    backgroundColor: 'rgba(250, 248, 243, 0.66)',
+    backdropFilter: 'blur(16px)',
+    WebkitBackdropFilter: 'blur(16px)',
+    borderBottom: '1px solid rgba(15, 23, 42, 0.06)',
     zIndex: 300,
     transition: 'background-color 0.3s ease, border-color 0.3s ease',
   },
@@ -58,9 +58,9 @@ const styles = {
   },
   logo: {
     fontFamily: 'var(--font-heading)',
-    fontSize: '1.2rem',
+    fontSize: '1.08rem',
     fontWeight: 600,
-    letterSpacing: '-0.02em',
+    letterSpacing: '-0.03em',
     color: 'var(--text-primary)',
     textDecoration: 'none',
     display: 'flex',
@@ -77,13 +77,13 @@ const styles = {
   },
   nav: {
     display: 'flex',
-    gap: '2rem',
+    gap: '1.6rem',
   },
   link: {
     fontFamily: 'var(--font-body)',
-    fontSize: '0.9rem',
+    fontSize: '0.84rem',
     textTransform: 'uppercase',
-    letterSpacing: '0.1em',
+    letterSpacing: '0.18em',
     color: 'var(--text-primary)',
     textDecoration: 'none',
     transition: 'opacity 0.2s ease, color 0.2s ease',
