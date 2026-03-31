@@ -585,13 +585,15 @@ const GalleryBrowser = ({
 
   return (
     <div className={`gallery-page view-${viewMode}`} style={styles.page}>
-      <section className="gallery-intro" style={styles.introWrap}>
-        <div style={styles.introText}>
-          {introEyebrow ? <span style={styles.introEyebrow}>{introEyebrow}</span> : null}
-          <h1 style={styles.introTitle}>{introTitle}</h1>
-          {introBody ? <p style={styles.introBody}>{introBody}</p> : null}
-        </div>
-      </section>
+      {introEyebrow || introTitle || introBody ? (
+        <section className="gallery-intro" style={styles.introWrap}>
+          <div style={styles.introText}>
+            {introEyebrow ? <span style={styles.introEyebrow}>{introEyebrow}</span> : null}
+            {introTitle ? <h1 style={styles.introTitle}>{introTitle}</h1> : null}
+            {introBody ? <p style={styles.introBody}>{introBody}</p> : null}
+          </div>
+        </section>
+      ) : null}
 
       <FilterBar
         categories={categories}

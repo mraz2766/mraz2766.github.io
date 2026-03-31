@@ -30,8 +30,8 @@ const SeriesPage = ({ theme, onToggleTheme }) => {
       <GalleryBrowser
         theme={theme}
         onToggleTheme={onToggleTheme}
-        introEyebrow={series.seriesTitle}
-        introTitle={series.seriesTitle}
+        introEyebrow=""
+        introTitle=""
         introBody=""
         initialFilter={seriesKey}
         lockedFilter={seriesKey}
