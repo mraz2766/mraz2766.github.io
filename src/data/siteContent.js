@@ -1,6 +1,8 @@
 export const SITE_TITLE = 'Minimalist Lens';
 export const SITE_TAGLINE = '一组围绕陪伴、收藏与日常注视展开的个人图像练习。';
 export const SITE_DESCRIPTION = 'Minimalist Lens 是一个克制的个人作品集，收录 Pets 与 Toys 两组持续更新的图像观察。';
+export const HOME_HERO_TITLE = '让首页只负责留下第一眼，让作品在更安静的页面里展开。';
+export const HOME_HERO_TEXT = 'Minimalist Lens 现在拆成更清晰的多页面结构：首页负责气质与入口，完整作品浏览被移到更专注的作品页。';
 
 export const VIEW_MODES = [
   { key: 'default', label: '精选', hint: '更有呼吸感的编排' },
@@ -9,6 +11,10 @@ export const VIEW_MODES = [
 ];
 
 export const SERIES_ORDER = ['All', 'Pets', 'Toys'];
+export const SERIES_SLUGS = {
+  pets: 'Pets',
+  toys: 'Toys',
+};
 
 export const SERIES_CONTENT = {
   All: {
@@ -69,6 +75,12 @@ export function getPhotoSlug(photo) {
 
 export function getSeriesContent(category) {
   return SERIES_CONTENT[category] || SERIES_CONTENT.All;
+}
+
+export function getSeriesBySlug(slug, asContent = false) {
+  const key = SERIES_SLUGS[String(slug || '').toLowerCase()];
+  if (!key) return null;
+  return asContent ? getSeriesContent(key) : key;
 }
 
 export function getViewModeMeta(viewMode) {

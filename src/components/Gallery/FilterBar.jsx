@@ -13,6 +13,7 @@ const FilterBar = ({
   photoCount,
   seriesContent,
   styles,
+  showFilterNav = true,
 }) => {
   return (
     <header className="header" style={styles.header}>
@@ -22,24 +23,28 @@ const FilterBar = ({
         <p style={styles.metaDescription}>{seriesContent.seriesDescription}</p>
       </div>
 
-      <nav className="nav-scroll" style={styles.nav} aria-label="作品系列">
-        {categories.map((category) => {
-          const categoryContent = getSeriesContent(category);
-          return (
-            <button
-              key={category}
-              type="button"
-              onClick={() => onFilterChange(category)}
-              style={currentFilter === category ? styles.activeFilterButton : styles.filterButton}
-              className="filter-btn"
-              aria-pressed={currentFilter === category}
-              title={categoryContent.seriesDescription}
-            >
-              <span>{categoryContent.label}</span>
-            </button>
-          );
-        })}
-      </nav>
+      {showFilterNav ? (
+        <nav className="nav-scroll" style={styles.nav} aria-label="作品系列">
+          {categories.map((category) => {
+            const categoryContent = getSeriesContent(category);
+            return (
+              <button
+                key={category}
+                type="button"
+                onClick={() => onFilterChange(category)}
+                style={currentFilter === category ? styles.activeFilterButton : styles.filterButton}
+                className="filter-btn"
+                aria-pressed={currentFilter === category}
+                title={categoryContent.seriesDescription}
+              >
+                <span>{categoryContent.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+      ) : (
+        <div />
+      )}
 
       <div style={styles.actions}>
         <button type="button" onClick={onToggleView} style={styles.iconBtn} aria-label={`切换视图，当前为${viewModeMeta.label}`}>

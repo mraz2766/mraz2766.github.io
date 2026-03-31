@@ -5,7 +5,12 @@ import { SITE_TITLE } from '../data/siteContent';
 const Header = () => {
   const location = useLocation();
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => {
+    if (path === '/works') {
+      return location.pathname.startsWith('/works');
+    }
+    return location.pathname === path;
+  };
 
   return (
     <header className="site-header" style={styles.header}>
@@ -24,6 +29,12 @@ const Header = () => {
           <Link
             to="/"
             style={{ ...styles.link, opacity: isActive('/') ? 1 : 0.5 }}
+          >
+            首页
+          </Link>
+          <Link
+            to="/works"
+            style={{ ...styles.link, opacity: isActive('/works') ? 1 : 0.5 }}
           >
             作品
           </Link>

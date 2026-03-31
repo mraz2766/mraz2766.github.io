@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence } from 'framer-motion';
 import Layout from './components/Layout';
 import Home from './pages/Home';
+import Works from './pages/Works';
+import SeriesPage from './pages/SeriesPage';
 import About from './pages/About';
 
 function AnimatedRoutes({ theme, onToggleTheme }) {
@@ -12,6 +14,8 @@ function AnimatedRoutes({ theme, onToggleTheme }) {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home theme={theme} onToggleTheme={onToggleTheme} />} />
+        <Route path="/works" element={<Works theme={theme} onToggleTheme={onToggleTheme} />} />
+        <Route path="/works/:slug" element={<SeriesPage theme={theme} onToggleTheme={onToggleTheme} />} />
         <Route path="/about" element={<About />} />
       </Routes>
     </AnimatePresence>
