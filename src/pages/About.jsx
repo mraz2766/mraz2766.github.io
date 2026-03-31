@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion as Motion, useReducedMotion } from 'framer-motion';
 import { SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../data/siteContent';
 import { loadPhotos } from '../lib/gallery';
 
 const About = () => {
   const reduceMotion = useReducedMotion();
-  const [photos, setPhotos] = useState([]);
+  const [heroPhoto, setHeroPhoto] = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -14,7 +14,17 @@ const About = () => {
     loadPhotos()
       .then((data) => {
         if (!active) return;
-        setPhotos(data);
+
+        const featured = data.filter((photo) => photo.featured);
+        const pool = featured.length ? featured : data;
+
+        if (!pool.length) {
+          setHeroPhoto(null);
+          return;
+        }
+
+        const randomIndex = Math.floor(Math.random() * pool.length);
+        setHeroPhoto(pool[randomIndex]);
       })
       .catch((loadError) => {
         if (!active) return;
@@ -25,13 +35,6 @@ const About = () => {
       active = false;
     };
   }, []);
-
-  const heroPhoto = useMemo(() => {
-    const featured = photos.filter((photo) => photo.featured);
-    const pool = featured.length ? featured : photos;
-    if (!pool.length) return null;
-    return pool[Math.floor(pool.length / 2)];
-  }, [photos]);
 
   return (
     <div className="about-page">
