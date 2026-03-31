@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion as Motion } from 'framer-motion';
-import { getVisibleExif } from '../../data/siteContent';
+import { getCategoryLabel, getVisibleExif } from '../../data/siteContent';
 
 const Lightbox = ({ photo, photoIndex, total, viewLabel, onClose, onNext, onPrev, styles }) => {
   if (!photo) return null;
@@ -54,7 +54,7 @@ const Lightbox = ({ photo, photoIndex, total, viewLabel, onClose, onNext, onPrev
             </div>
 
             <div style={styles.metadataMeta} className="metadata-meta">
-              {photo.category && <span style={styles.metaBadge}>{photo.category}</span>}
+              {photo.category && <span style={styles.metaBadge}>{getCategoryLabel(photo.category)}</span>}
               {photo.featured && <span style={styles.metaBadge}>精选</span>}
               {positionLabel && <span style={styles.metaMuted}>{positionLabel}</span>}
             </div>
@@ -62,7 +62,7 @@ const Lightbox = ({ photo, photoIndex, total, viewLabel, onClose, onNext, onPrev
             <p style={styles.metaParagraph}>{photo.seriesDescription}</p>
 
             {photo.width && photo.height ? (
-              <p style={styles.metaParagraph}>画面尺寸 {photo.width} × {photo.height}，适合在安静浏览里停留片刻。</p>
+              <p style={styles.metaParagraph}>画面尺寸为 {photo.width} × {photo.height}，更适合在完整专题中停留观看。</p>
             ) : null}
 
             {exifItems.length ? (
@@ -72,7 +72,7 @@ const Lightbox = ({ photo, photoIndex, total, viewLabel, onClose, onNext, onPrev
                 ))}
               </div>
             ) : (
-              <p style={styles.metaMuted}>这张作品没有可用的拍摄信息，保留为纯观看模式。</p>
+              <p style={styles.metaMuted}>这张图像没有可用的拍摄信息，保留为纯观看模式。</p>
             )}
           </Motion.aside>
         </div>

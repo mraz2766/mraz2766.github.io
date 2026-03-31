@@ -36,7 +36,7 @@ const Header = () => {
             to="/works"
             style={{ ...styles.link, opacity: isActive('/works') ? 1 : 0.5 }}
           >
-            作品
+            专题
           </Link>
           <Link
             to="/about"
@@ -93,7 +93,6 @@ const styles = {
   link: {
     fontFamily: 'var(--font-body)',
     fontSize: '0.84rem',
-    textTransform: 'uppercase',
     letterSpacing: '0.18em',
     color: 'var(--text-primary)',
     textDecoration: 'none',

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion as Motion, useReducedMotion } from 'framer-motion';
-import { SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../data/siteContent';
+import { ABOUT_BODY, ABOUT_TITLE, getCategoryLabel, SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../data/siteContent';
 import { loadPhotos } from '../lib/gallery';
 
 const About = () => {
@@ -45,15 +45,15 @@ const About = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="about-eyebrow">About</span>
+          <span className="about-eyebrow">作者自述</span>
           <span className="about-brand">{SITE_TITLE}</span>
-          <h1 className="about-title">把值得反复回看的日常，整理成一组有节奏、有留白的个人图像。</h1>
+          <h1 className="about-title">{ABOUT_TITLE}</h1>
           <p className="about-body">{SITE_TAGLINE}</p>
           <p className="about-body">{SITE_DESCRIPTION}</p>
-          <p className="about-body">Pets 更接近陪伴关系里的轻微情绪，Toys 更像对收藏与陈列秩序的持续观察。两组作品共同构成这个站点的观看节奏。</p>
+          <p className="about-body">{ABOUT_BODY}</p>
 
           <div className="about-contact">
-            <span className="about-contact-label">Contact</span>
+            <span className="about-contact-label">联系方式</span>
             <a href="mailto:huangl2766@gmail.com" className="about-email">
               huangl2766@gmail.com
             </a>
@@ -83,7 +83,7 @@ const About = () => {
 
           {heroPhoto ? (
             <div className="about-image-note">
-              <span>{heroPhoto.category}</span>
+              <span>{getCategoryLabel(heroPhoto.category)}</span>
               <span>{heroPhoto.displayTitle}</span>
             </div>
           ) : null}

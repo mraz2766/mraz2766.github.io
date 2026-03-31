@@ -19,7 +19,7 @@ const FilterBar = ({
     <header className="header" style={styles.header}>
       <div style={styles.metaBlock}>
         <span style={styles.metaEyebrow}>{seriesContent.seriesTitle}</span>
-        <span style={styles.metaText}>{photoCount} 张作品</span>
+        <span style={styles.metaText}>{photoCount} 幅图像</span>
         <p style={styles.metaDescription}>{seriesContent.seriesDescription}</p>
       </div>
 
@@ -47,7 +47,7 @@ const FilterBar = ({
       )}
 
       <div style={styles.actions}>
-        <button type="button" onClick={onToggleView} style={styles.iconBtn} aria-label={`切换视图，当前为${viewModeMeta.label}`}>
+        <button type="button" onClick={onToggleView} style={styles.iconBtn} aria-label={`切换浏览密度，当前为${viewModeMeta.label}`}>
           {viewMode === 'micro' ? (
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4 4h4v4H4zM10 4h4v4h-4zM16 4h4v4h-4zM4 10h4v4H4zM10 10h4v4h-4zM16 10h4v4h-4zM4 16h4v4H4zM10 16h4v4h-4zM16 16h4v4h-4z" />

@@ -1,13 +1,19 @@
 export const SITE_TITLE = 'Minimalist Lens';
-export const SITE_TAGLINE = '一组围绕陪伴、收藏与日常注视展开的个人图像练习。';
-export const SITE_DESCRIPTION = 'Minimalist Lens 是一个克制的个人作品集，收录 Pets 与 Toys 两组持续更新的图像观察。';
-export const HOME_HERO_TITLE = '让首页只负责留下第一眼，让作品在更安静的页面里展开。';
-export const HOME_HERO_TEXT = 'Minimalist Lens 现在拆成更清晰的多页面结构：首页负责气质与入口，完整作品浏览被移到更专注的作品页。';
+export const SITE_TAGLINE = '摄影栏目';
+export const SITE_DESCRIPTION = 'Minimalist Lens 以中文摄影博客的方式整理宠物与玩具两组长期图像观察，让观看更像阅读一篇缓慢展开的专题。';
+export const HOME_HERO_TITLE = '把陪伴与收藏，写成两篇可以反复翻看的摄影专题。';
+export const HOME_HERO_TEXT = '这里不再是单纯的作品瀑布流，而是一份按系列整理的摄影栏目。先读题头，再进入图像本身。';
+export const HOME_SECTION_TITLE = '最新专题';
+export const HOME_SECTION_BODY = '两个系列构成目前的全部栏目：一个更靠近生活关系，一个更靠近物件陈列。';
+export const WORKS_ARCHIVE_TITLE = '专题归档';
+export const WORKS_ARCHIVE_BODY = '所有内容都按系列归档。你可以先浏览摘要，再进入完整专题与图像序列。';
+export const ABOUT_TITLE = '关于这个站点';
+export const ABOUT_BODY = '我习惯把日常里值得回看的瞬间整理成专题，而不是简单存成相册。宠物与玩具是目前最稳定的两条线索：前者记录关系与情绪，后者记录陈列、表面与收藏的秩序。';
 
 export const VIEW_MODES = [
-  { key: 'default', label: '精选', hint: '更有呼吸感的编排' },
-  { key: 'compact', label: '标准', hint: '保持节奏与密度平衡' },
-  { key: 'micro', label: '速览', hint: '快速扫览全部作品' },
+  { key: 'default', label: '标准', hint: '保留更舒展的阅读节奏' },
+  { key: 'compact', label: '稠密', hint: '提高每屏可见的画面数量' },
+  { key: 'micro', label: '归档', hint: '快速查看完整图像目录' },
 ];
 
 export const SERIES_ORDER = ['All', 'Pets', 'Toys'];
@@ -19,27 +25,41 @@ export const SERIES_SLUGS = {
 export const SERIES_CONTENT = {
   All: {
     label: '全部',
-    eyebrow: 'Curated Selection',
-    heroTitle: '从陪伴与收藏里，整理出日常观看的秩序。',
-    heroText: '这里不是按时间堆叠的相册，而是一组经过重新排序的个人图像。先看精选，再进入完整系列。',
-    seriesTitle: '本期选集',
-    seriesDescription: 'Pets 与 Toys 交替出现，构成这个站点最稳定的两条观看线索。',
+    eyebrow: '专题归档',
+    heroTitle: '从陪伴与收藏出发，整理两组持续更新的图像专题。',
+    heroText: '这里更像归档页而不是传统图库。先浏览每个专题的题头与摘要，再决定进入哪一条观看线索。',
+    seriesTitle: '全部专题',
+    seriesDescription: '宠物与玩具交替出现，构成这个站点最稳定的两条观察路径。',
+    archiveTitle: '全部专题',
+    archiveSummary: '按系列整理的摄影归档，适合从摘要进入，再回到图像序列。',
+    issue: '2026 春',
+    byline: '栏目整理',
   },
   Pets: {
     label: '宠物',
-    eyebrow: 'Series / 宠物',
-    heroTitle: '在亲密关系里捕捉情绪最轻的瞬间。',
-    heroText: '更靠近生活现场，保留临场感、停顿感和被陪伴包围时的温度。',
-    seriesTitle: '宠物系列',
+    eyebrow: '专题一',
+    heroTitle: '宠物：在陪伴关系里，捕捉那些轻微却反复出现的情绪。',
+    heroText: '这一组更靠近生活现场，画面里常常有停顿、有注视，也有亲密关系里最轻的波动。',
+    seriesTitle: '宠物专题',
     seriesDescription: '关于陪伴、栖居与目光停留的记录，画面更柔软，也更接近日常。',
+    archiveTitle: '宠物：亲密关系里的轻声注视',
+    archiveSummary: '从卧室、沙发、窗边到临时停留的角落，这个系列记录陪伴关系中最不需要解释的部分。',
+    issue: '专题一',
+    byline: '日常观察',
+    readLabel: '继续阅读宠物专题',
   },
   Toys: {
     label: '玩具',
-    eyebrow: 'Series / 玩具',
-    heroTitle: '把收藏陈列成一组带有秩序感的静物肖像。',
-    heroText: '更强调材质、比例和摆放关系，让物件本身在安静背景中建立自己的气质。',
-    seriesTitle: '玩具系列',
+    eyebrow: '专题二',
+    heroTitle: '玩具：把收藏与陈列，整理成一组有秩序的静物肖像。',
+    heroText: '这一组更强调材质、比例和摆放关系，让物件本身在安静背景中慢慢建立自己的气质。',
+    seriesTitle: '玩具专题',
     seriesDescription: '关于收藏、表面细节与陈列关系的观察，画面更克制，也更有结构。',
+    archiveTitle: '玩具：收藏如何在桌面上形成自己的秩序',
+    archiveSummary: '从单体肖像到成组陈列，这个系列记录物件如何通过摆放、质感与比例获得新的表情。',
+    issue: '专题二',
+    byline: '静物整理',
+    readLabel: '继续阅读玩具专题',
   },
 };
 
@@ -85,6 +105,10 @@ export function getSeriesBySlug(slug, asContent = false) {
 
 export function getViewModeMeta(viewMode) {
   return VIEW_MODES.find((mode) => mode.key === viewMode) || VIEW_MODES[0];
+}
+
+export function getCategoryLabel(category) {
+  return getSeriesContent(category).label || category;
 }
 
 export function formatDisplayTitle(photo) {

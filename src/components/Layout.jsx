@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
             </main>
             <footer style={styles.footer}>
                 <div className="container">
-                    <p style={styles.copyright}>© 2026 {SITE_TITLE}. 个人作品集。</p>
+                    <p style={styles.copyright}>© 2026 {SITE_TITLE} · 中文摄影栏目。</p>
                 </div>
             </footer>
         </>

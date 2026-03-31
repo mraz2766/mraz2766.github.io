@@ -1,5 +1,6 @@
 import React from 'react';
 import { AnimatePresence, motion as Motion } from 'framer-motion';
+import { getCategoryLabel } from '../../data/siteContent';
 
 const getVariantStyle = (photo) => {
   switch (photo.layoutVariant) {
@@ -108,10 +109,10 @@ const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
                 />
                 <div style={styles.overlay} />
                 <div className="gallery-card-caption" style={styles.caption}>
-                  <span style={styles.captionEyebrow}>{photo.category}</span>
+                  <span style={styles.captionEyebrow}>{getCategoryLabel(photo.category)}</span>
                   <span style={styles.captionTitle}>{photo.displayTitle}</span>
                 </div>
-                {photo.featured ? <span className="gallery-card-mark">Selected</span> : null}
+                {photo.featured ? <span className="gallery-card-mark">精选</span> : null}
               </div>
             </Motion.button>
           );

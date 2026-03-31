@@ -70,16 +70,18 @@ const getScopedPhotos = (photos, category) => {
 
 const createStyles = (compactLevel) => ({
   page: {
-    maxWidth: '1200px',
+    maxWidth: '1160px',
     margin: '0 auto',
-    padding: '1.5rem 1rem 3rem',
+    padding: '0 1rem 3.5rem',
   },
   introWrap: {
     display: 'grid',
     gridTemplateColumns: 'minmax(0, 1fr) auto',
-    gap: '1.5rem',
+    gap: '1.25rem',
     alignItems: 'end',
-    padding: '0.4rem 0 1.2rem',
+    padding: '0 0 1.4rem',
+    marginBottom: '1rem',
+    borderBottom: '1px solid var(--header-border)',
   },
   introText: {
     display: 'grid',
@@ -100,23 +102,25 @@ const createStyles = (compactLevel) => ({
   introBody: {
     fontSize: '0.95rem',
     color: 'var(--text-secondary)',
-    maxWidth: '34rem',
+    maxWidth: '38rem',
+    lineHeight: 1.8,
   },
   utilityMeta: {
     display: 'flex',
     gap: '1rem',
     flexWrap: 'wrap',
     alignItems: 'center',
-    fontSize: '0.83rem',
+    fontSize: '0.78rem',
     color: 'var(--text-secondary)',
+    letterSpacing: '0.08em',
   },
   header: {
     display: 'grid',
     gridTemplateColumns: 'auto 1fr auto',
     gap: '1.5rem',
     alignItems: 'end',
-    margin: '0 0 1.2rem 0',
-    paddingBottom: '0.65rem',
+    margin: '0 0 1.4rem 0',
+    paddingBottom: '0.85rem',
     borderBottom: '1px solid var(--header-border)',
   },
   metaBlock: {
@@ -155,7 +159,7 @@ const createStyles = (compactLevel) => ({
     color: 'var(--text-secondary)',
     cursor: 'pointer',
     fontFamily: 'var(--font-body)',
-    fontSize: '0.95rem',
+    fontSize: '0.92rem',
     whiteSpace: 'nowrap',
     transition: 'color 0.2s ease, border-color 0.2s ease',
   },
@@ -168,7 +172,7 @@ const createStyles = (compactLevel) => ({
     color: 'var(--text-primary)',
     cursor: 'pointer',
     fontFamily: 'var(--font-body)',
-    fontSize: '0.95rem',
+    fontSize: '0.92rem',
     whiteSpace: 'nowrap',
     transition: 'color 0.2s ease, border-color 0.2s ease',
   },
@@ -264,7 +268,7 @@ const createStyles = (compactLevel) => ({
     borderTop: '1px solid var(--header-border)',
   },
   utilityButton: {
-    border: '1px solid var(--glass-border)',
+    border: '1px solid var(--header-border)',
     background: 'transparent',
     color: 'var(--text-primary)',
     borderRadius: '999px',
@@ -286,6 +290,7 @@ const createStyles = (compactLevel) => ({
     color: 'var(--text-secondary)',
     fontSize: '0.95rem',
     maxWidth: '40rem',
+    lineHeight: 1.8,
   },
   lightbox: {
     position: 'fixed',
@@ -566,8 +571,8 @@ const GalleryBrowser = ({
         </div>
 
         <div style={styles.utilityMeta}>
-          <span>当前 {viewModeMeta.label}</span>
-          <span>{progressLabel}</span>
+          <span>当前浏览密度：{viewModeMeta.label}</span>
+          <span>已展开 {progressLabel}</span>
         </div>
       </section>
 
@@ -592,14 +597,14 @@ const GalleryBrowser = ({
           <p style={styles.noticeText}>{error}</p>
           <div>
             <button type="button" style={styles.utilityButton} onClick={hydrateGallery}>
-              重新加载
+              重新载入
             </button>
           </div>
         </section>
       ) : !loading && !filteredPhotos.length ? (
         <section style={styles.noticePanel}>
-          <h2 style={styles.noticeTitle}>这个系列还没有作品</h2>
-          <p style={styles.noticeText}>可以先切换到其他系列浏览，或运行图库生成脚本补齐数据。</p>
+          <h2 style={styles.noticeTitle}>这个专题暂时还没有图像</h2>
+          <p style={styles.noticeText}>可以先切换到其他专题浏览，或重新生成图库数据后再回来查看。</p>
         </section>
       ) : (
         <>
@@ -607,8 +612,8 @@ const GalleryBrowser = ({
           <div ref={sentinelRef} style={{ height: '20px', width: '100%', pointerEvents: 'none' }} />
 
           <div style={styles.sectionStatus}>
-            <span>{loading ? '正在整理作品…' : hasMore ? '继续下滑，进入完整序列。' : '已经看到这个系列的末尾。'}</span>
-            <span>{filteredPhotos.length ? `已展开 ${displayPhotos.length} 张作品` : '暂无作品'}</span>
+            <span>{loading ? '正在整理图像…' : hasMore ? '继续向下阅读，进入完整序列。' : '已经读到这个专题的末尾。'}</span>
+            <span>{filteredPhotos.length ? `当前已展开 ${displayPhotos.length} 幅图像` : '暂无图像'}</span>
           </div>
         </>
       )}
