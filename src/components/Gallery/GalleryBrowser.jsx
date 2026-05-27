@@ -104,27 +104,28 @@ const createStyles = (compactLevel) => ({
   },
   header: {
     display: 'grid',
-    gridTemplateColumns: 'auto 1fr auto',
-    gap: '1.25rem',
-    alignItems: 'end',
-    margin: '0 0 1.15rem 0',
-    padding: '0.95rem 0',
+    gridTemplateColumns: 'minmax(140px, auto) minmax(0, 1fr) auto',
+    gap: '1rem',
+    alignItems: 'center',
+    margin: '0 0 0.8rem 0',
+    padding: '0.7rem 0',
     borderTop: '1px solid var(--header-border)',
     borderBottom: '1px solid var(--header-border)',
   },
   metaBlock: {
     display: 'grid',
-    gap: '0.25rem',
-    minWidth: '180px',
+    gap: '0.1rem',
+    minWidth: '140px',
   },
   metaEyebrow: {
-    fontSize: '0.7rem',
+    fontSize: '0.86rem',
     textTransform: 'uppercase',
-    color: 'var(--text-secondary)',
+    color: 'var(--text-primary)',
+    fontWeight: 650,
   },
   metaText: {
-    fontSize: '1rem',
-    color: 'var(--text-primary)',
+    fontSize: '0.78rem',
+    color: 'var(--text-secondary)',
   },
   metaDescription: {
     fontSize: '0.85rem',
@@ -133,7 +134,7 @@ const createStyles = (compactLevel) => ({
   },
   nav: {
     display: 'flex',
-    gap: '1.2rem',
+    gap: '0.5rem',
     alignItems: 'center',
     justifyContent: 'center',
     minWidth: 0,
@@ -141,9 +142,8 @@ const createStyles = (compactLevel) => ({
   filterButton: {
     background: 'transparent',
     border: 'none',
-    borderBottom: '1px solid transparent',
-    borderRadius: 0,
-    padding: '0.25rem 0',
+    borderRadius: '999px',
+    padding: '0.35rem 0.65rem',
     color: 'var(--text-secondary)',
     cursor: 'pointer',
     fontFamily: 'var(--font-body)',
@@ -152,12 +152,11 @@ const createStyles = (compactLevel) => ({
     transition: 'color 0.2s ease, border-color 0.2s ease',
   },
   activeFilterButton: {
-    background: 'transparent',
     border: 'none',
-    borderBottom: '1px solid var(--text-primary)',
-    borderRadius: 0,
-    padding: '0.25rem 0',
-    color: 'var(--text-primary)',
+    borderRadius: '999px',
+    padding: '0.35rem 0.65rem',
+    background: 'var(--text-primary)',
+    color: 'var(--bg-color)',
     cursor: 'pointer',
     fontFamily: 'var(--font-body)',
     fontSize: '0.92rem',
@@ -166,23 +165,24 @@ const createStyles = (compactLevel) => ({
   },
   actions: {
     display: 'flex',
-    gap: '0.75rem',
+    gap: '0.5rem',
     alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   iconBtn: {
     background: 'transparent',
     border: 'none',
-    padding: '0.2rem 0',
+    padding: '0.35rem 0',
     minWidth: 'unset',
     height: 'unset',
     display: 'inline-flex',
     alignItems: 'center',
-    gap: '0.5rem',
+    gap: '0.35rem',
     color: 'var(--text-primary)',
     cursor: 'pointer',
   },
   iconBtnText: {
-    fontSize: '0.82rem',
+    fontSize: '0.78rem',
     color: 'var(--text-secondary)',
   },
   grid: {
@@ -620,32 +620,31 @@ const GalleryBrowser = ({
 
       {error ? (
         <section style={styles.noticePanel}>
-          <h2 style={styles.noticeTitle}>作品暂时没有加载出来</h2>
+          <h2 style={styles.noticeTitle}>Load failed</h2>
           <p style={styles.noticeText}>{error}</p>
           <div>
             <button type="button" style={styles.utilityButton} onClick={hydrateGallery}>
-              重新载入
+              Retry
             </button>
           </div>
         </section>
       ) : !loading && !filteredPhotos.length ? (
         <section style={styles.noticePanel}>
-          <h2 style={styles.noticeTitle}>这个专题暂时还没有图像</h2>
-          <p style={styles.noticeText}>可以先切换到其他专题浏览，或重新生成图库数据后再回来查看。</p>
+          <h2 style={styles.noticeTitle}>No photos</h2>
         </section>
       ) : (
         <>
           <MasonryGrid photos={arrangedPhotos} onPhotoClick={setSelectedId} styles={styles} />
           {totalPages > 1 ? (
-            <nav style={styles.pagination} aria-label="分页导航">
+            <nav style={styles.pagination} aria-label="Pagination">
               <button
                 type="button"
                 style={currentPage === 1 ? styles.disabledPaginationButton : styles.paginationButton}
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                aria-label="上一页"
+                aria-label="Previous page"
               >
-                上一页
+                Prev
               </button>
               {pageNumbers.map((pageNumber) => (
                 <button
@@ -654,7 +653,7 @@ const GalleryBrowser = ({
                   style={pageNumber === currentPage ? styles.activePaginationButton : styles.paginationButton}
                   onClick={() => handlePageChange(pageNumber)}
                   aria-current={pageNumber === currentPage ? 'page' : undefined}
-                  aria-label={`第 ${pageNumber} 页`}
+                  aria-label={`Page ${pageNumber}`}
                 >
                   {pageNumber}
                 </button>
@@ -664,9 +663,9 @@ const GalleryBrowser = ({
                 style={currentPage === totalPages ? styles.disabledPaginationButton : styles.paginationButton}
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                aria-label="下一页"
+                aria-label="Next page"
               >
-                下一页
+                Next
               </button>
             </nav>
           ) : null}

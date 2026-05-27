@@ -55,7 +55,7 @@ const Lightbox = ({ photo, photoIndex, total, viewLabel, onClose, onNext, onPrev
 
             <div style={styles.metadataMeta} className="metadata-meta">
               {photo.category && <span style={styles.metaBadge}>{getCategoryLabel(photo.category)}</span>}
-              {photo.featured && <span style={styles.metaBadge}>精选</span>}
+              {photo.featured && <span style={styles.metaBadge}>Selected</span>}
               {positionLabel && <span style={styles.metaMuted}>{positionLabel}</span>}
               {photo.width && photo.height ? <span style={styles.metaMuted}>{photo.width} × {photo.height}</span> : null}
             </div>
@@ -70,22 +70,22 @@ const Lightbox = ({ photo, photoIndex, total, viewLabel, onClose, onNext, onPrev
                 ))}
               </dl>
             ) : (
-              <p style={styles.metaMuted}>这张图像没有可读拍摄参数。</p>
+              <p style={styles.metaMuted}>No EXIF</p>
             )}
           </Motion.aside>
         </div>
 
-        <button type="button" className="nav-btn nav-left" style={{ ...styles.navBtn, left: '18px' }} onClick={(event) => { event.stopPropagation(); onPrev(); }} aria-label="上一张">
+        <button type="button" className="nav-btn nav-left" style={{ ...styles.navBtn, left: '18px' }} onClick={(event) => { event.stopPropagation(); onPrev(); }} aria-label="Previous photo">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M15 18l-6-6 6-6" />
           </svg>
         </button>
-        <button type="button" className="nav-btn nav-right" style={{ ...styles.navBtn, right: '18px' }} onClick={(event) => { event.stopPropagation(); onNext(); }} aria-label="下一张">
+        <button type="button" className="nav-btn nav-right" style={{ ...styles.navBtn, right: '18px' }} onClick={(event) => { event.stopPropagation(); onNext(); }} aria-label="Next photo">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M9 18l6-6-6-6" />
           </svg>
         </button>
-        <button type="button" className="close-btn" style={styles.closeBtn} onClick={onClose} aria-label="关闭查看">
+        <button type="button" className="close-btn" style={styles.closeBtn} onClick={onClose} aria-label="Close">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />

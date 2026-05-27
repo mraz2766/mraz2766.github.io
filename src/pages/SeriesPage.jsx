@@ -23,14 +23,7 @@ const SeriesPage = ({ theme, onToggleTheme }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.62, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="editorial-series-meta">
-          <span>{series.issue}</span>
-          <span>{series.byline}</span>
-        </div>
-        <span className="editorial-kicker">{series.eyebrow}</span>
-        <h1 className="editorial-series-title">{series.archiveTitle}</h1>
-        <p className="editorial-series-body">{series.heroText}</p>
-        <p className="editorial-series-body">{series.seriesDescription}</p>
+        <h1 className="editorial-series-title">{series.label}</h1>
       </Motion.section>
 
       <GalleryBrowser

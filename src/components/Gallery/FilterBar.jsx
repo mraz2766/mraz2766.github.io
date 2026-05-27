@@ -17,10 +17,9 @@ const FilterBar = ({
 }) => {
   return (
     <header className="header" style={styles.header}>
-      <div style={styles.metaBlock}>
+      <div className="gallery-toolbar-title" style={styles.metaBlock}>
         <span style={styles.metaEyebrow}>{seriesContent.seriesTitle}</span>
-        <span style={styles.metaText}>{photoCount} 幅图像</span>
-        <p style={styles.metaDescription}>{seriesContent.seriesDescription}</p>
+        <span style={styles.metaText}>{photoCount} photos</span>
       </div>
 
       {showFilterNav ? (
@@ -47,7 +46,7 @@ const FilterBar = ({
       )}
 
       <div style={styles.actions}>
-        <button type="button" onClick={onToggleView} style={styles.iconBtn} aria-label={`切换浏览密度，当前为${viewModeMeta.label}`}>
+        <button type="button" onClick={onToggleView} style={styles.iconBtn} aria-label={`Change view, current ${viewModeMeta.label}`}>
           {viewMode === 'micro' ? (
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4 4h4v4H4zM10 4h4v4h-4zM16 4h4v4h-4zM4 10h4v4H4zM10 10h4v4h-4zM16 10h4v4h-4zM4 16h4v4H4zM10 16h4v4h-4zM16 16h4v4h-4z" />
@@ -64,7 +63,7 @@ const FilterBar = ({
           <span style={styles.iconBtnText}>{viewModeMeta.label}</span>
         </button>
 
-        <button type="button" onClick={onToggleTheme} style={styles.iconBtn} aria-label={theme === 'light' ? '切换到深色模式' : '切换到浅色模式'}>
+        <button type="button" onClick={onToggleTheme} style={styles.iconBtn} aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}>
           {theme === 'light' ? (
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="5" />
@@ -82,7 +81,7 @@ const FilterBar = ({
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           )}
-          <span style={styles.iconBtnText}>{theme === 'light' ? '浅色' : '深色'}</span>
+          <span style={styles.iconBtnText}>{theme === 'light' ? 'Light' : 'Dark'}</span>
         </button>
       </div>
     </header>

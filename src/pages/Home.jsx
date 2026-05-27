@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { motion as Motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
+  HOME_HERO_TITLE,
   getSeriesContent,
   SITE_TAGLINE,
   SITE_TITLE,
@@ -13,8 +14,8 @@ const Home = () => {
   const pets = getSeriesContent('Pets');
   const toys = getSeriesContent('Toys');
   const entries = [
-    { href: '/works/pets', content: pets },
-    { href: '/works/toys', content: toys },
+    { href: '/works/pets', content: pets, count: photos.filter((photo) => photo.category === 'Pets').length },
+    { href: '/works/toys', content: toys, count: photos.filter((photo) => photo.category === 'Toys').length },
   ];
   const heroPhoto = useMemo(() => {
     const featured = photos.filter((photo) => photo.featured);
@@ -70,10 +71,10 @@ const Home = () => {
           >
             <span className="editorial-kicker">{SITE_TAGLINE}</span>
             <h1 className="home-hero-title">{SITE_TITLE}</h1>
-            <p className="home-hero-tagline">日常、收藏与光线。</p>
+            <p className="home-hero-tagline">{HOME_HERO_TITLE}</p>
 
             <div className="home-hero-actions">
-              <Link to="/works" className="editorial-link-primary">进入作品</Link>
+              <Link to="/works" className="editorial-link-primary">View Works</Link>
             </div>
           </Motion.div>
         </div>
@@ -82,7 +83,7 @@ const Home = () => {
       <section className="home-selected" aria-label="精选照片">
         <div className="home-selected-head">
           <span className="editorial-kicker">Selected</span>
-          <Link to="/works" className="editorial-text-link">查看全部</Link>
+          <Link to="/works" className="editorial-text-link">All</Link>
         </div>
         <div className="home-selected-strip">
           {heroStrip.map((photo) => (
@@ -100,7 +101,7 @@ const Home = () => {
       </section>
 
       <section className="editorial-entry-list" aria-label="专题列表">
-        {entries.map(({ href, content }, index) => (
+        {entries.map(({ href, content, count }, index) => (
           <Motion.article
             key={href}
             className="editorial-entry"
@@ -110,15 +111,10 @@ const Home = () => {
             transition={{ duration: 0.55, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="editorial-entry-copy">
-              <div className="editorial-entry-meta">
-                <span>{content.issue}</span>
-                <span>{content.byline}</span>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-              </div>
-
               <h3 className="editorial-entry-title">
                 <Link to={href}>{content.archiveTitle}</Link>
               </h3>
+              <span className="editorial-entry-count">{count} photos</span>
             </div>
           </Motion.article>
         ))}
