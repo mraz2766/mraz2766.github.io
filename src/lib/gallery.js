@@ -10,7 +10,7 @@ export async function loadPhotos() {
     photosRequest = fetch('/photos.json')
       .then((response) => {
         if (!response.ok) {
-          throw new Error('照片数据加载失败');
+          throw new Error('Load failed');
         }
 
         return response.json();

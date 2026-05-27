@@ -88,7 +88,7 @@ const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
               onClick={() => onPhotoClick(photo.id)}
               whileHover={{ y: -3 }}
               whileTap={{ scale: 0.99 }}
-              aria-label={`查看作品 ${photo.displayTitle}`}
+              aria-label={`View ${photo.displayTitle}`}
             >
               <div
                 className="gallery-card"

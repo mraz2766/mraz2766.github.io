@@ -23,7 +23,7 @@ const FilterBar = ({
       </div>
 
       {showFilterNav ? (
-        <nav className="nav-scroll" style={styles.nav} aria-label="作品系列">
+        <nav className="nav-scroll" style={styles.nav} aria-label="Photo categories">
           {categories.map((category) => {
             const categoryContent = getSeriesContent(category);
             return (

@@ -3,9 +3,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { SITE_TITLE } from '../data/siteContent';
 
 const navItems = [
-  { to: '/', label: '首页' },
-  { to: '/works', label: '作品' },
-  { to: '/about', label: '关于' },
+  { to: '/', label: 'Home' },
+  { to: '/works', label: 'Works' },
+  { to: '/about', label: 'About' },
 ];
 
 const Header = () => {
@@ -19,12 +19,12 @@ const Header = () => {
   return (
     <header className="site-header">
       <div className="site-header-inner">
-        <Link to="/" className="site-logo" aria-label="返回首页">
+        <Link to="/" className="site-logo" aria-label="Home">
           <span className="site-logo-mark" aria-hidden="true" />
           <span>{SITE_TITLE}</span>
         </Link>
 
-        <nav className="site-nav" aria-label="主导航">
+        <nav className="site-nav" aria-label="Main navigation">
           {navItems.map((item) => (
             <Link
               key={item.to}

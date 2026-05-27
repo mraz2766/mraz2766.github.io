@@ -507,7 +507,7 @@ const GalleryBrowser = ({
     } catch (loadError) {
       setAllPhotos([]);
       setFilteredPhotos([]);
-      setError(loadError instanceof Error ? loadError.message : '照片暂时无法读取，请稍后再试。');
+      setError(loadError instanceof Error ? loadError.message : 'Load failed');
     } finally {
       setLoading(false);
     }

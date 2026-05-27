@@ -28,7 +28,7 @@ const About = () => {
       })
       .catch((loadError) => {
         if (!active) return;
-        setError(loadError instanceof Error ? loadError.message : '关于页图片加载失败');
+        setError(loadError instanceof Error ? loadError.message : 'Image failed');
       });
 
     return () => {
@@ -45,7 +45,7 @@ const About = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="about-eyebrow">作者自述</span>
+          <span className="about-eyebrow">About</span>
           <span className="about-brand">{SITE_TITLE}</span>
           <h1 className="about-title">{ABOUT_TITLE}</h1>
           <p className="about-body">{SITE_TAGLINE}</p>
@@ -53,7 +53,7 @@ const About = () => {
           <p className="about-body">{ABOUT_BODY}</p>
 
           <div className="about-contact">
-            <span className="about-contact-label">联系方式</span>
+            <span className="about-contact-label">Contact</span>
             <a href="mailto:huangl2766@gmail.com" className="about-email">
               huangl2766@gmail.com
             </a>
@@ -77,7 +77,7 @@ const About = () => {
             />
           ) : (
             <div className="about-placeholder">
-              <span>{error || '正在准备关于页图像…'}</span>
+              <span>{error || 'Loading image'}</span>
             </div>
           )}
 

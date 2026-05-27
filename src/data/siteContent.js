@@ -116,7 +116,7 @@ export function formatDisplayTitle(photo) {
   if (photo.displayTitle) return photo.displayTitle;
 
   const rawTitle = String(photo.title || '').trim();
-  if (!rawTitle) return `作品 ${String(photo.id || '').padStart(2, '0')}`;
+  if (!rawTitle) return `Photo ${String(photo.id || '').padStart(2, '0')}`;
 
   const normalized = rawTitle.replace(/\.[^/.]+$/, '').replace(/[_-]+/g, ' ').trim();
 

@@ -6,7 +6,7 @@ const Lightbox = ({ photo, photoIndex, total, viewLabel, onClose, onNext, onPrev
   if (!photo) return null;
 
   const exifItems = getExifDisplayItems(photo.exif);
-  const positionLabel = total > 0 ? `第 ${photoIndex + 1} 张 / 共 ${total} 张` : '';
+  const positionLabel = total > 0 ? `${photoIndex + 1} / ${total}` : '';
 
   return (
     <Motion.div

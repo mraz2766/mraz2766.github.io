@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
       </main>
       <footer className="site-footer">
         <div className="container">
-          <p>© 2026 {SITE_TITLE} · 中文摄影栏目。</p>
+          <p>© 2026 {SITE_TITLE}</p>
         </div>
       </footer>
     </>

@@ -45,7 +45,7 @@ const Home = () => {
 
   return (
     <div className="editorial-home">
-      <section className="home-hero" aria-label="首页">
+      <section className="home-hero" aria-label="Home">
         {heroPhoto ? (
           <Motion.img
             src={heroPhoto.src}
@@ -80,7 +80,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="home-selected" aria-label="精选照片">
+      <section className="home-selected" aria-label="Selected photos">
         <div className="home-selected-head">
           <span className="editorial-kicker">Selected</span>
           <Link to="/works" className="editorial-text-link">All</Link>
@@ -92,7 +92,7 @@ const Home = () => {
               to="/works"
               state={{ selectedId: photo.id }}
               className="home-selected-thumb"
-              aria-label={`查看 ${photo.displayTitle}`}
+              aria-label={`View ${photo.displayTitle}`}
             >
               <img src={photo.thumbnail || photo.src} alt={photo.displayTitle} loading="lazy" />
             </Link>
@@ -100,7 +100,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="editorial-entry-list" aria-label="专题列表">
+      <section className="editorial-entry-list" aria-label="Categories">
         {entries.map(({ href, content, count }, index) => (
           <Motion.article
             key={href}
