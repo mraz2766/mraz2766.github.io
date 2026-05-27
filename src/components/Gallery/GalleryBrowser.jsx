@@ -70,9 +70,9 @@ const getScopedPhotos = (photos, category) => {
 
 const createStyles = (compactLevel) => ({
   page: {
-    maxWidth: '1160px',
+    maxWidth: 'min(1500px, calc(100vw - 2rem))',
     margin: '0 auto',
-    padding: '0 1rem 3.5rem',
+    padding: '0 0 4rem',
   },
   introWrap: {
     display: 'grid',
@@ -89,13 +89,11 @@ const createStyles = (compactLevel) => ({
   },
   introEyebrow: {
     fontSize: '0.72rem',
-    letterSpacing: '0.18em',
     textTransform: 'uppercase',
     color: 'var(--text-secondary)',
   },
   introTitle: {
-    fontSize: 'clamp(2rem, 4vw, 3.6rem)',
-    letterSpacing: '-0.05em',
+    fontSize: '3rem',
     lineHeight: 0.94,
   },
   introBody: {
@@ -107,10 +105,11 @@ const createStyles = (compactLevel) => ({
   header: {
     display: 'grid',
     gridTemplateColumns: 'auto 1fr auto',
-    gap: '1.5rem',
+    gap: '1.25rem',
     alignItems: 'end',
-    margin: '0 0 1.4rem 0',
-    paddingBottom: '0.85rem',
+    margin: '0 0 1.15rem 0',
+    padding: '0.95rem 0',
+    borderTop: '1px solid var(--header-border)',
     borderBottom: '1px solid var(--header-border)',
   },
   metaBlock: {
@@ -120,7 +119,6 @@ const createStyles = (compactLevel) => ({
   },
   metaEyebrow: {
     fontSize: '0.7rem',
-    letterSpacing: '0.18em',
     textTransform: 'uppercase',
     color: 'var(--text-secondary)',
   },
@@ -188,8 +186,8 @@ const createStyles = (compactLevel) => ({
     color: 'var(--text-secondary)',
   },
   grid: {
-    '--gallery-columns': compactLevel === 2 ? 8 : compactLevel === 1 ? 5 : 4,
-    '--gallery-gap': compactLevel === 2 ? '0.45rem' : compactLevel === 1 ? '0.9rem' : '1.15rem',
+    '--gallery-columns': compactLevel === 2 ? 10 : compactLevel === 1 ? 6 : 4,
+    '--gallery-gap': compactLevel === 2 ? '0.35rem' : compactLevel === 1 ? '0.72rem' : '0.95rem',
   },
   gridClassName: compactLevel === 2 ? 'gallery-grid-micro' : compactLevel === 1 ? 'gallery-grid-compact' : 'gallery-grid-regular',
   item: {
@@ -203,7 +201,7 @@ const createStyles = (compactLevel) => ({
   },
   imageWrapper: {
     position: 'relative',
-    borderRadius: compactLevel === 2 ? '14px' : compactLevel === 1 ? '18px' : '22px',
+    borderRadius: compactLevel === 2 ? '4px' : '6px',
     overflow: 'hidden',
     background: 'var(--surface-muted)',
   },
@@ -216,7 +214,7 @@ const createStyles = (compactLevel) => ({
   overlay: {
     position: 'absolute',
     inset: 0,
-    background: 'linear-gradient(180deg, rgba(13,18,28,0.02) 10%, rgba(13,18,28,0.52) 100%)',
+    background: 'linear-gradient(180deg, rgba(6,7,8,0.02) 20%, rgba(6,7,8,0.5) 100%)',
     opacity: 0,
     transition: 'opacity 0.25s ease',
     pointerEvents: 'none',
@@ -237,7 +235,6 @@ const createStyles = (compactLevel) => ({
   },
   captionEyebrow: {
     fontSize: '0.68rem',
-    letterSpacing: '0.18em',
     textTransform: 'uppercase',
     color: 'rgba(255,255,255,0.68)',
   },
@@ -322,55 +319,57 @@ const createStyles = (compactLevel) => ({
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 1000,
-    padding: '1.5rem',
+    padding: '1rem',
   },
   lightboxContent: {
     position: 'relative',
-    maxWidth: '1480px',
+    maxWidth: '1680px',
     width: '100%',
     maxHeight: '92vh',
   },
   viewerStage: {
     display: 'grid',
-    gridTemplateColumns: 'minmax(0, 1.6fr) minmax(250px, 320px)',
-    gap: '1.5rem',
-    alignItems: 'end',
+    gridTemplateRows: 'minmax(0, 1fr) auto',
+    gap: '1rem',
+    alignItems: 'center',
   },
   imageShell: {
     position: 'relative',
-    minHeight: '74vh',
+    minHeight: '70vh',
     overflow: 'hidden',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'rgba(255,255,255,0.03)',
+    background: 'rgba(255,255,255,0.025)',
   },
   lightboxImage: {
     maxWidth: '100%',
-    maxHeight: '74vh',
+    maxHeight: '72vh',
     objectFit: 'contain',
   },
   metadata: {
-    display: 'grid',
-    gap: '0.95rem',
-    alignSelf: 'end',
+    display: 'flex',
+    gap: '1rem',
+    alignSelf: 'stretch',
+    justifyContent: 'space-between',
+    alignItems: 'end',
     color: 'var(--text-primary)',
-    paddingBottom: '1rem',
-    maxWidth: '320px',
+    padding: '0.2rem 0 0',
+    maxWidth: 'none',
   },
   metadataHeader: {
     display: 'grid',
-    gap: '0.5rem',
+    gap: '0.35rem',
+    minWidth: 0,
   },
   metadataEyebrow: {
     fontSize: '0.72rem',
-    letterSpacing: '0.18em',
     textTransform: 'uppercase',
     color: 'rgba(255,255,255,0.58)',
   },
   metadataTitle: {
-    fontSize: 'clamp(1.8rem, 2.4vw, 2.5rem)',
-    lineHeight: 0.92,
+    fontSize: '1.6rem',
+    lineHeight: 1,
     color: '#fff',
   },
   metadataMeta: {
@@ -380,17 +379,22 @@ const createStyles = (compactLevel) => ({
     gap: '0.55rem',
   },
   exifGrid: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '0.5rem',
-    fontSize: '0.78rem',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(5, minmax(72px, auto))',
+    gap: '0.65rem',
+    margin: 0,
+  },
+  exifLabel: {
+    display: 'block',
+    marginBottom: '0.18rem',
+    color: 'rgba(255,255,255,0.48)',
+    fontSize: '0.58rem',
   },
   exifValue: {
     color: 'rgba(255,255,255,0.88)',
     fontWeight: '400',
-    border: '1px solid rgba(255,255,255,0.12)',
-    padding: '0.35rem 0.62rem',
-    borderRadius: '999px',
+    fontSize: '0.76rem',
+    margin: 0,
   },
   metaBadge: {
     display: 'inline-flex',
@@ -533,18 +537,22 @@ const GalleryBrowser = ({
   }, [currentPage, totalPages]);
 
   const handleNext = useCallback(() => {
-    if (selectedId === null || !pagePhotos.length) return;
-    const currentIndex = pagePhotos.findIndex((photo) => photo.id === selectedId);
-    const nextIndex = (currentIndex + 1) % pagePhotos.length;
-    setSelectedId(pagePhotos[nextIndex].id);
-  }, [pagePhotos, selectedId]);
+    if (selectedId === null || !filteredPhotos.length) return;
+    const currentIndex = filteredPhotos.findIndex((photo) => photo.id === selectedId);
+    const nextIndex = (currentIndex + 1) % filteredPhotos.length;
+    const nextPhoto = filteredPhotos[nextIndex];
+    setSelectedId(nextPhoto.id);
+    setCurrentPage(Math.floor(nextIndex / PAGE_SIZE) + 1);
+  }, [filteredPhotos, selectedId]);
 
   const handlePrev = useCallback(() => {
-    if (selectedId === null || !pagePhotos.length) return;
-    const currentIndex = pagePhotos.findIndex((photo) => photo.id === selectedId);
-    const prevIndex = (currentIndex - 1 + pagePhotos.length) % pagePhotos.length;
-    setSelectedId(pagePhotos[prevIndex].id);
-  }, [pagePhotos, selectedId]);
+    if (selectedId === null || !filteredPhotos.length) return;
+    const currentIndex = filteredPhotos.findIndex((photo) => photo.id === selectedId);
+    const prevIndex = (currentIndex - 1 + filteredPhotos.length) % filteredPhotos.length;
+    const prevPhoto = filteredPhotos[prevIndex];
+    setSelectedId(prevPhoto.id);
+    setCurrentPage(Math.floor(prevIndex / PAGE_SIZE) + 1);
+  }, [filteredPhotos, selectedId]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -563,8 +571,8 @@ const GalleryBrowser = ({
     : SERIES_ORDER.filter((category) => category === 'All' || allPhotos.some((photo) => photo.category === category));
   const activeSeries = getSeriesContent(filter);
   const viewModeMeta = getViewModeMeta(viewMode);
-  const selectedPhoto = pagePhotos.find((photo) => photo.id === selectedId) || null;
-  const selectedPhotoIndex = selectedPhoto ? pagePhotos.findIndex((photo) => photo.id === selectedPhoto.id) : -1;
+  const selectedPhoto = filteredPhotos.find((photo) => photo.id === selectedId) || null;
+  const selectedPhotoIndex = selectedPhoto ? filteredPhotos.findIndex((photo) => photo.id === selectedPhoto.id) : -1;
 
   const handleToggleView = useCallback(() => {
     setViewMode((currentMode) => {
@@ -670,7 +678,7 @@ const GalleryBrowser = ({
           <Lightbox
             photo={selectedPhoto}
             photoIndex={selectedPhotoIndex}
-            total={pagePhotos.length}
+            total={filteredPhotos.length}
             viewLabel={activeSeries.seriesTitle}
             onClose={() => setSelectedId(null)}
             onNext={handleNext}

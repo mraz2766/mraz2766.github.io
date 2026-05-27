@@ -44,6 +44,12 @@ function getTag(tags, name) {
   return '';
 }
 
+function cleanExifValue(value) {
+  const normalized = String(value ?? '').trim();
+  if (!normalized || /^unknown/i.test(normalized)) return '';
+  return normalized;
+}
+
 function getRelativeInfo(filePath) {
   const relativePath = path.relative(SOURCE_DIR, filePath);
   const category = relativePath.split(path.sep)[0] || 'Archive';
@@ -120,11 +126,11 @@ async function generateGallery() {
       title: info.baseName,
       displayTitle: formatDisplayTitle({ id: index + 1, title: info.baseName, category: info.category }),
       exif: {
-        camera: getTag(tags, 'Model') || getTag(tags, 'Make') || 'Unknown Camera',
-        lens: getTag(tags, 'LensModel') || getTag(tags, 'Lens') || getTag(tags, 'LensInfo') || 'Unknown Lens',
-        iso: getTag(tags, 'ISOSpeedRatings') || getTag(tags, 'ISO') || '',
-        aperture: getTag(tags, 'FNumber') || getTag(tags, 'ApertureValue') || '',
-        shutter: getTag(tags, 'ExposureTime') || getTag(tags, 'ShutterSpeedValue') || '',
+        camera: cleanExifValue(getTag(tags, 'Model') || getTag(tags, 'Make')),
+        lens: cleanExifValue(getTag(tags, 'LensModel') || getTag(tags, 'Lens') || getTag(tags, 'LensInfo')),
+        iso: cleanExifValue(getTag(tags, 'ISOSpeedRatings') || getTag(tags, 'ISO')),
+        aperture: cleanExifValue(getTag(tags, 'FNumber') || getTag(tags, 'ApertureValue')),
+        shutter: cleanExifValue(getTag(tags, 'ExposureTime') || getTag(tags, 'ShutterSpeedValue')),
       },
     };
 

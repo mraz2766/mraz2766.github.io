@@ -107,6 +107,10 @@ const MasonryGrid = ({ photos, onPhotoClick, styles }) => {
                   decoding="async"
                 />
                 <div style={styles.overlay} />
+                <div style={styles.caption} className="gallery-caption">
+                  <span style={styles.captionEyebrow}>{photo.category}</span>
+                  <span style={styles.captionTitle}>{photo.displayTitle}</span>
+                </div>
               </div>
             </Motion.button>
           );

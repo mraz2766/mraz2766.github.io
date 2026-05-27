@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion as Motion } from 'framer-motion';
-import { getCategoryLabel, getVisibleExif } from '../../data/siteContent';
+import { getCategoryLabel, getExifDisplayItems } from '../../data/siteContent';
 
 const Lightbox = ({ photo, photoIndex, total, viewLabel, onClose, onNext, onPrev, styles }) => {
   if (!photo) return null;
 
-  const exifItems = getVisibleExif(photo.exif);
+  const exifItems = getExifDisplayItems(photo.exif);
   const positionLabel = total > 0 ? `第 ${photoIndex + 1} 张 / 共 ${total} 张` : '';
 
   return (
@@ -43,10 +43,10 @@ const Lightbox = ({ photo, photoIndex, total, viewLabel, onClose, onNext, onPrev
           <Motion.aside
             className="metadata-panel"
             style={styles.metadata}
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ delay: 0.03, duration: 0.18 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ delay: 0.03, duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <div style={styles.metadataHeader}>
               <span style={styles.metadataEyebrow}>{viewLabel}</span>
@@ -57,22 +57,20 @@ const Lightbox = ({ photo, photoIndex, total, viewLabel, onClose, onNext, onPrev
               {photo.category && <span style={styles.metaBadge}>{getCategoryLabel(photo.category)}</span>}
               {photo.featured && <span style={styles.metaBadge}>精选</span>}
               {positionLabel && <span style={styles.metaMuted}>{positionLabel}</span>}
+              {photo.width && photo.height ? <span style={styles.metaMuted}>{photo.width} × {photo.height}</span> : null}
             </div>
 
-            <p style={styles.metaParagraph}>{photo.seriesDescription}</p>
-
-            {photo.width && photo.height ? (
-              <p style={styles.metaParagraph}>画面尺寸为 {photo.width} × {photo.height}，更适合在完整专题中停留观看。</p>
-            ) : null}
-
             {exifItems.length ? (
-              <div style={styles.exifGrid} className="exif-grid">
+              <dl style={styles.exifGrid} className="exif-grid">
                 {exifItems.map((item) => (
-                  <span key={item} style={styles.exifValue}>{item}</span>
+                  <div key={`${item.label}-${item.value}`} className="exif-item">
+                    <dt style={styles.exifLabel}>{item.label}</dt>
+                    <dd style={styles.exifValue}>{item.value}</dd>
+                  </div>
                 ))}
-              </div>
+              </dl>
             ) : (
-              <p style={styles.metaMuted}>这张图像没有可用的拍摄信息，保留为纯观看模式。</p>
+              <p style={styles.metaMuted}>这张图像没有可读拍摄参数。</p>
             )}
           </Motion.aside>
         </div>

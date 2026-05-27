@@ -178,14 +178,26 @@ export function sortPhotosForDisplay(photos, category = 'All') {
   ];
 }
 
-export function getVisibleExif(exif = {}) {
+function isMeaningfulExifValue(value) {
+  const normalized = String(value ?? '').trim();
+  return normalized && !/^unknown/i.test(normalized);
+}
+
+function formatShutter(value) {
+  if (!isMeaningfulExifValue(value)) return '';
+  const normalized = String(value).trim();
+  if (normalized.endsWith('s')) return normalized;
+  return normalized.includes('/') ? `${normalized}s` : normalized;
+}
+
+export function getExifDisplayItems(exif = {}) {
   const items = [
-    exif.camera,
-    exif.lens,
-    exif.iso ? `ISO ${exif.iso}` : '',
-    exif.aperture,
-    exif.shutter ? `${exif.shutter}s` : '',
+    { label: 'CAMERA', value: exif.camera },
+    { label: 'LENS', value: exif.lens },
+    { label: 'F', value: exif.aperture },
+    { label: 'SPEED', value: formatShutter(exif.shutter) },
+    { label: 'ISO', value: exif.iso ? `ISO ${exif.iso}` : '' },
   ];
 
-  return items.filter((item) => item && !String(item).startsWith('Unknown'));
+  return items.filter((item) => isMeaningfulExifValue(item.value));
 }
