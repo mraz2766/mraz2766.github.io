@@ -10,9 +10,8 @@ const Layout = ({ children }) => {
         {children}
       </main>
       <footer className="site-footer">
-        <div className="container">
-          <p>© 2026 {SITE_TITLE}</p>
-        </div>
+        <span>{SITE_TITLE}</span>
+        <span>Photography / © 2026</span>
       </footer>
     </>
   );

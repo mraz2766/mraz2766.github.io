@@ -3,7 +3,7 @@ import { Navigate, useLocation, useParams } from 'react-router-dom';
 import GalleryBrowser from '../components/Gallery/GalleryBrowser';
 import { getSeriesBySlug } from '../data/siteContent';
 
-const SeriesPage = ({ theme, onToggleTheme }) => {
+const SeriesPage = () => {
   const { slug } = useParams();
   const location = useLocation();
   const seriesKey = getSeriesBySlug(slug);
@@ -15,11 +15,6 @@ const SeriesPage = ({ theme, onToggleTheme }) => {
   return (
     <div className="editorial-series-page">
       <GalleryBrowser
-        theme={theme}
-        onToggleTheme={onToggleTheme}
-        introEyebrow=""
-        introTitle=""
-        introBody=""
         initialFilter={seriesKey}
         lockedFilter={seriesKey}
         selectedIdFromState={location.state?.selectedId ?? null}

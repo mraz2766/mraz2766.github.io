@@ -18,24 +18,22 @@ const Header = () => {
 
   return (
     <header className="site-header">
-      <div className="site-header-inner">
-        <Link to="/" className="site-logo" aria-label="Home">
-          <span className="site-logo-mark" aria-hidden="true" />
-          <span>{SITE_TITLE}</span>
-        </Link>
+      <Link to="/" className="site-logo" aria-label={`${SITE_TITLE} home`}>
+        {SITE_TITLE}
+      </Link>
 
-        <nav className="site-nav" aria-label="Main navigation">
-          {navItems.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className={isActive(item.to) ? 'site-nav-link is-active' : 'site-nav-link'}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-      </div>
+      <nav className="site-nav" aria-label="Main navigation">
+        {navItems.map((item, index) => (
+          <Link
+            key={item.to}
+            to={item.to}
+            className={isActive(item.to) ? 'site-nav-link is-active' : 'site-nav-link'}
+            style={{ '--link-color': index === 1 ? 'var(--color-cobalt-frame)' : 'var(--color-signal-red)' }}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 };

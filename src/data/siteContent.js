@@ -1,20 +1,7 @@
-export const SITE_TITLE = 'Minimalist Lens';
+export const SITE_TITLE = 'mraz';
 export const SITE_TAGLINE = 'Photography';
 export const SITE_DESCRIPTION = 'Pets, toys, light.';
-export const HOME_HERO_TITLE = 'Still moments.';
-export const HOME_HERO_TEXT = 'Selected photographs.';
-export const HOME_SECTION_TITLE = 'Selected';
-export const HOME_SECTION_BODY = '';
-export const WORKS_ARCHIVE_TITLE = 'Works';
-export const WORKS_ARCHIVE_BODY = '';
-export const ABOUT_TITLE = 'About';
 export const ABOUT_BODY = 'Photographs of daily life, collections, and light.';
-
-export const VIEW_MODES = [
-  { key: 'default', label: 'Grid', hint: 'Spacious grid' },
-  { key: 'compact', label: 'Dense', hint: 'Denser grid' },
-  { key: 'micro', label: 'Index', hint: 'Photo index' },
-];
 
 export const SERIES_ORDER = ['All', 'Pets', 'Toys'];
 export const SERIES_SLUGS = {
@@ -101,10 +88,6 @@ export function getSeriesBySlug(slug, asContent = false) {
   const key = SERIES_SLUGS[String(slug || '').toLowerCase()];
   if (!key) return null;
   return asContent ? getSeriesContent(key) : key;
-}
-
-export function getViewModeMeta(viewMode) {
-  return VIEW_MODES.find((mode) => mode.key === viewMode) || VIEW_MODES[0];
 }
 
 export function getCategoryLabel(category) {

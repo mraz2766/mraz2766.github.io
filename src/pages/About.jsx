@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion as Motion, useReducedMotion } from 'framer-motion';
-import { ABOUT_BODY, ABOUT_TITLE, getCategoryLabel, SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../data/siteContent';
+import { ABOUT_BODY, SITE_DESCRIPTION, SITE_TITLE } from '../data/siteContent';
 import { loadPhotos } from '../lib/gallery';
 
 const About = () => {
   const reduceMotion = useReducedMotion();
-  const [heroPhoto, setHeroPhoto] = useState(null);
+  const [photo, setPhoto] = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -14,17 +14,7 @@ const About = () => {
     loadPhotos()
       .then((data) => {
         if (!active) return;
-
-        const featured = data.filter((photo) => photo.featured);
-        const pool = featured.length ? featured : data;
-
-        if (!pool.length) {
-          setHeroPhoto(null);
-          return;
-        }
-
-        const randomIndex = Math.floor(Math.random() * pool.length);
-        setHeroPhoto(pool[randomIndex]);
+        setPhoto(data.find((item) => item.featured && item.category === 'Toys') || data[0] || null);
       })
       .catch((loadError) => {
         if (!active) return;
@@ -37,59 +27,54 @@ const About = () => {
   }, []);
 
   return (
-    <div className="about-page">
-      <section className="about-lead">
-        <Motion.div
-          className="about-copy"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <span className="about-eyebrow">About</span>
-          <span className="about-brand">{SITE_TITLE}</span>
-          <h1 className="about-title">{ABOUT_TITLE}</h1>
-          <p className="about-body">{SITE_TAGLINE}</p>
-          <p className="about-body">{SITE_DESCRIPTION}</p>
-          <p className="about-body">{ABOUT_BODY}</p>
-
-          <div className="about-contact">
-            <span className="about-contact-label">Contact</span>
-            <a href="mailto:huangl2766@gmail.com" className="about-email">
-              huangl2766@gmail.com
-            </a>
-          </div>
-        </Motion.div>
-
-        <Motion.div
-          className="about-visual"
-          initial={{ opacity: 0, scale: 0.985 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {heroPhoto ? (
-            <Motion.img
-              src={heroPhoto.src}
-              alt={heroPhoto.displayTitle}
-              className="about-image"
-              initial={reduceMotion ? false : { scale: 1.05 }}
-              animate={reduceMotion ? { scale: 1 } : { scale: 1 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 18, ease: 'linear', repeat: Infinity, repeatType: 'reverse' }}
-            />
-          ) : (
-            <div className="about-placeholder">
-              <span>{error || 'Loading image'}</span>
-            </div>
-          )}
-
-          {heroPhoto ? (
-            <div className="about-image-note">
-              <span>{getCategoryLabel(heroPhoto.category)}</span>
-              <span>{heroPhoto.displayTitle}</span>
-            </div>
-          ) : null}
-        </Motion.div>
+    <Motion.div
+      className="about-page"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: reduceMotion ? 0 : 0.35 }}
+    >
+      <section className="about-heading">
+        <span className="about-index">01 / About</span>
+        <h1>About<br />{SITE_TITLE}</h1>
       </section>
-    </div>
+
+      <section className="about-editorial">
+        <div className="about-copy">
+          <p className="about-lead">{SITE_DESCRIPTION}</p>
+          <p>{ABOUT_BODY}</p>
+          <div className="about-contact">
+            <span>Contact</span>
+            <a href="mailto:huangl2766@gmail.com">huangl2766@gmail.com</a>
+          </div>
+        </div>
+
+        <Motion.figure
+          className="about-figure"
+          style={{ '--frame-color': `var(--color-${photo?.frameColor || 'cobalt'}-frame)` }}
+          initial={reduceMotion ? false : { opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {photo ? (
+            <>
+              <img
+                src={photo.src}
+                alt={photo.displayTitle}
+                width={photo.width}
+                height={photo.height}
+              />
+              <figcaption>
+                <span>{photo.category}</span>
+                <span>{photo.displayTitle}</span>
+              </figcaption>
+            </>
+          ) : (
+            <div className="about-placeholder">{error || 'Loading photograph'}</div>
+          )}
+        </Motion.figure>
+      </section>
+    </Motion.div>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Layout from './components/Layout';
@@ -7,15 +7,15 @@ import Works from './pages/Works';
 import SeriesPage from './pages/SeriesPage';
 import About from './pages/About';
 
-function AnimatedRoutes({ theme, onToggleTheme }) {
+function AnimatedRoutes() {
   const location = useLocation();
 
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home theme={theme} onToggleTheme={onToggleTheme} />} />
-        <Route path="/works" element={<Works theme={theme} onToggleTheme={onToggleTheme} />} />
-        <Route path="/works/:slug" element={<SeriesPage theme={theme} onToggleTheme={onToggleTheme} />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/works" element={<Works />} />
+        <Route path="/works/:slug" element={<SeriesPage />} />
         <Route path="/about" element={<About />} />
       </Routes>
     </AnimatePresence>
@@ -23,26 +23,10 @@ function AnimatedRoutes({ theme, onToggleTheme }) {
 }
 
 function App() {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return document.documentElement.dataset.theme || localStorage.getItem('theme') || 'light';
-    }
-    return 'light';
-  });
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'));
-  };
-
   return (
     <Router>
       <Layout>
-        <AnimatedRoutes theme={theme} onToggleTheme={toggleTheme} />
+        <AnimatedRoutes />
       </Layout>
     </Router>
   );

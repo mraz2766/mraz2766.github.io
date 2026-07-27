@@ -13,6 +13,13 @@ const THUMBNAIL_DIR = path.join(__dirname, '../public/thumbnails');
 const OPTIMIZED_DIR = path.join(__dirname, '../public/optimized');
 const OUTPUT_FILE = path.join(__dirname, '../public/photos.json');
 const VALID_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp']);
+const FRAME_HUES = [
+  { name: 'vermillion', hue: 1 },
+  { name: 'marigold', hue: 17 },
+  { name: 'brass', hue: 39 },
+  { name: 'fern', hue: 105 },
+  { name: 'cobalt', hue: 202 },
+];
 
 function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
@@ -86,6 +93,74 @@ async function buildDerivative(sourcePath, outputPath, width, quality) {
     .toFile(outputPath);
 }
 
+function rgbToHsv(red, green, blue) {
+  const r = red / 255;
+  const g = green / 255;
+  const b = blue / 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const delta = max - min;
+  let hue = 0;
+
+  if (delta) {
+    if (max === r) hue = 60 * (((g - b) / delta) % 6);
+    else if (max === g) hue = 60 * ((b - r) / delta + 2);
+    else hue = 60 * ((r - g) / delta + 4);
+  }
+
+  if (hue < 0) hue += 360;
+
+  return {
+    hue,
+    saturation: max === 0 ? 0 : delta / max,
+    value: max,
+  };
+}
+
+function circularHueDistance(left, right) {
+  const distance = Math.abs(left - right);
+  return Math.min(distance, 360 - distance);
+}
+
+async function getFrameColor(sourcePath, fallbackIndex) {
+  const { data, info } = await sharp(sourcePath)
+    .rotate()
+    .resize({ width: 64, height: 64, fit: 'inside', withoutEnlargement: true })
+    .removeAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  const buckets = Array.from({ length: 30 }, () => 0);
+  const channels = info.channels;
+
+  for (let offset = 0; offset < data.length; offset += channels) {
+    const { hue, saturation, value } = rgbToHsv(
+      data[offset],
+      data[offset + 1],
+      data[offset + 2]
+    );
+
+    if (saturation < 0.14 || value < 0.12 || value > 0.98) continue;
+
+    const bucket = Math.floor(hue / 12) % buckets.length;
+    buckets[bucket] += saturation * Math.sqrt(value);
+  }
+
+  const dominantWeight = Math.max(...buckets);
+  if (dominantWeight <= 0) {
+    return FRAME_HUES[fallbackIndex % FRAME_HUES.length].name;
+  }
+
+  const dominantBucket = buckets.indexOf(dominantWeight);
+  const dominantHue = dominantBucket * 12 + 6;
+
+  return FRAME_HUES.reduce((closest, candidate) => (
+    circularHueDistance(candidate.hue, dominantHue)
+      < circularHueDistance(closest.hue, dominantHue)
+      ? candidate
+      : closest
+  )).name;
+}
+
 async function generateGallery() {
   ensureDir(THUMBNAIL_DIR);
   ensureDir(OPTIMIZED_DIR);
@@ -107,6 +182,7 @@ async function generateGallery() {
     await buildDerivative(sourcePath, info.optimizedPath, 1920, 84);
 
     const metadata = await sharp(sourcePath).metadata();
+    const frameColor = await getFrameColor(sourcePath, index);
     const fileBuffer = fs.readFileSync(sourcePath);
     let tags = {};
 
@@ -125,6 +201,7 @@ async function generateGallery() {
       category: info.category,
       title: info.baseName,
       displayTitle: formatDisplayTitle({ id: index + 1, title: info.baseName, category: info.category }),
+      frameColor,
       exif: {
         camera: cleanExifValue(getTag(tags, 'Model') || getTag(tags, 'Make')),
         lens: cleanExifValue(getTag(tags, 'LensModel') || getTag(tags, 'Lens') || getTag(tags, 'LensInfo')),
