@@ -1,43 +1,45 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { getSeriesContent } from '../../data/siteContent';
+import { NavLink } from 'react-router-dom';
+import { getSeriesContent, SERIES_SLUGS } from '../../data/siteContent';
+
+const SLUG_BY_SERIES = Object.fromEntries(
+  Object.entries(SERIES_SLUGS).map(([slug, series]) => [series, slug])
+);
+
+function getSeriesPath(category) {
+  return category === 'All' ? '/works' : `/works/${SLUG_BY_SERIES[category]}`;
+}
 
 const FilterBar = ({
   categories,
   currentFilter,
-  onFilterChange,
   photoCount,
   seriesContent,
-  showFilterNav = true,
+  loading = false,
 }) => {
   return (
     <header className="gallery-toolbar">
       <div className="gallery-toolbar-title">
         <h1>{seriesContent.seriesTitle}</h1>
-        <span>{photoCount} photographs</span>
+        <span>{loading ? '—' : photoCount} photographs</span>
       </div>
 
-      {showFilterNav ? (
-        <nav className="gallery-filter" aria-label="Photo categories">
-          {categories.map((category, index) => {
-            const categoryContent = getSeriesContent(category);
-            return (
-              <button
-                key={category}
-                type="button"
-                onClick={() => onFilterChange(category)}
-                className={currentFilter === category ? 'filter-link is-active' : 'filter-link'}
-                style={{ '--link-color': index === 1 ? 'var(--color-cobalt-frame)' : 'var(--color-signal-red)' }}
-                aria-pressed={currentFilter === category}
-              >
-                {categoryContent.label}
-              </button>
-            );
-          })}
-        </nav>
-      ) : (
-        <Link to="/works" className="filter-link series-back">All Works</Link>
-      )}
+      {/* Real links: each series has its own URL and can be opened in a new tab. */}
+      <nav className="gallery-filter" aria-label="Photo series">
+        {categories.map((category, index) => (
+          <NavLink
+            key={category}
+            to={getSeriesPath(category)}
+            end
+            replace
+            className={currentFilter === category ? 'filter-link is-active' : 'filter-link'}
+            style={{ '--link-color': index === 1 ? 'var(--color-cobalt-frame)' : 'var(--color-signal-red)' }}
+            aria-current={currentFilter === category ? 'page' : undefined}
+          >
+            {getSeriesContent(category).label}
+          </NavLink>
+        ))}
+      </nav>
     </header>
   );
 };

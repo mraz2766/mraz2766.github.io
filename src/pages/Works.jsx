@@ -1,14 +1,18 @@
-import { useLocation } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import GalleryBrowser from '../components/Gallery/GalleryBrowser';
+import { getSeriesBySlug } from '../data/siteContent';
 
 const Works = () => {
-  const location = useLocation();
+  const { slug } = useParams();
+  const series = slug ? getSeriesBySlug(slug) : 'All';
+
+  if (!series) {
+    return <Navigate to="/works" replace />;
+  }
 
   return (
     <div className="editorial-archive-page">
-      <GalleryBrowser
-        selectedIdFromState={location.state?.selectedId ?? null}
-      />
+      <GalleryBrowser filter={series} />
     </div>
   );
 };

@@ -25,6 +25,8 @@ function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
+const skippedFiles = [];
+
 function walkImages(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const fullPath = path.join(dir, entry.name);
@@ -37,12 +39,45 @@ function walkImages(dir) {
       return walkImages(fullPath);
     }
 
+    if (entry.name.startsWith('.')) return [];
+
     if (!VALID_EXTENSIONS.has(path.extname(entry.name).toLowerCase())) {
+      skippedFiles.push(path.relative(SOURCE_DIR, fullPath));
       return [];
     }
 
     return [fullPath];
   });
+}
+
+// Remove derivatives whose source photo no longer exists (renamed/deleted
+// originals, or files from older naming schemes such as "x.JPG.webp").
+function pruneOrphans(dir, keep) {
+  if (!fs.existsSync(dir)) return 0;
+  let removed = 0;
+
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = path.join(dir, entry.name);
+
+    if (entry.isDirectory()) {
+      removed += pruneOrphans(fullPath, keep);
+      if (!fs.readdirSync(fullPath).length) fs.rmdirSync(fullPath);
+    } else if (!keep.has(fullPath)) {
+      fs.rmSync(fullPath);
+      removed += 1;
+    }
+  }
+
+  return removed;
+}
+
+// sharp reports the stored (pre-rotation) size. Derivatives are written with
+// .rotate(), so swap width/height for EXIF orientations 5–8 to keep the
+// layout aspect ratio in sync with the actual image.
+function getDisplaySize(metadata) {
+  const width = metadata.width || 0;
+  const height = metadata.height || 0;
+  return (metadata.orientation || 1) >= 5 ? { width: height, height: width } : { width, height };
 }
 
 function getTag(tags, name) {
@@ -174,14 +209,18 @@ async function generateGallery() {
   }
 
   const photos = [];
+  const keepDerivatives = new Set();
 
   for (const [index, sourcePath] of imageFiles.entries()) {
     const info = getRelativeInfo(sourcePath);
 
     await buildDerivative(sourcePath, info.thumbPath, 720, 72);
     await buildDerivative(sourcePath, info.optimizedPath, 1920, 84);
+    keepDerivatives.add(info.thumbPath);
+    keepDerivatives.add(info.optimizedPath);
 
     const metadata = await sharp(sourcePath).metadata();
+    const { width, height } = getDisplaySize(metadata);
     const frameColor = await getFrameColor(sourcePath, index);
     const fileBuffer = fs.readFileSync(sourcePath);
     let tags = {};
@@ -196,8 +235,8 @@ async function generateGallery() {
       id: index + 1,
       src: info.optimizedWebPath,
       thumbnail: info.thumbWebPath,
-      width: metadata.width || 0,
-      height: metadata.height || 0,
+      width,
+      height,
       category: info.category,
       title: info.baseName,
       displayTitle: formatDisplayTitle({ id: index + 1, title: info.baseName, category: info.category }),
@@ -216,6 +255,15 @@ async function generateGallery() {
 
   fs.writeFileSync(OUTPUT_FILE, `${JSON.stringify(photos, null, 2)}\n`);
   console.log(`Generated ${photos.length} photo records.`);
+
+  const pruned = pruneOrphans(THUMBNAIL_DIR, keepDerivatives) + pruneOrphans(OPTIMIZED_DIR, keepDerivatives);
+  if (pruned) console.log(`Pruned ${pruned} orphaned derivative files.`);
+
+  if (skippedFiles.length) {
+    console.warn(
+      `Skipped ${skippedFiles.length} unsupported file(s) (convert HEIC to JPEG to include them, e.g. \`sips -s format jpeg x.HEIC --out x.jpg\` on macOS):\n  ${skippedFiles.join('\n  ')}`
+    );
+  }
 }
 
 generateGallery().catch((error) => {

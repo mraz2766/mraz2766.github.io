@@ -1,55 +1,45 @@
-# Minimalist Lens
+# mraz — Photography
 
-一个以克制浏览、精选编排与系列叙事为核心的个人图像作品集。
-
-## Design Philosophy
-
-*   **Obsidian & Glass**: A visual language built on deep contrasts (pure black/white) and translucent glassmorphism elements.
-*   **Editorial Typography**: Utilizing `Inter` for clean UI elements and `Playfair Display` for artistic accents, creating a magazine-like reading experience.
-*   **Cinematic Motion**: Subtle animations, such as the Ken Burns effect on the About page and smooth layout transitions, bring static images to life.
-*   **Adaptive Layout**: A responsive masonry grid that shifts density based on device and user preference (Compact/Default modes).
+Personal photo archive (pets, toys, light) deployed to GitHub Pages at <https://mraz2766.github.io/>.
+Visual language — white gallery wall, giant black wordmark, chromatic hairline frames — is documented in [`DESIGN.md`](./DESIGN.md).
 
 ## Features
 
-*   **系列化首页**：All / Pets / Toys 三个入口共用一套克制编排，首页默认优先展示精选作品。
-*   **作品详情视图**：Lightbox 不只显示图片，还补充系列语境、当前位置和清洗后的拍摄信息。
-*   **关于页表达**：增加作者陈述与联系信息，让站点更像正式作品集而不是单纯相册。
-*   **静态资源生成**：构建时自动生成 WebP 缩略图与浏览图，并只保留运行时真正使用的资源到 `dist`。
+*   **Home** — oversized wordmark plus a curated wall of featured Pets / Toys photographs.
+*   **Works** — `/works`, `/works/pets`, `/works/toys`; masonry grid that loads in batches and keeps tiles in place as more load.
+*   **Lightbox** — the open photo lives in the URL (`/works?photo=<slug>`), so links are shareable and Back closes it. Arrow keys, Esc, swipe on phones, neighbour preloading and cleaned-up EXIF.
+*   **Static image pipeline** — WebP thumbnails (720px) and viewing images (1920px), EXIF-aware dimensions, per-photo frame colour, orphan cleanup.
 
 ## Tech Stack
 
-*   **Frontend**: React, Vite
-*   **Styling**: CSS, Framer Motion
-*   **Image Processing**: Sharp, ExifReader
-*   **Deployment**: GitHub Pages
+*   React 19, React Router 7, Framer Motion (via `LazyMotion`), Vite
+*   Sharp + ExifReader for the image pipeline
+*   GitHub Actions → GitHub Pages
 
 ## Development
 
-1.  **Install Dependencies**:
-    ```bash
-    npm install
-    ```
+```bash
+npm install
+npm run dev           # local dev server
+npm run gen-gallery   # regenerate derivatives + public/photos.json
+npm run build         # gen-gallery + vite build + trim (also writes dist/404.html)
+```
 
-2.  **Add Photos**:
-    Place your source photos under `public/photos/<series-name>`.
+### Adding photos
 
-3.  **Generate Gallery**:
-    Run the script to generate optimized images, thumbnails, and `photos.json`:
-    ```bash
-    npm run gen-gallery
-    ```
+Put originals under `public/photos/<series>/` (e.g. `pets`, `toys`) and run `npm run gen-gallery`.
+Supported: JPEG / PNG / WebP. HEIC is skipped (the script lists skipped files) — convert first, e.g. on macOS:
 
-4.  **Start Dev Server**:
-    ```bash
-    npm run dev
-    ```
+```bash
+sips -s format jpeg IMG_1234.HEIC --out IMG_1234.jpg
+```
 
-5.  **Build & Deploy**:
-    ```bash
-    npm run build
-    # 构建产物位于 dist，原始 source photos 不会被带入最终站点
-    ```
+To feature a photo on Home / at the top of a series, add its slug to `FEATURED_SLUGS` in `src/data/siteContent.js`.
+
+### Deployment
+
+Pushing to `main` runs `.github/workflows/deploy.yml`. The original photos are removed from `dist`; `index.html` is copied to `404.html` so deep links work on GitHub Pages.
 
 ## License
 
-© 2025 Minimalist Lens. All rights reserved.
+© 2026 mraz. All rights reserved.

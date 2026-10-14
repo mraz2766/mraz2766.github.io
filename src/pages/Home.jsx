@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { motion as Motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { m as Motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../data/siteContent';
-import { loadPhotos } from '../lib/gallery';
+import { getCachedPhotos, loadPhotos } from '../lib/gallery';
 
 const CURATED_COUNT = 18;
 
@@ -29,7 +29,7 @@ function curatePhotos(photos) {
 }
 
 const Home = () => {
-  const [photos, setPhotos] = useState([]);
+  const [photos, setPhotos] = useState(() => getCachedPhotos() || []);
   const reduceMotion = useReducedMotion();
   const { scrollY } = useScroll();
   const wordmarkY = useTransform(scrollY, [0, 900], [0, reduceMotion ? 0 : 180]);
@@ -96,20 +96,19 @@ const Home = () => {
               }}
             >
               <Link
-                to="/works"
-                state={{ selectedId: photo.id }}
+                to={`/works?photo=${encodeURIComponent(photo.slug)}`}
                 className="home-photo-link"
                 aria-label={`View ${photo.displayTitle}`}
               >
                 <img
                   src={photo.thumbnail || photo.src}
-                  alt={photo.displayTitle}
+                  alt=""
                   width={photo.width}
                   height={photo.height}
                   loading={index < 4 ? 'eager' : 'lazy'}
                   decoding="async"
                 />
-                <span className="photo-label">
+                <span className="photo-label" aria-hidden="true">
                   <span>{photo.category}</span>
                   <span>{String(index + 1).padStart(2, '0')}</span>
                 </span>

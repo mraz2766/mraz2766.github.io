@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { motion as Motion, useReducedMotion } from 'framer-motion';
+import { m as Motion, useReducedMotion } from 'framer-motion';
 import { ABOUT_BODY, SITE_DESCRIPTION, SITE_TITLE } from '../data/siteContent';
-import { loadPhotos } from '../lib/gallery';
+import { getCachedPhotos, loadPhotos } from '../lib/gallery';
+
+function pickAboutPhoto(photos) {
+  if (!photos?.length) return null;
+  return photos.find((item) => item.featured && item.category === 'Toys') || photos[0];
+}
 
 const About = () => {
   const reduceMotion = useReducedMotion();
-  const [photo, setPhoto] = useState(null);
+  const [photo, setPhoto] = useState(() => pickAboutPhoto(getCachedPhotos()));
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -14,7 +19,7 @@ const About = () => {
     loadPhotos()
       .then((data) => {
         if (!active) return;
-        setPhoto(data.find((item) => item.featured && item.category === 'Toys') || data[0] || null);
+        setPhoto(pickAboutPhoto(data));
       })
       .catch((loadError) => {
         if (!active) return;

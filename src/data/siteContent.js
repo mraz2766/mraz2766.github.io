@@ -63,7 +63,21 @@ const FEATURED_SLUGS = new Set([
   'r0003833',
 ]);
 
-const MACHINE_LIKE_TITLE = /^(img[_-]?\d+|wechatimg\d+|r\d+|[0-9a-f]{8,}|[0-9]{8,}[_-]?[0-9-]*)$/i;
+// Camera / phone / messenger file names that carry no meaning as a title:
+// IMG_1234, WechatIMG12, R0001234, hashes, UUIDs, timestamps, "1766…_R0005190",
+// "FullSizeRender_VSCO", "20210918_095509-01".
+const MACHINE_LIKE_TITLE = new RegExp([
+  '^(',
+  'img[_-]?\\d+',
+  '|wechatimg\\d+',
+  '|r\\d+',
+  '|[0-9a-f]{8,}',
+  '|[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}',
+  '|[0-9]{8,}[_-]?[0-9-]*',
+  '|\\d{10,}[_-][a-z]*\\d+',
+  '|fullsizerender([_-].*)?',
+  ')$',
+].join(''), 'i');
 
 export function slugify(value) {
   return String(value)
@@ -109,6 +123,13 @@ export function formatDisplayTitle(photo) {
   }
 
   return normalized;
+}
+
+/** Right-hand tile caption: drops the series name that the left side already shows. */
+export function getTileLabel(photo) {
+  const title = photo?.displayTitle || '';
+  const prefix = `${getCategoryLabel(photo?.category)} `;
+  return title.startsWith(prefix) ? `No. ${title.slice(prefix.length)}` : title;
 }
 
 export function enrichPhoto(photo) {

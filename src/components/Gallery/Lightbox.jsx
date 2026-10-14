@@ -1,21 +1,109 @@
-import React, { useEffect } from 'react';
-import { motion as Motion, useReducedMotion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { m as Motion, useReducedMotion } from 'framer-motion';
 import { getCategoryLabel, getExifDisplayItems } from '../../data/siteContent';
 
-const Lightbox = ({ photo, photoIndex, total, onClose, onNext, onPrev }) => {
-  const reduceMotion = useReducedMotion();
+const SWIPE_THRESHOLD = 48;
 
+/**
+ * Shows the (already cached) thumbnail immediately, then fades the full-size
+ * image in on top once it has loaded — no black gap while it downloads.
+ */
+const LightboxImage = ({ photo }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="lightbox-image-stage">
+      {photo.thumbnail ? (
+        <img
+          className="lightbox-image lightbox-image-preview"
+          src={photo.thumbnail}
+          alt=""
+          aria-hidden="true"
+          width={photo.width}
+          height={photo.height}
+        />
+      ) : null}
+      <img
+        className={loaded ? 'lightbox-image is-loaded' : 'lightbox-image'}
+        src={photo.src}
+        alt={photo.displayTitle}
+        width={photo.width}
+        height={photo.height}
+        decoding="async"
+        fetchPriority="high"
+        onLoad={() => setLoaded(true)}
+        // Clicking the photo itself shouldn't dismiss; the dark area around it does.
+        onClick={(event) => event.stopPropagation()}
+      />
+      {!loaded ? <span className="lightbox-loading" aria-hidden="true">Loading</span> : null}
+    </div>
+  );
+};
+
+const Lightbox = ({ photo, photoIndex, total, neighbors = [], onClose, onNext, onPrev }) => {
+  const reduceMotion = useReducedMotion();
+  const closeButtonRef = useRef(null);
+  const touchStart = useRef(null);
+
+  // Lock page scroll and move focus into the dialog.
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    closeButtonRef.current?.focus({ preventScroll: true });
     return () => {
       document.body.style.overflow = previousOverflow;
     };
   }, []);
 
-  if (!photo) return null;
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowRight') onNext();
+      else if (event.key === 'ArrowLeft') onPrev();
+      else if (event.key === 'Escape') onClose();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose, onNext, onPrev]);
+
+  // Warm the cache for the neighbours so arrow / swipe navigation feels instant.
+  useEffect(() => {
+    neighbors.forEach((neighbor) => {
+      if (!neighbor || neighbor.slug === photo.slug) return;
+      const image = new Image();
+      image.decoding = 'async';
+      image.src = neighbor.src;
+    });
+  }, [neighbors, photo.slug]);
+
+  const handleTouchStart = (event) => {
+    if (event.touches.length !== 1) {
+      touchStart.current = null;
+      return;
+    }
+    const touch = event.touches[0];
+    touchStart.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const handleTouchEnd = (event) => {
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (!start) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - start.x;
+    const deltaY = touch.clientY - start.y;
+
+    if (Math.abs(deltaX) > SWIPE_THRESHOLD && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+      if (deltaX < 0) onNext();
+      else onPrev();
+    } else if (deltaY > SWIPE_THRESHOLD * 2 && deltaY > Math.abs(deltaX) * 1.5) {
+      onClose();
+    }
+  };
 
   const exifItems = getExifDisplayItems(photo.exif);
+  const counter = `${String(photoIndex + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
 
   return (
     <Motion.div
@@ -24,14 +112,20 @@ const Lightbox = ({ photo, photoIndex, total, onClose, onNext, onPrev }) => {
       aria-modal="true"
       aria-label={`Photograph: ${photo.displayTitle}`}
       onClick={onClose}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: reduceMotion ? 0 : 0.2 }}
     >
-      <div className="lightbox-topbar">
-        <span>{String(photoIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
-        <button type="button" onClick={onClose}>Close</button>
+      <div className="lightbox-topbar" onClick={(event) => event.stopPropagation()}>
+        <div className="lightbox-counter">
+          <button type="button" className="lightbox-step" onClick={onPrev} aria-label="Previous photograph">←</button>
+          <span aria-live="polite">{counter}</span>
+          <button type="button" className="lightbox-step" onClick={onNext} aria-label="Next photograph">→</button>
+        </div>
+        <button type="button" ref={closeButtonRef} onClick={onClose}>Close</button>
       </div>
 
       <button
@@ -48,24 +142,14 @@ const Lightbox = ({ photo, photoIndex, total, onClose, onNext, onPrev }) => {
 
       <Motion.figure
         className="lightbox-figure"
-        onClick={(event) => event.stopPropagation()}
         initial={reduceMotion ? false : { y: 18, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 12, opacity: 0 }}
         transition={{ duration: reduceMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="lightbox-image-stage">
-          <img
-            src={photo.src}
-            alt={photo.displayTitle}
-            width={photo.width}
-            height={photo.height}
-            loading="eager"
-            decoding="sync"
-          />
-        </div>
+        <LightboxImage key={photo.slug} photo={photo} />
 
-        <figcaption className="lightbox-caption">
+        <figcaption className="lightbox-caption" onClick={(event) => event.stopPropagation()}>
           <div className="lightbox-title">
             <span>{getCategoryLabel(photo.category)}</span>
             <h2>{photo.displayTitle}</h2>
