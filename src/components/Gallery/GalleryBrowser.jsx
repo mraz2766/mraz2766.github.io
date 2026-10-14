@@ -4,7 +4,9 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import FilterBar from './FilterBar';
 import MasonryGrid from './MasonryGrid';
 import Lightbox from './Lightbox';
+import IndexTable from './IndexTable';
 import {
+  getFranchiseIndex,
   getSeriesContent,
   SERIES_ORDER,
   sortPhotosForDisplay,
@@ -13,6 +15,8 @@ import { getCachedPhotos, loadPhotos } from '../../lib/gallery';
 
 const BATCH_SIZE = 24;
 const PHOTO_PARAM = 'photo';
+const FRANCHISE_PARAM = 'f';
+const VIEW_PARAM = 'view';
 
 function getScopedPhotos(photos, category) {
   if (category === 'All') return sortPhotosForDisplay(photos, 'All');
@@ -33,7 +37,7 @@ const GalleryBrowser = ({ filter = 'All' }) => {
   const [loading, setLoading] = useState(!cachedPhotos);
   const [error, setError] = useState('');
   const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
-  const [renderedFilter, setRenderedFilter] = useState(filter);
+  const [renderedFilter, setRenderedFilter] = useState(`${filter}|`);
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -44,19 +48,39 @@ const GalleryBrowser = ({ filter = 'All' }) => {
   // The open photo lives in the URL (?photo=slug): shareable, survives a
   // refresh, and the browser/phone back gesture closes the lightbox.
   const selectedSlug = searchParams.get(PHOTO_PARAM);
+  const franchise = searchParams.get(FRANCHISE_PARAM) || '';
+  const view = searchParams.get(VIEW_PARAM) === 'index' ? 'index' : 'grid';
+  const scopeKey = `${filter}|${franchise}`;
 
-  const filteredPhotos = useMemo(
+  const seriesPhotos = useMemo(
     () => getScopedPhotos(allPhotos, filter),
     [allPhotos, filter]
   );
+  const franchises = useMemo(() => getFranchiseIndex(seriesPhotos), [seriesPhotos]);
+  const filteredPhotos = useMemo(
+    () => (franchise ? seriesPhotos.filter((photo) => photo.franchise === franchise) : seriesPhotos),
+    [seriesPhotos, franchise]
+  );
+
+  // Update some query params while keeping the others (series filter, view…).
+  const updateParams = useCallback((updates, options) => {
+    setSearchParams((current) => {
+      const next = new URLSearchParams(current);
+      Object.entries(updates).forEach(([key, value]) => {
+        if (value) next.set(key, value);
+        else next.delete(key);
+      });
+      return next;
+    }, options);
+  }, [setSearchParams]);
   const selectedIndex = selectedSlug
     ? filteredPhotos.findIndex((photo) => photo.slug === selectedSlug)
     : -1;
   const selectedPhoto = selectedIndex === -1 ? null : filteredPhotos[selectedIndex];
 
   // Reset pagination when the series changes (render-phase state adjustment).
-  if (renderedFilter !== filter) {
-    setRenderedFilter(filter);
+  if (renderedFilter !== scopeKey) {
+    setRenderedFilter(scopeKey);
     setVisibleCount(BATCH_SIZE);
   }
 
@@ -91,15 +115,15 @@ const GalleryBrowser = ({ filter = 'All' }) => {
   }, [hydrateGallery]);
 
   // When switching series further down the page, bring the toolbar back into view.
-  const previousFilter = useRef(filter);
+  const previousScope = useRef(scopeKey);
   useEffect(() => {
-    if (previousFilter.current === filter) return;
-    previousFilter.current = filter;
+    if (previousScope.current === scopeKey) return;
+    previousScope.current = scopeKey;
 
     if (window.scrollY > 0) {
       window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
     }
-  }, [filter, reduceMotion]);
+  }, [scopeKey, reduceMotion]);
 
   useEffect(() => {
     const sentinel = sentinelRef.current;
@@ -120,16 +144,16 @@ const GalleryBrowser = ({ filter = 'All' }) => {
 
   const openPhoto = useCallback((slug) => {
     lastOpenedSlug.current = slug;
-    setSearchParams({ [PHOTO_PARAM]: slug }, { state: { lightbox: true } });
-  }, [setSearchParams]);
+    updateParams({ [PHOTO_PARAM]: slug }, { state: { lightbox: true } });
+  }, [updateParams]);
 
   const showPhotoAt = useCallback((index) => {
     if (!filteredPhotos.length) return;
     const wrapped = (index + filteredPhotos.length) % filteredPhotos.length;
     const photo = filteredPhotos[wrapped];
     lastOpenedSlug.current = photo.slug;
-    setSearchParams({ [PHOTO_PARAM]: photo.slug }, { replace: true, state: location.state });
-  }, [filteredPhotos, location.state, setSearchParams]);
+    updateParams({ [PHOTO_PARAM]: photo.slug }, { replace: true, state: location.state });
+  }, [filteredPhotos, location.state, updateParams]);
 
   const handleNext = useCallback(() => showPhotoAt(selectedIndex + 1), [selectedIndex, showPhotoAt]);
   const handlePrev = useCallback(() => showPhotoAt(selectedIndex - 1), [selectedIndex, showPhotoAt]);
@@ -140,9 +164,9 @@ const GalleryBrowser = ({ filter = 'All' }) => {
     if (location.state?.lightbox) {
       navigate(-1);
     } else {
-      setSearchParams({}, { replace: true });
+      updateParams({ [PHOTO_PARAM]: null }, { replace: true });
     }
-  }, [location.state, navigate, setSearchParams]);
+  }, [location.state, navigate, updateParams]);
 
   // Return keyboard focus (and the scroll position) to the last viewed tile.
   useEffect(() => {
@@ -161,7 +185,7 @@ const GalleryBrowser = ({ filter = 'All' }) => {
 
   return (
     <Motion.div
-      className="gallery-page"
+      className="gallery-page page-pad"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -173,25 +197,32 @@ const GalleryBrowser = ({ filter = 'All' }) => {
         photoCount={filteredPhotos.length}
         seriesContent={activeSeries}
         loading={loading}
+        franchises={franchises}
+        franchise={franchise}
+        onFranchiseChange={(value) => updateParams({ [FRANCHISE_PARAM]: value }, { replace: true })}
+        view={view}
+        onViewChange={(value) => updateParams({ [VIEW_PARAM]: value === 'index' ? 'index' : null }, { replace: true })}
       />
 
       {error ? (
         <section className="gallery-notice">
-          <h2>Load failed</h2>
+          <h2>加载失败 <span lang="en">Load failed</span></h2>
           <p>{error}</p>
-          <button type="button" className="outlined-link" onClick={hydrateGallery}>Retry</button>
+          <button type="button" className="outlined-link" onClick={hydrateGallery}>重试 Retry</button>
         </section>
       ) : loading ? (
         <section className="gallery-notice" aria-live="polite">
-          <span>Loading photographs</span>
+          <span>载入中 <span lang="en">Loading</span></span>
         </section>
       ) : !filteredPhotos.length ? (
         <section className="gallery-notice">
-          <h2>No photographs</h2>
+          <h2>暂无藏品 <span lang="en">Nothing here yet</span></h2>
         </section>
+      ) : view === 'index' ? (
+        <IndexTable photos={filteredPhotos} onPhotoClick={openPhoto} />
       ) : (
         <>
-          <MasonryGrid key={filter} photos={visiblePhotos} onPhotoClick={openPhoto} />
+          <MasonryGrid key={scopeKey} photos={visiblePhotos} onPhotoClick={openPhoto} />
           <div ref={sentinelRef} className="gallery-sentinel">
             {hasMore ? (
               <button
@@ -199,10 +230,10 @@ const GalleryBrowser = ({ filter = 'All' }) => {
                 className="load-more-link"
                 onClick={() => setVisibleCount((count) => Math.min(count + BATCH_SIZE, filteredPhotos.length))}
               >
-                More / {visiblePhotos.length} of {filteredPhotos.length}
+                更多 <span lang="en">More</span> / {visiblePhotos.length} of {filteredPhotos.length}
               </button>
             ) : (
-              <span>End / {filteredPhotos.length} photographs</span>
+              <span>完 <span lang="en">End</span> / {filteredPhotos.length}</span>
             )}
           </div>
         </>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { m as Motion, useReducedMotion } from 'framer-motion';
-import { getCategoryLabel, getExifDisplayItems } from '../../data/siteContent';
+import { getExifDisplayItems, getLabelItems } from '../../data/siteContent';
+import { SpecimenLabel } from '../Specimen';
 
 const SWIPE_THRESHOLD = 48;
 
@@ -103,6 +104,7 @@ const Lightbox = ({ photo, photoIndex, total, neighbors = [], onClose, onNext, o
   };
 
   const exifItems = getExifDisplayItems(photo.exif);
+  const labelItems = getLabelItems(photo);
   const counter = `${String(photoIndex + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
 
   return (
@@ -125,7 +127,7 @@ const Lightbox = ({ photo, photoIndex, total, neighbors = [], onClose, onNext, o
           <span aria-live="polite">{counter}</span>
           <button type="button" className="lightbox-step" onClick={onNext} aria-label="Next photograph">→</button>
         </div>
-        <button type="button" ref={closeButtonRef} onClick={onClose}>Close</button>
+        <button type="button" ref={closeButtonRef} onClick={onClose}>关闭 <span lang="en">Close</span></button>
       </div>
 
       <button
@@ -149,26 +151,38 @@ const Lightbox = ({ photo, photoIndex, total, neighbors = [], onClose, onNext, o
       >
         <LightboxImage key={photo.slug} photo={photo} />
 
-        <figcaption className="lightbox-caption" onClick={(event) => event.stopPropagation()}>
-          <div className="lightbox-title">
-            <span>{getCategoryLabel(photo.category)}</span>
-            <h2>{photo.displayTitle}</h2>
-          </div>
+        <figcaption className="lightbox-sheet" onClick={(event) => event.stopPropagation()}>
+          <SpecimenLabel photo={photo} />
 
-          <div className="lightbox-details">
-            <span>{photo.width && photo.height ? `${photo.width} × ${photo.height}` : ''}</span>
-            {exifItems.length ? (
-              <dl>
-                {exifItems.map((item) => (
-                  <div key={`${item.label}-${item.value}`}>
-                    <dt>{item.label}</dt>
-                    <dd>{item.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            ) : (
-              <span>No EXIF</span>
-            )}
+          {labelItems.length ? (
+            <dl className="sheet-list">
+              {labelItems.map((item) => (
+                <div key={item.label}>
+                  <dt>{item.labelZh} <span lang="en">{item.label}</span></dt>
+                  <dd>{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
+
+          {photo.note ? <p className="sheet-note">{photo.note}</p> : null}
+
+          <div className="sheet-section">
+            <span className="sheet-heading">拍摄 <span lang="en">Photographed</span></span>
+            <dl className="sheet-list" lang="en">
+              {exifItems.map((item) => (
+                <div key={item.label}>
+                  <dt>{item.labelZh} <span lang="en">{item.label}</span></dt>
+                  <dd>{item.value}</dd>
+                </div>
+              ))}
+              {photo.width && photo.height ? (
+                <div>
+                  <dt>尺寸 <span lang="en">Size</span></dt>
+                  <dd>{photo.width} × {photo.height}</dd>
+                </div>
+              ) : null}
+            </dl>
           </div>
         </figcaption>
       </Motion.figure>

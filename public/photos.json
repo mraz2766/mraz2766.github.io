@@ -7,7 +7,7 @@
     "height": 2500,
     "category": "Pets",
     "title": "20210203_225935",
-    "displayTitle": "Pets 01",
+    "displayTitle": "Pets No.001",
     "frameColor": "cobalt",
     "exif": {
       "camera": "SM-G9730",
@@ -16,10 +16,17 @@
       "aperture": "f/1.5",
       "shutter": "1/50"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "20210203-225935",
+    "no": "001",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 2,
@@ -29,7 +36,7 @@
     "height": 1875,
     "category": "Pets",
     "title": "4e76834958fdacd727cba9777d56ba51",
-    "displayTitle": "Pets 02",
+    "displayTitle": "Pets No.002",
     "frameColor": "brass",
     "exif": {
       "camera": "",
@@ -38,10 +45,17 @@
       "aperture": "",
       "shutter": ""
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "4e76834958fdacd727cba9777d56ba51",
+    "no": "002",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 3,
@@ -51,7 +65,7 @@
     "height": 1440,
     "category": "Pets",
     "title": "6ed909533c3c75f74b7c195c96746af8",
-    "displayTitle": "Pets 03",
+    "displayTitle": "Pets No.003",
     "frameColor": "marigold",
     "exif": {
       "camera": "",
@@ -60,10 +74,17 @@
       "aperture": "",
       "shutter": ""
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "6ed909533c3c75f74b7c195c96746af8",
+    "no": "003",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 4,
@@ -73,7 +94,7 @@
     "height": 2500,
     "category": "Pets",
     "title": "IMG_1109",
-    "displayTitle": "Pets 04",
+    "displayTitle": "Pets No.004",
     "frameColor": "cobalt",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -82,10 +103,17 @@
       "aperture": "f/1.8",
       "shutter": "1/60"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1109",
+    "no": "004",
     "featured": true,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 5,
@@ -95,7 +123,7 @@
     "height": 2500,
     "category": "Pets",
     "title": "IMG_2301",
-    "displayTitle": "Pets 05",
+    "displayTitle": "Pets No.005",
     "frameColor": "marigold",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -104,10 +132,17 @@
       "aperture": "f/1.8",
       "shutter": "1/4"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-2301",
+    "no": "005",
     "featured": true,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 6,
@@ -117,7 +152,7 @@
     "height": 2500,
     "category": "Pets",
     "title": "IMG_8048",
-    "displayTitle": "Pets 06",
+    "displayTitle": "Pets No.006",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 8",
@@ -126,10 +161,17 @@
       "aperture": "f/1.8",
       "shutter": "1/30"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-8048",
+    "no": "006",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 7,
@@ -139,7 +181,7 @@
     "height": 1667,
     "category": "Pets",
     "title": "WechatIMG837",
-    "displayTitle": "Pets 07",
+    "displayTitle": "Pets No.007",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -148,10 +190,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "wechatimg837",
+    "no": "007",
     "featured": true,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 8,
@@ -161,7 +210,7 @@
     "height": 812,
     "category": "Pets",
     "title": "WechatIMG902",
-    "displayTitle": "Pets 08",
+    "displayTitle": "Pets No.008",
     "frameColor": "cobalt",
     "exif": {
       "camera": "",
@@ -170,10 +219,17 @@
       "aperture": "",
       "shutter": ""
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "wechatimg902",
+    "no": "008",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 9,
@@ -183,7 +239,7 @@
     "height": 1216,
     "category": "Pets",
     "title": "WechatIMG903",
-    "displayTitle": "Pets 09",
+    "displayTitle": "Pets No.009",
     "frameColor": "marigold",
     "exif": {
       "camera": "",
@@ -192,10 +248,17 @@
       "aperture": "",
       "shutter": ""
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "wechatimg903",
+    "no": "009",
     "featured": true,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 10,
@@ -205,7 +268,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "022E2A10-920B-4C6C-BE39-6E9212E4C093",
-    "displayTitle": "Toys 10",
+    "displayTitle": "孙悟空 · Son Goku (Super Saiyan)",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -214,10 +277,17 @@
       "aperture": "f/1.8",
       "shutter": "1/121"
     },
+    "name": "孙悟空",
+    "nameEn": "Son Goku (Super Saiyan)",
+    "franchise": "dragon-ball",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "022e2a10-920b-4c6c-be39-6e9212e4c093",
+    "no": "010",
     "featured": true,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 11,
@@ -227,7 +297,7 @@
     "height": 6000,
     "category": "Toys",
     "title": "1764213488000_R0005096",
-    "displayTitle": "Toys 11",
+    "displayTitle": "Toys No.011",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -236,10 +306,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "1764213488000-r0005096",
+    "no": "011",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 12,
@@ -249,7 +326,7 @@
     "height": 4000,
     "category": "Toys",
     "title": "1765506737000_R0005110",
-    "displayTitle": "Toys 12",
+    "displayTitle": "Toys No.012",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -258,10 +335,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "1765506737000-r0005110",
+    "no": "012",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 13,
@@ -271,7 +355,7 @@
     "height": 4000,
     "category": "Toys",
     "title": "1766647459000_R0005160",
-    "displayTitle": "Toys 13",
+    "displayTitle": "Toys No.013",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -280,10 +364,17 @@
       "aperture": "f/4.0",
       "shutter": "1/80"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "1766647459000-r0005160",
+    "no": "013",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 14,
@@ -293,7 +384,7 @@
     "height": 4000,
     "category": "Toys",
     "title": "1766972660000_R0005178",
-    "displayTitle": "Toys 14",
+    "displayTitle": "Toys No.014",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -302,10 +393,17 @@
       "aperture": "f/5.6",
       "shutter": "1/125"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "1766972660000-r0005178",
+    "no": "014",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 15,
@@ -315,7 +413,7 @@
     "height": 4000,
     "category": "Toys",
     "title": "1766988511000_R0005188",
-    "displayTitle": "Toys 15",
+    "displayTitle": "Toys No.015",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -324,10 +422,17 @@
       "aperture": "f/3.5",
       "shutter": "1/125"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "1766988511000-r0005188",
+    "no": "015",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 16,
@@ -337,7 +442,7 @@
     "height": 6000,
     "category": "Toys",
     "title": "1766989022000_R0005190",
-    "displayTitle": "Toys 16",
+    "displayTitle": "Toys No.016",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -346,10 +451,17 @@
       "aperture": "f/3.5",
       "shutter": "1/125"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "1766989022000-r0005190",
+    "no": "016",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 17,
@@ -359,7 +471,7 @@
     "height": 4000,
     "category": "Toys",
     "title": "1766989061000_R0005192",
-    "displayTitle": "Toys 17",
+    "displayTitle": "Toys No.017",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -368,10 +480,17 @@
       "aperture": "f/3.5",
       "shutter": "1/125"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "1766989061000-r0005192",
+    "no": "017",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 18,
@@ -381,7 +500,7 @@
     "height": 1875,
     "category": "Toys",
     "title": "20201206_231641",
-    "displayTitle": "Toys 18",
+    "displayTitle": "Toys No.018",
     "frameColor": "cobalt",
     "exif": {
       "camera": "SM-G9730",
@@ -390,10 +509,17 @@
       "aperture": "f/2.4",
       "shutter": "1/33"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "20201206-231641",
+    "no": "018",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 19,
@@ -403,7 +529,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "20210918_095509-01",
-    "displayTitle": "Toys 19",
+    "displayTitle": "格鲁特 · Groot",
     "frameColor": "cobalt",
     "exif": {
       "camera": "SM-G9730",
@@ -412,10 +538,17 @@
       "aperture": "f/1.5",
       "shutter": "1/50"
     },
+    "name": "格鲁特",
+    "nameEn": "Groot",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "20210918-095509-01",
+    "no": "019",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 20,
@@ -425,7 +558,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "FullSizeRender_VSCO",
-    "displayTitle": "Toys 20",
+    "displayTitle": "明日香 · Asuka Langley",
     "frameColor": "vermillion",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -434,10 +567,17 @@
       "aperture": "f/1.8",
       "shutter": "1/40"
     },
+    "name": "明日香",
+    "nameEn": "Asuka Langley",
+    "franchise": "anime",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "fullsizerender-vsco",
+    "no": "020",
     "featured": true,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 21,
@@ -447,7 +587,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_0126",
-    "displayTitle": "Toys 21",
+    "displayTitle": "Toys No.021",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -456,10 +596,17 @@
       "aperture": "f/1.8",
       "shutter": "1/121"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-0126",
+    "no": "021",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 22,
@@ -469,7 +616,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_0469",
-    "displayTitle": "Toys 22",
+    "displayTitle": "Toys No.022",
     "frameColor": "vermillion",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -478,10 +625,17 @@
       "aperture": "f/1.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-0469",
+    "no": "022",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 23,
@@ -491,7 +645,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_0863",
-    "displayTitle": "Toys 23",
+    "displayTitle": "Toys No.023",
     "frameColor": "marigold",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -500,10 +654,17 @@
       "aperture": "f/1.8",
       "shutter": "1/95"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-0863",
+    "no": "023",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 24,
@@ -513,7 +674,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_0932",
-    "displayTitle": "Toys 24",
+    "displayTitle": "Toys No.024",
     "frameColor": "marigold",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -522,10 +683,17 @@
       "aperture": "f/1.8",
       "shutter": "1/121"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-0932",
+    "no": "024",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 25,
@@ -535,7 +703,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_1114",
-    "displayTitle": "Toys 25",
+    "displayTitle": "蜘蛛侠 · Spider-Man",
     "frameColor": "cobalt",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -544,10 +712,17 @@
       "aperture": "f/1.8",
       "shutter": "1/50"
     },
+    "name": "蜘蛛侠",
+    "nameEn": "Spider-Man",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1114",
+    "no": "025",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 26,
@@ -557,7 +732,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_1130",
-    "displayTitle": "Toys 26",
+    "displayTitle": "蝙蝠侠与超人 · Batman & Superman",
     "frameColor": "cobalt",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -566,10 +741,17 @@
       "aperture": "f/1.8",
       "shutter": "1/104"
     },
+    "name": "蝙蝠侠与超人",
+    "nameEn": "Batman & Superman",
+    "franchise": "dc",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1130",
+    "no": "026",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 27,
@@ -579,7 +761,7 @@
     "height": 1875,
     "category": "Toys",
     "title": "IMG_1395",
-    "displayTitle": "Toys 27",
+    "displayTitle": "Toys No.027",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -588,10 +770,17 @@
       "aperture": "f/1.8",
       "shutter": "1/93"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1395",
+    "no": "027",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 28,
@@ -601,7 +790,7 @@
     "height": 1875,
     "category": "Toys",
     "title": "IMG_1396",
-    "displayTitle": "Toys 28",
+    "displayTitle": "Toys No.028",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -610,10 +799,17 @@
       "aperture": "f/1.8",
       "shutter": "1/60"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1396",
+    "no": "028",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 29,
@@ -623,7 +819,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_1416",
-    "displayTitle": "Toys 29",
+    "displayTitle": "Toys No.029",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -632,10 +828,17 @@
       "aperture": "f/1.8",
       "shutter": "1/90"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1416",
+    "no": "029",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 30,
@@ -645,7 +848,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_1499",
-    "displayTitle": "Toys 30",
+    "displayTitle": "蜘蛛侠 · Spider-Man",
     "frameColor": "marigold",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -654,10 +857,17 @@
       "aperture": "f/1.8",
       "shutter": "1/121"
     },
+    "name": "蜘蛛侠",
+    "nameEn": "Spider-Man",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1499",
+    "no": "030",
     "featured": true,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 31,
@@ -667,7 +877,7 @@
     "height": 1979,
     "category": "Toys",
     "title": "IMG_1549",
-    "displayTitle": "Toys 31",
+    "displayTitle": "Toys No.031",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -676,10 +886,17 @@
       "aperture": "f/1.8",
       "shutter": "1/121"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1549",
+    "no": "031",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 32,
@@ -689,7 +906,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_1561",
-    "displayTitle": "Toys 32",
+    "displayTitle": "Toys No.032",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -698,10 +915,17 @@
       "aperture": "f/1.8",
       "shutter": "1/121"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1561",
+    "no": "032",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 33,
@@ -711,7 +935,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_1583",
-    "displayTitle": "Toys 33",
+    "displayTitle": "Toys No.033",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -720,10 +944,17 @@
       "aperture": "f/1.8",
       "shutter": "1/59"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1583",
+    "no": "033",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 34,
@@ -733,7 +964,7 @@
     "height": 1875,
     "category": "Toys",
     "title": "IMG_1590",
-    "displayTitle": "Toys 34",
+    "displayTitle": "Toys No.034",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -742,10 +973,17 @@
       "aperture": "f/1.8",
       "shutter": "1/121"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1590",
+    "no": "034",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 35,
@@ -755,7 +993,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_1657",
-    "displayTitle": "Toys 35",
+    "displayTitle": "Toys No.035",
     "frameColor": "marigold",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -764,10 +1002,17 @@
       "aperture": "f/1.8",
       "shutter": "1/50"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1657",
+    "no": "035",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 36,
@@ -777,7 +1022,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_1673",
-    "displayTitle": "Toys 36",
+    "displayTitle": "爬虫 · Reptile",
     "frameColor": "fern",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -786,10 +1031,17 @@
       "aperture": "f/1.8",
       "shutter": "1/50"
     },
+    "name": "爬虫",
+    "nameEn": "Reptile",
+    "franchise": "fighting-games",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1673",
+    "no": "036",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 37,
@@ -799,7 +1051,7 @@
     "height": 1875,
     "category": "Toys",
     "title": "IMG_1808",
-    "displayTitle": "Toys 37",
+    "displayTitle": "Toys No.037",
     "frameColor": "vermillion",
     "exif": {
       "camera": "",
@@ -808,10 +1060,17 @@
       "aperture": "f/1.5",
       "shutter": "1/45"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1808",
+    "no": "037",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 38,
@@ -821,7 +1080,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_1965",
-    "displayTitle": "Toys 38",
+    "displayTitle": "月光骑士 · Moon Knight",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -830,10 +1089,17 @@
       "aperture": "f/1.8",
       "shutter": "1/60"
     },
+    "name": "月光骑士",
+    "nameEn": "Moon Knight",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-1965",
+    "no": "038",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 39,
@@ -843,7 +1109,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "IMG_2277",
-    "displayTitle": "Toys 39",
+    "displayTitle": "Toys No.039",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -852,10 +1118,17 @@
       "aperture": "f/1.8",
       "shutter": "1/71"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-2277",
+    "no": "039",
     "featured": true,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 40,
@@ -865,7 +1138,7 @@
     "height": 1875,
     "category": "Toys",
     "title": "IMG_2512",
-    "displayTitle": "Toys 40",
+    "displayTitle": "胡迪与巴斯光年 · Woody & Buzz Lightyear",
     "frameColor": "brass",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -874,10 +1147,17 @@
       "aperture": "f/1.8",
       "shutter": "1/95"
     },
+    "name": "胡迪与巴斯光年",
+    "nameEn": "Woody & Buzz Lightyear",
+    "franchise": "toy-story",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-2512",
+    "no": "040",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 41,
@@ -887,7 +1167,7 @@
     "height": 1875,
     "category": "Toys",
     "title": "IMG_5195",
-    "displayTitle": "Toys 41",
+    "displayTitle": "Toys No.041",
     "frameColor": "vermillion",
     "exif": {
       "camera": "iPhone 14 Pro",
@@ -896,10 +1176,17 @@
       "aperture": "f/1.8",
       "shutter": "1/60"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "img-5195",
+    "no": "041",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 42,
@@ -909,7 +1196,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0000215",
-    "displayTitle": "Toys 42",
+    "displayTitle": "布鲁·玛丽 · Blue Mary",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -918,10 +1205,17 @@
       "aperture": "f/2.8",
       "shutter": "1/40"
     },
+    "name": "布鲁·玛丽",
+    "nameEn": "Blue Mary",
+    "franchise": "fighting-games",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0000215",
-    "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "no": "042",
+    "featured": true,
+    "catalogued": true
   },
   {
     "id": 43,
@@ -931,7 +1225,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0000224",
-    "displayTitle": "Toys 43",
+    "displayTitle": "Toys No.043",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -940,10 +1234,17 @@
       "aperture": "f/2.8",
       "shutter": "1/20"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0000224",
+    "no": "043",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 44,
@@ -953,7 +1254,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0000277",
-    "displayTitle": "Toys 44",
+    "displayTitle": "竖锯玩偶 · Billy the Puppet",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -962,10 +1263,17 @@
       "aperture": "f/2.8",
       "shutter": "1/15"
     },
+    "name": "竖锯玩偶",
+    "nameEn": "Billy the Puppet",
+    "franchise": "horror",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0000277",
+    "no": "044",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 45,
@@ -975,7 +1283,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0000278",
-    "displayTitle": "Toys 45",
+    "displayTitle": "Toys No.045",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -984,10 +1292,17 @@
       "aperture": "f/2.8",
       "shutter": "1/15"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0000278",
+    "no": "045",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 46,
@@ -997,7 +1312,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0000279",
-    "displayTitle": "Toys 46",
+    "displayTitle": "毒藤女 · Poison Ivy",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1006,10 +1321,17 @@
       "aperture": "f/2.8",
       "shutter": "1/15"
     },
+    "name": "毒藤女",
+    "nameEn": "Poison Ivy",
+    "franchise": "dc",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0000279",
-    "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "no": "046",
+    "featured": true,
+    "catalogued": true
   },
   {
     "id": 47,
@@ -1019,7 +1341,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0000587",
-    "displayTitle": "Toys 47",
+    "displayTitle": "明日香 · Asuka Langley",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1028,10 +1350,17 @@
       "aperture": "f/2.8",
       "shutter": "1/8"
     },
+    "name": "明日香",
+    "nameEn": "Asuka Langley",
+    "franchise": "anime",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0000587",
+    "no": "047",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 48,
@@ -1041,7 +1370,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0000701",
-    "displayTitle": "Toys 48",
+    "displayTitle": "灶门祢豆子 · Nezuko Kamado",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1050,10 +1379,17 @@
       "aperture": "f/2.8",
       "shutter": "1/125"
     },
+    "name": "灶门祢豆子",
+    "nameEn": "Nezuko Kamado",
+    "franchise": "anime",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0000701",
-    "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "no": "048",
+    "featured": true,
+    "catalogued": true
   },
   {
     "id": 49,
@@ -1063,7 +1399,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0000709",
-    "displayTitle": "Toys 49",
+    "displayTitle": "Toys No.049",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1072,10 +1408,17 @@
       "aperture": "f/2.8",
       "shutter": "1/50"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0000709",
+    "no": "049",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 50,
@@ -1085,7 +1428,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0000778",
-    "displayTitle": "Toys 50",
+    "displayTitle": "大笑之蝠 · The Batman Who Laughs",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1094,10 +1437,17 @@
       "aperture": "f/2.8",
       "shutter": "1/25"
     },
+    "name": "大笑之蝠",
+    "nameEn": "The Batman Who Laughs",
+    "franchise": "dc",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0000778",
-    "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "no": "050",
+    "featured": true,
+    "catalogued": true
   },
   {
     "id": 51,
@@ -1107,7 +1457,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001036",
-    "displayTitle": "Toys 51",
+    "displayTitle": "钢索 · Grimlock",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1116,10 +1466,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "钢索",
+    "nameEn": "Grimlock",
+    "franchise": "transformers",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001036",
+    "no": "051",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 52,
@@ -1129,7 +1486,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0001049",
-    "displayTitle": "Toys 52",
+    "displayTitle": "Toys No.052",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1138,10 +1495,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001049",
+    "no": "052",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 53,
@@ -1151,7 +1515,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001051",
-    "displayTitle": "Toys 53",
+    "displayTitle": "Toys No.053",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1160,10 +1524,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001051",
+    "no": "053",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 54,
@@ -1173,7 +1544,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001113",
-    "displayTitle": "Toys 54",
+    "displayTitle": "蜘蛛格温 · Spider-Gwen",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1182,10 +1553,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "蜘蛛格温",
+    "nameEn": "Spider-Gwen",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001113",
-    "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "no": "054",
+    "featured": true,
+    "catalogued": true
   },
   {
     "id": 55,
@@ -1195,7 +1573,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001124",
-    "displayTitle": "Toys 55",
+    "displayTitle": "擎天柱 · Optimus Prime",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1204,10 +1582,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "擎天柱",
+    "nameEn": "Optimus Prime",
+    "franchise": "transformers",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001124",
+    "no": "055",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 56,
@@ -1217,7 +1602,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0001311",
-    "displayTitle": "Toys 56",
+    "displayTitle": "高达 RX-78-2 · RX-78-2 Gundam",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1226,10 +1611,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "高达 RX-78-2",
+    "nameEn": "RX-78-2 Gundam",
+    "franchise": "mecha",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001311",
+    "no": "056",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 57,
@@ -1239,7 +1631,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001351",
-    "displayTitle": "Toys 57",
+    "displayTitle": "月光骑士 · Mr. Knight",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1248,10 +1640,17 @@
       "aperture": "f/2.8",
       "shutter": "1/125"
     },
+    "name": "月光骑士",
+    "nameEn": "Mr. Knight",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001351",
+    "no": "057",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 58,
@@ -1261,7 +1660,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001353",
-    "displayTitle": "Toys 58",
+    "displayTitle": "布鲁·玛丽 · Blue Mary",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1270,10 +1669,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "布鲁·玛丽",
+    "nameEn": "Blue Mary",
+    "franchise": "fighting-games",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001353",
+    "no": "058",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 59,
@@ -1283,7 +1689,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001360",
-    "displayTitle": "Toys 59",
+    "displayTitle": "犀牛人 · Rhino",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1292,10 +1698,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "犀牛人",
+    "nameEn": "Rhino",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001360",
+    "no": "059",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 60,
@@ -1305,7 +1718,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001374",
-    "displayTitle": "Toys 60",
+    "displayTitle": "擎天柱 · Optimus Prime",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1314,10 +1727,17 @@
       "aperture": "f/2.8",
       "shutter": "1/20"
     },
+    "name": "擎天柱",
+    "nameEn": "Optimus Prime",
+    "franchise": "transformers",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001374",
+    "no": "060",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 61,
@@ -1327,7 +1747,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001375",
-    "displayTitle": "Toys 61",
+    "displayTitle": "蜘蛛侠 · Spider-Man",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1336,10 +1756,17 @@
       "aperture": "f/2.8",
       "shutter": "1/20"
     },
+    "name": "蜘蛛侠",
+    "nameEn": "Spider-Man",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001375",
+    "no": "061",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 62,
@@ -1349,7 +1776,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001408",
-    "displayTitle": "Toys 62",
+    "displayTitle": "美国队长与红骷髅 · Captain America & Red Skull",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1358,10 +1785,17 @@
       "aperture": "f/2.8",
       "shutter": "1/60"
     },
+    "name": "美国队长与红骷髅",
+    "nameEn": "Captain America & Red Skull",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001408",
+    "no": "062",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 63,
@@ -1371,7 +1805,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001532",
-    "displayTitle": "Toys 63",
+    "displayTitle": "肯 · Ken",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1380,10 +1814,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "肯",
+    "nameEn": "Ken",
+    "franchise": "fighting-games",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001532",
+    "no": "063",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 64,
@@ -1393,7 +1834,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0001722",
-    "displayTitle": "Toys 64",
+    "displayTitle": "Toys No.064",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1402,10 +1843,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001722",
+    "no": "064",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 65,
@@ -1415,7 +1863,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001724",
-    "displayTitle": "Toys 65",
+    "displayTitle": "Toys No.065",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1424,10 +1872,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001724",
+    "no": "065",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 66,
@@ -1437,7 +1892,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001806",
-    "displayTitle": "Toys 66",
+    "displayTitle": "蜘蛛侠 · Spider-Man",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1446,10 +1901,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "蜘蛛侠",
+    "nameEn": "Spider-Man",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001806",
+    "no": "066",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 67,
@@ -1459,7 +1921,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001808",
-    "displayTitle": "Toys 67",
+    "displayTitle": "蜘蛛侠 · Spider-Man",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1468,10 +1930,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "蜘蛛侠",
+    "nameEn": "Spider-Man",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001808",
+    "no": "067",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 68,
@@ -1481,7 +1950,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0001815",
-    "displayTitle": "Toys 68",
+    "displayTitle": "特瑞·博加德 · Terry Bogard",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1490,10 +1959,17 @@
       "aperture": "f/2.8",
       "shutter": "1/40"
     },
+    "name": "特瑞·博加德",
+    "nameEn": "Terry Bogard",
+    "franchise": "fighting-games",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001815",
+    "no": "068",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 69,
@@ -1503,7 +1979,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0001823",
-    "displayTitle": "Toys 69",
+    "displayTitle": "特瑞·博加德 · Terry Bogard",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1512,10 +1988,17 @@
       "aperture": "f/3.5",
       "shutter": "1/60"
     },
+    "name": "特瑞·博加德",
+    "nameEn": "Terry Bogard",
+    "franchise": "fighting-games",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001823",
+    "no": "069",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 70,
@@ -1525,7 +2008,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001830",
-    "displayTitle": "Toys 70",
+    "displayTitle": "特瑞·博加德 · Terry Bogard",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1534,10 +2017,17 @@
       "aperture": "f/2.8",
       "shutter": "1/60"
     },
+    "name": "特瑞·博加德",
+    "nameEn": "Terry Bogard",
+    "franchise": "fighting-games",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001830",
+    "no": "070",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 71,
@@ -1547,7 +2037,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001870",
-    "displayTitle": "Toys 71",
+    "displayTitle": "布鲁·玛丽与特瑞 · Blue Mary & Terry Bogard",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1556,10 +2046,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "布鲁·玛丽与特瑞",
+    "nameEn": "Blue Mary & Terry Bogard",
+    "franchise": "fighting-games",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001870",
+    "no": "071",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 72,
@@ -1569,7 +2066,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0001880",
-    "displayTitle": "Toys 72",
+    "displayTitle": "机器人小子 · Robocon",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1578,10 +2075,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "机器人小子",
+    "nameEn": "Robocon",
+    "franchise": "tokusatsu",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001880",
+    "no": "072",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 73,
@@ -1591,7 +2095,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001882",
-    "displayTitle": "Toys 73",
+    "displayTitle": "机器人小子 · Robocon",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1600,10 +2104,17 @@
       "aperture": "f/3.2",
       "shutter": "1/100"
     },
+    "name": "机器人小子",
+    "nameEn": "Robocon",
+    "franchise": "tokusatsu",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001882",
+    "no": "073",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 74,
@@ -1613,7 +2124,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0001883",
-    "displayTitle": "Toys 74",
+    "displayTitle": "机器人小子 · Robocon",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1622,10 +2133,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "机器人小子",
+    "nameEn": "Robocon",
+    "franchise": "tokusatsu",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001883",
+    "no": "074",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 75,
@@ -1635,7 +2153,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001884",
-    "displayTitle": "Toys 75",
+    "displayTitle": "机器人小子 · Robocon",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1644,10 +2162,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "机器人小子",
+    "nameEn": "Robocon",
+    "franchise": "tokusatsu",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001884",
+    "no": "075",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 76,
@@ -1657,7 +2182,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001939",
-    "displayTitle": "Toys 76",
+    "displayTitle": "黑色战衣蜘蛛侠 · Spider-Man (Black Suit)",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1666,10 +2191,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "黑色战衣蜘蛛侠",
+    "nameEn": "Spider-Man (Black Suit)",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001939",
+    "no": "076",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 77,
@@ -1679,7 +2211,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001944",
-    "displayTitle": "Toys 77",
+    "displayTitle": "黑色战衣蜘蛛侠 · Spider-Man (Black Suit)",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1688,10 +2220,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "黑色战衣蜘蛛侠",
+    "nameEn": "Spider-Man (Black Suit)",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001944",
+    "no": "077",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 78,
@@ -1701,7 +2240,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001952",
-    "displayTitle": "Toys 78",
+    "displayTitle": "黑色战衣蜘蛛侠 · Spider-Man (Black Suit)",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1710,10 +2249,17 @@
       "aperture": "f/3.5",
       "shutter": "1/80"
     },
+    "name": "黑色战衣蜘蛛侠",
+    "nameEn": "Spider-Man (Black Suit)",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001952",
+    "no": "078",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 79,
@@ -1723,7 +2269,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001953",
-    "displayTitle": "Toys 79",
+    "displayTitle": "黑色战衣蜘蛛侠 · Spider-Man (Black Suit)",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1732,10 +2278,17 @@
       "aperture": "f/3.5",
       "shutter": "1/80"
     },
+    "name": "黑色战衣蜘蛛侠",
+    "nameEn": "Spider-Man (Black Suit)",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001953",
+    "no": "079",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 80,
@@ -1745,7 +2298,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001955",
-    "displayTitle": "Toys 80",
+    "displayTitle": "黑色战衣蜘蛛侠 · Spider-Man (Black Suit)",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1754,10 +2307,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "黑色战衣蜘蛛侠",
+    "nameEn": "Spider-Man (Black Suit)",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001955",
+    "no": "080",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 81,
@@ -1767,7 +2327,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0001986",
-    "displayTitle": "Toys 81",
+    "displayTitle": "机器人小子 · Robocon",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1776,10 +2336,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "机器人小子",
+    "nameEn": "Robocon",
+    "franchise": "tokusatsu",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001986",
+    "no": "081",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 82,
@@ -1789,7 +2356,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0001987",
-    "displayTitle": "Toys 82",
+    "displayTitle": "机器人小子 · Robocon",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1798,10 +2365,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "机器人小子",
+    "nameEn": "Robocon",
+    "franchise": "tokusatsu",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0001987",
+    "no": "082",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 83,
@@ -1811,7 +2385,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0002002",
-    "displayTitle": "Toys 83",
+    "displayTitle": "Toys No.083",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1820,10 +2394,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0002002",
+    "no": "083",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 84,
@@ -1833,7 +2414,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0002022",
-    "displayTitle": "Toys 84",
+    "displayTitle": "Toys No.084",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1842,10 +2423,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0002022",
+    "no": "084",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 85,
@@ -1855,7 +2443,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0002025",
-    "displayTitle": "Toys 85",
+    "displayTitle": "Toys No.085",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1864,10 +2452,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0002025",
+    "no": "085",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 86,
@@ -1877,7 +2472,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0002247",
-    "displayTitle": "Toys 86",
+    "displayTitle": "祖国人 · Homelander",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1886,10 +2481,17 @@
       "aperture": "f/2.8",
       "shutter": "1/60"
     },
+    "name": "祖国人",
+    "nameEn": "Homelander",
+    "franchise": "the-boys",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0002247",
+    "no": "086",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 87,
@@ -1899,7 +2501,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0002617",
-    "displayTitle": "Toys 87",
+    "displayTitle": "米奇一家 · Mickey, Donald & Goofy",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1908,10 +2510,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "米奇一家",
+    "nameEn": "Mickey, Donald & Goofy",
+    "franchise": "disney",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0002617",
+    "no": "087",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 88,
@@ -1921,7 +2530,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0002672",
-    "displayTitle": "Toys 88",
+    "displayTitle": "擎天柱 · Optimus Prime",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1930,10 +2539,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "擎天柱",
+    "nameEn": "Optimus Prime",
+    "franchise": "transformers",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0002672",
+    "no": "088",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 89,
@@ -1943,7 +2559,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0002990",
-    "displayTitle": "Toys 89",
+    "displayTitle": "Toys No.089",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1952,10 +2568,17 @@
       "aperture": "f/4.0",
       "shutter": "1/60"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0002990",
+    "no": "089",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 90,
@@ -1965,7 +2588,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0002992",
-    "displayTitle": "Toys 90",
+    "displayTitle": "Toys No.090",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1974,10 +2597,17 @@
       "aperture": "f/4.0",
       "shutter": "1/60"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0002992",
+    "no": "090",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 91,
@@ -1987,7 +2617,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003020",
-    "displayTitle": "Toys 91",
+    "displayTitle": "暗影蜘蛛侠 · Spider-Man Noir",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -1996,10 +2626,17 @@
       "aperture": "f/2.8",
       "shutter": "1/50"
     },
+    "name": "暗影蜘蛛侠",
+    "nameEn": "Spider-Man Noir",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003020",
+    "no": "091",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 92,
@@ -2009,7 +2646,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0003035",
-    "displayTitle": "Toys 92",
+    "displayTitle": "Toys No.092",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2018,10 +2655,17 @@
       "aperture": "f/2.8",
       "shutter": "1/50"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003035",
+    "no": "092",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 93,
@@ -2031,7 +2675,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0003287",
-    "displayTitle": "Toys 93",
+    "displayTitle": "Toys No.093",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2040,10 +2684,17 @@
       "aperture": "f/2.8",
       "shutter": "1/30"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003287",
+    "no": "093",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 94,
@@ -2053,7 +2704,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003347",
-    "displayTitle": "Toys 94",
+    "displayTitle": "屠杀 · Carnage",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2062,10 +2713,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "屠杀",
+    "nameEn": "Carnage",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003347",
+    "no": "094",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 95,
@@ -2075,7 +2733,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003350",
-    "displayTitle": "Toys 95",
+    "displayTitle": "毒液与屠杀 · Venom & Carnage",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2084,10 +2742,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "毒液与屠杀",
+    "nameEn": "Venom & Carnage",
+    "franchise": "marvel",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003350",
+    "no": "095",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 96,
@@ -2097,7 +2762,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003352",
-    "displayTitle": "Toys 96",
+    "displayTitle": "超人 · Superman",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2106,10 +2771,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "超人",
+    "nameEn": "Superman",
+    "franchise": "dc",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003352",
+    "no": "096",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 97,
@@ -2119,7 +2791,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003392",
-    "displayTitle": "Toys 97",
+    "displayTitle": "布罗利 · Broly",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2128,10 +2800,17 @@
       "aperture": "f/4.0",
       "shutter": "1/100"
     },
+    "name": "布罗利",
+    "nameEn": "Broly",
+    "franchise": "dragon-ball",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003392",
+    "no": "097",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 98,
@@ -2141,7 +2820,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003420",
-    "displayTitle": "Toys 98",
+    "displayTitle": "魔神 Z · Mazinger Z",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2150,10 +2829,17 @@
       "aperture": "f/2.8",
       "shutter": "1/60"
     },
+    "name": "魔神 Z",
+    "nameEn": "Mazinger Z",
+    "franchise": "mecha",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003420",
+    "no": "098",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 99,
@@ -2163,7 +2849,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0003423",
-    "displayTitle": "Toys 99",
+    "displayTitle": "Toys No.099",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2172,10 +2858,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003423",
+    "no": "099",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 100,
@@ -2185,7 +2878,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003430",
-    "displayTitle": "Toys 100",
+    "displayTitle": "Toys No.100",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2194,10 +2887,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003430",
+    "no": "100",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 101,
@@ -2207,7 +2907,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0003453",
-    "displayTitle": "Toys 101",
+    "displayTitle": "红蜘蛛 · Starscream",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2216,10 +2916,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "红蜘蛛",
+    "nameEn": "Starscream",
+    "franchise": "transformers",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003453",
+    "no": "101",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 102,
@@ -2229,7 +2936,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003455",
-    "displayTitle": "Toys 102",
+    "displayTitle": "Toys No.102",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2238,10 +2945,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003455",
+    "no": "102",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 103,
@@ -2251,7 +2965,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003457",
-    "displayTitle": "Toys 103",
+    "displayTitle": "红蜘蛛 · Starscream",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2260,10 +2974,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "红蜘蛛",
+    "nameEn": "Starscream",
+    "franchise": "transformers",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003457",
+    "no": "103",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 104,
@@ -2273,7 +2994,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003458",
-    "displayTitle": "Toys 104",
+    "displayTitle": "Toys No.104",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2282,10 +3003,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003458",
+    "no": "104",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 105,
@@ -2295,7 +3023,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003462",
-    "displayTitle": "Toys 105",
+    "displayTitle": "地狱男爵 · Hellboy",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2304,10 +3032,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "地狱男爵",
+    "nameEn": "Hellboy",
+    "franchise": "hellboy",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003462",
+    "no": "105",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 106,
@@ -2317,7 +3052,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003495",
-    "displayTitle": "Toys 106",
+    "displayTitle": "Toys No.106",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2326,10 +3061,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003495",
+    "no": "106",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 107,
@@ -2339,7 +3081,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003497",
-    "displayTitle": "Toys 107",
+    "displayTitle": "Toys No.107",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2348,10 +3090,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003497",
+    "no": "107",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 108,
@@ -2361,7 +3110,7 @@
     "height": 1667,
     "category": "Toys",
     "title": "R0003593",
-    "displayTitle": "Toys 108",
+    "displayTitle": "Toys No.108",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2370,10 +3119,17 @@
       "aperture": "f/3.2",
       "shutter": "1/20"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003593",
+    "no": "108",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 109,
@@ -2383,7 +3139,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003726",
-    "displayTitle": "Toys 109",
+    "displayTitle": "Toys No.109",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2392,10 +3148,17 @@
       "aperture": "f/5.6",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003726",
+    "no": "109",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 110,
@@ -2405,7 +3168,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003782",
-    "displayTitle": "Toys 110",
+    "displayTitle": "Toys No.110",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2414,10 +3177,17 @@
       "aperture": "f/2.8",
       "shutter": "1/50"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003782",
+    "no": "110",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 111,
@@ -2427,7 +3197,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003784",
-    "displayTitle": "Toys 111",
+    "displayTitle": "潘尼怀斯 · Pennywise",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2436,10 +3206,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "潘尼怀斯",
+    "nameEn": "Pennywise",
+    "franchise": "horror",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003784",
+    "no": "111",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 112,
@@ -2449,7 +3226,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003833",
-    "displayTitle": "Toys 112",
+    "displayTitle": "阿尼亚 · Anya Forger",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2458,10 +3235,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "阿尼亚",
+    "nameEn": "Anya Forger",
+    "franchise": "anime",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003833",
+    "no": "112",
     "featured": true,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 113,
@@ -2471,7 +3255,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003837",
-    "displayTitle": "Toys 113",
+    "displayTitle": "阿尼亚与祢豆子 · Anya & Nezuko",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2480,10 +3264,17 @@
       "aperture": "f/4.5",
       "shutter": "1/80"
     },
+    "name": "阿尼亚与祢豆子",
+    "nameEn": "Anya & Nezuko",
+    "franchise": "anime",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003837",
+    "no": "113",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 114,
@@ -2493,7 +3284,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003845",
-    "displayTitle": "Toys 114",
+    "displayTitle": "蝙蝠侠 · Batman",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2502,10 +3293,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "蝙蝠侠",
+    "nameEn": "Batman",
+    "franchise": "dc",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003845",
+    "no": "114",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 115,
@@ -2515,7 +3313,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003860",
-    "displayTitle": "Toys 115",
+    "displayTitle": "Toys No.115",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2524,10 +3322,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003860",
+    "no": "115",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 116,
@@ -2537,7 +3342,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0003883",
-    "displayTitle": "Toys 116",
+    "displayTitle": "Toys No.116",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2546,10 +3351,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0003883",
+    "no": "116",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 117,
@@ -2559,7 +3371,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0004526",
-    "displayTitle": "Toys 117",
+    "displayTitle": "布罗利 · Broly",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2568,10 +3380,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "布罗利",
+    "nameEn": "Broly",
+    "franchise": "dragon-ball",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0004526",
+    "no": "117",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 118,
@@ -2581,7 +3400,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0004530",
-    "displayTitle": "Toys 118",
+    "displayTitle": "Toys No.118",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2590,10 +3409,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0004530",
+    "no": "118",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 119,
@@ -2603,7 +3429,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0004721",
-    "displayTitle": "Toys 119",
+    "displayTitle": "Toys No.119",
     "frameColor": "marigold",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2612,10 +3438,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0004721",
+    "no": "119",
     "featured": true,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 120,
@@ -2625,7 +3458,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0004919",
-    "displayTitle": "Toys 120",
+    "displayTitle": "魔人布欧 · Majin Buu",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2634,10 +3467,17 @@
       "aperture": "f/3.2",
       "shutter": "1/80"
     },
+    "name": "魔人布欧",
+    "nameEn": "Majin Buu",
+    "franchise": "dragon-ball",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0004919",
+    "no": "120",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 121,
@@ -2647,7 +3487,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0004944",
-    "displayTitle": "Toys 121",
+    "displayTitle": "布罗利 · Broly",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2656,10 +3496,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "布罗利",
+    "nameEn": "Broly",
+    "franchise": "dragon-ball",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0004944",
+    "no": "121",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 122,
@@ -2669,7 +3516,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0005003",
-    "displayTitle": "Toys 122",
+    "displayTitle": "Toys No.122",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2678,10 +3525,17 @@
       "aperture": "f/2.8",
       "shutter": "1/60"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0005003",
+    "no": "122",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 123,
@@ -2691,7 +3545,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0005028",
-    "displayTitle": "Toys 123",
+    "displayTitle": "小杰与奇犽 · Gon & Killua",
     "frameColor": "vermillion",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2700,10 +3554,17 @@
       "aperture": "f/2.8",
       "shutter": "1/80"
     },
+    "name": "小杰与奇犽",
+    "nameEn": "Gon & Killua",
+    "franchise": "anime",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0005028",
+    "no": "123",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": true
   },
   {
     "id": 124,
@@ -2713,7 +3574,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0005035",
-    "displayTitle": "Toys 124",
+    "displayTitle": "Toys No.124",
     "frameColor": "brass",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2722,10 +3583,17 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0005035",
+    "no": "124",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   },
   {
     "id": 125,
@@ -2735,7 +3603,7 @@
     "height": 2500,
     "category": "Toys",
     "title": "R0005091",
-    "displayTitle": "Toys 125",
+    "displayTitle": "Toys No.125",
     "frameColor": "cobalt",
     "exif": {
       "camera": "RICOH GR IIIx",
@@ -2744,9 +3612,16 @@
       "aperture": "f/2.8",
       "shutter": "1/100"
     },
+    "name": "",
+    "nameEn": "",
+    "franchise": "",
+    "maker": "",
+    "scale": "",
+    "year": "",
+    "note": "",
     "slug": "r0005091",
+    "no": "125",
     "featured": false,
-    "seriesDescription": "",
-    "year": ""
+    "catalogued": false
   }
 ]

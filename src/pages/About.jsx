@@ -1,84 +1,112 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { m as Motion, useReducedMotion } from 'framer-motion';
-import { ABOUT_BODY, SITE_DESCRIPTION, SITE_TITLE } from '../data/siteContent';
+import { Link } from 'react-router-dom';
+import {
+  ABOUT_BODY,
+  ABOUT_BODY_ZH,
+  CONTACT_EMAIL,
+  getCameraIndex,
+  getFranchiseIndex,
+} from '../data/siteContent';
 import { getCachedPhotos, loadPhotos } from '../lib/gallery';
+import { Bi, SpecimenLabel } from '../components/Specimen';
 
-function pickAboutPhoto(photos) {
-  if (!photos?.length) return null;
-  return photos.find((item) => item.featured && item.category === 'Toys') || photos[0];
-}
+const ABOUT_PHOTO = 'r0003845';
 
 const About = () => {
   const reduceMotion = useReducedMotion();
-  const [photo, setPhoto] = useState(() => pickAboutPhoto(getCachedPhotos()));
-  const [error, setError] = useState('');
+  const [photos, setPhotos] = useState(() => getCachedPhotos() || []);
 
   useEffect(() => {
     let active = true;
-
     loadPhotos()
-      .then((data) => {
-        if (!active) return;
-        setPhoto(pickAboutPhoto(data));
-      })
-      .catch((loadError) => {
-        if (!active) return;
-        setError(loadError instanceof Error ? loadError.message : 'Image failed');
-      });
-
-    return () => {
-      active = false;
-    };
+      .then((data) => { if (active) setPhotos(data); })
+      .catch(() => {});
+    return () => { active = false; };
   }, []);
+
+  const photo = photos.find((item) => item.slug === ABOUT_PHOTO)
+    || photos.find((item) => item.featured && item.category === 'Toys')
+    || photos[0];
+  const franchises = useMemo(() => getFranchiseIndex(photos), [photos]);
+  const cameras = useMemo(() => getCameraIndex(photos), [photos]);
+  const pets = photos.filter((item) => item.category === 'Pets').length;
+  const inventory = [
+    { zh: '藏品', en: 'Items', value: photos.length },
+    { zh: '玩具', en: 'Toys', value: photos.length - pets },
+    { zh: '宠物', en: 'Pets', value: pets },
+    { zh: '已编目', en: 'Catalogued', value: photos.filter((item) => item.catalogued).length },
+    { zh: '系列', en: 'Series', value: franchises.length },
+  ];
 
   return (
     <Motion.div
-      className="about-page"
+      className="about-page page-pad"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: reduceMotion ? 0 : 0.35 }}
+      transition={{ duration: reduceMotion ? 0 : 0.3 }}
     >
-      <section className="about-heading">
-        <span className="about-index">01 / About</span>
-        <h1>About<br />{SITE_TITLE}</h1>
-      </section>
+      <header className="about-heading">
+        <span className="section-no">00</span>
+        <h1><Bi zh="关于" en="About" /></h1>
+      </header>
 
-      <section className="about-editorial">
-        <div className="about-copy">
-          <p className="about-lead">{SITE_DESCRIPTION}</p>
-          <p>{ABOUT_BODY}</p>
-          <div className="about-contact">
-            <span>Contact</span>
-            <a href="mailto:huangl2766@gmail.com">huangl2766@gmail.com</a>
+      <div className="about-grid">
+        <section className="about-copy">
+          <div className="about-statement">
+            {ABOUT_BODY_ZH.map((paragraph) => <p key={paragraph} className="about-zh">{paragraph}</p>)}
           </div>
-        </div>
+          <div className="about-statement" lang="en">
+            {ABOUT_BODY.map((paragraph) => <p key={paragraph} className="about-en">{paragraph}</p>)}
+          </div>
 
-        <Motion.figure
-          className="about-figure"
-          style={{ '--frame-color': `var(--color-${photo?.frameColor || 'cobalt'}-frame)` }}
-          initial={reduceMotion ? false : { opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-        >
+          <dl className="about-facts">
+            <div>
+              <dt><Bi zh="联系" en="Contact" /></dt>
+              <dd><a href={`mailto:${CONTACT_EMAIL}`} className="text-link">{CONTACT_EMAIL}</a></dd>
+            </div>
+            <div>
+              <dt><Bi zh="器材" en="Cameras" /></dt>
+              <dd>
+                <ul className="plain-list" lang="en">
+                  {cameras.map(([camera, count]) => (
+                    <li key={camera}><span>{camera}</span><span className="specimen-no">{count}</span></li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <aside className="about-side">
+          <div className="inventory">
+            <span className="sheet-heading">清单 <span lang="en">Inventory</span></span>
+            <dl>
+              {inventory.map((item) => (
+                <div key={item.en}>
+                  <dt><Bi zh={item.zh} en={item.en} /></dt>
+                  <dd className="specimen-no">{photos.length ? String(item.value).padStart(3, '0') : '—'}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
           {photo ? (
-            <>
-              <img
-                src={photo.src}
-                alt={photo.displayTitle}
-                width={photo.width}
-                height={photo.height}
-              />
-              <figcaption>
-                <span>{photo.category}</span>
-                <span>{photo.displayTitle}</span>
-              </figcaption>
-            </>
-          ) : (
-            <div className="about-placeholder">{error || 'Loading photograph'}</div>
-          )}
-        </Motion.figure>
-      </section>
+            <Link
+              to={`/works?photo=${encodeURIComponent(photo.slug)}`}
+              className="specimen-card about-photo"
+              style={{ '--frame-color': `var(--color-${photo.frameColor || 'cobalt'}-frame)` }}
+              aria-label={`No.${photo.no} ${photo.displayTitle}`}
+            >
+              <span className="specimen-frame">
+                <img src={photo.src} alt="" width={photo.width} height={photo.height} decoding="async" />
+              </span>
+              <SpecimenLabel photo={photo} />
+            </Link>
+          ) : null}
+        </aside>
+      </div>
     </Motion.div>
   );
 };

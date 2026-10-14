@@ -1,12 +1,12 @@
 import React, { useMemo, useSyncExternalStore } from 'react';
 import { m as Motion, useReducedMotion } from 'framer-motion';
-import { getTileLabel } from '../../data/siteContent';
+import { SpecimenLabel } from '../Specimen';
 
 // Column count mirrors the old CSS `columns` breakpoints.
 const TWO_COLUMN_QUERY = '(max-width: 900px)';
 // Approximate caption height as a fraction of tile width, so columns balance
 // on what is actually rendered rather than on image area alone.
-const LABEL_RATIO = 0.07;
+const LABEL_RATIO = 0.16;
 
 function subscribe(callback) {
   const query = window.matchMedia(TWO_COLUMN_QUERY);
@@ -57,11 +57,11 @@ const MasonryGrid = ({ photos, onPhotoClick }) => {
             <Motion.button
               key={photo.id}
               type="button"
-              className="masonry-tile"
+              className="masonry-tile specimen-card"
               data-photo-slug={photo.slug}
               style={{ '--frame-color': `var(--color-${photo.frameColor || 'vermillion'}-frame)` }}
               onClick={() => onPhotoClick(photo.slug)}
-              aria-label={`View ${photo.displayTitle}`}
+              aria-label={`No.${photo.no} ${photo.displayTitle}`}
               initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -70,7 +70,7 @@ const MasonryGrid = ({ photos, onPhotoClick }) => {
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              <span className="masonry-image-frame">
+              <span className="specimen-frame">
                 <img
                   src={photo.thumbnail || photo.src}
                   alt=""
@@ -81,10 +81,7 @@ const MasonryGrid = ({ photos, onPhotoClick }) => {
                   decoding="async"
                 />
               </span>
-              <span className="photo-label" aria-hidden="true">
-                <span>{photo.category}</span>
-                <span>{getTileLabel(photo)}</span>
-              </span>
+              <SpecimenLabel photo={photo} />
             </Motion.button>
           ))}
         </div>
