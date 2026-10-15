@@ -120,6 +120,7 @@ export const CATALOG = {
 
   // Pets 宠物 — 家里的猫狗
   '20210203-225935': { name: '拿铁', nameEn: 'Latte' },
+  '6ed909533c3c75f74b7c195c96746af8': { name: '拿铁', nameEn: 'Latte' },
   'img-1109': { name: '豆花', nameEn: 'Douhua' },
   'img-2301': { name: '豆花', nameEn: 'Douhua' },
   r0005692: { name: '豆花', nameEn: 'Douhua' },
