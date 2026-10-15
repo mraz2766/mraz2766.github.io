@@ -42,7 +42,6 @@ const LightboxImage = ({ photo, direction, zoomed, onToggleZoom }) => {
     <div
       ref={stageRef}
       className={stageClass}
-      data-cursor={zoomed ? '缩小 Out' : '放大 Zoom'}
       onMouseMove={(event) => { if (zoomed) setZoomOrigin(stageRef.current, event.clientX, event.clientY); }}
       onTouchMove={(event) => {
         if (zoomed && event.touches.length === 1) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import { CONTACT_EMAIL, SITE_SUBTITLE, SITE_TITLE, SITE_TITLE_ZH } from '../data/siteContent';
-import { ScrollProgress, ViewCursor } from '../lib/motion';
+import { ScrollProgress } from '../lib/motion';
 
 const MARQUEE_ITEMS = [SITE_TITLE_ZH, SITE_SUBTITLE, '玩具 · 猫狗 · 光', 'Vol. 2026'];
 
@@ -41,7 +41,6 @@ const Layout = ({ children }) => {
           <span lang="en">© 2026 {SITE_TITLE}</span>
         </div>
       </footer>
-      <ViewCursor />
     </>
   );
 };

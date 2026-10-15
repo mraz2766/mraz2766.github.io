@@ -4,13 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   getFranchiseIndex,
   HOME_SELECTION,
-  SITE_DESCRIPTION,
   SITE_DESCRIPTION_ZH,
   SITE_SUBTITLE,
   SITE_TITLE_ZH,
 } from '../data/siteContent';
 import { getCachedPhotos, loadPhotos } from '../lib/gallery';
-import { CountUp, isFinePointer, prefersReducedMotion, Reveal } from '../lib/motion';
+import { CountUp, prefersReducedMotion, Reveal } from '../lib/motion';
 import { Bi, SpecimenLabel } from '../components/Specimen';
 
 function pickSelection(photos) {
@@ -40,39 +39,6 @@ const StaggerTitle = ({ text }) => (
     ))}
   </span>
 );
-
-/** Lead image drifts slightly against the pointer (desktop only). */
-function useParallax() {
-  const [element, setElement] = useState(null);
-
-  useEffect(() => {
-    if (!element || !isFinePointer() || prefersReducedMotion()) return undefined;
-    let frame = 0;
-    const onMove = (event) => {
-      const rect = element.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        element.style.setProperty('--px', `${(-x * 18).toFixed(1)}px`);
-        element.style.setProperty('--py', `${(-y * 18).toFixed(1)}px`);
-      });
-    };
-    const onLeave = () => {
-      element.style.setProperty('--px', '0px');
-      element.style.setProperty('--py', '0px');
-    };
-    element.addEventListener('pointermove', onMove);
-    element.addEventListener('pointerleave', onLeave);
-    return () => {
-      cancelAnimationFrame(frame);
-      element.removeEventListener('pointermove', onMove);
-      element.removeEventListener('pointerleave', onLeave);
-    };
-  }, [element]);
-
-  return setElement;
-}
 
 /** Floating preview photo that follows the cursor over the index list. */
 function useHoverPreview() {
@@ -135,7 +101,6 @@ const Home = () => {
   const [photos, setPhotos] = useState(() => getCachedPhotos() || []);
   const reduceMotion = useReducedMotion();
   const navigate = useNavigate();
-  const leadRef = useParallax();
   const { previewRef, preview, handlers: previewHandlers, show } = useHoverPreview();
   const drag = useDragScroll();
 
@@ -165,7 +130,6 @@ const Home = () => {
   }, [photos]);
 
   const toysCount = photos.length - pets.length;
-  const cataloguedCount = photos.filter((photo) => photo.catalogued).length;
   const count = (value) => (photos.length ? <CountUp value={value} /> : '—');
 
   const openRandom = () => {
@@ -183,27 +147,16 @@ const Home = () => {
       transition={{ duration: reduceMotion ? 0 : 0.3 }}
     >
       <section className="home-masthead" aria-labelledby="home-title">
-        <div className="masthead-title">
-          <p className="masthead-kicker" lang="en">
-            <span>{SITE_SUBTITLE}</span>
-            <span className="masthead-vol">Vol. 2026</span>
-          </p>
-          <h1 id="home-title" className="masthead-heading">
-            <StaggerTitle text={SITE_TITLE_ZH} />
-          </h1>
-          <p className="masthead-sub">
-            <span>{SITE_DESCRIPTION_ZH}</span>
-            <span lang="en">{SITE_DESCRIPTION}</span>
-          </p>
-        </div>
-
-        <dl className="masthead-meta">
-          <div><dt><Bi zh="藏品" en="Items" /></dt><dd>{count(photos.length)}</dd></div>
-          <div><dt><Bi zh="玩具" en="Toys" /></dt><dd>{count(toysCount)}</dd></div>
-          <div><dt><Bi zh="宠物" en="Pets" /></dt><dd>{count(pets.length)}</dd></div>
-          <div><dt><Bi zh="已编目" en="Catalogued" /></dt><dd>{count(cataloguedCount)}</dd></div>
-          <div><dt><Bi zh="系列" en="Series" /></dt><dd>{count(franchises.length)}</dd></div>
-        </dl>
+        <h1 id="home-title" className="masthead-heading">
+          <StaggerTitle text={SITE_TITLE_ZH} />
+          <span className="masthead-en" lang="en">{SITE_SUBTITLE}</span>
+        </h1>
+        <p className="masthead-line">
+          <span>{SITE_DESCRIPTION_ZH}</span>
+          <span className="masthead-count">
+            {count(photos.length)} 件 · 玩具 {count(toysCount)} · 宠物 {count(pets.length)}
+          </span>
+        </p>
       </section>
 
       <section className="home-section" aria-label="精选 Selected">
@@ -228,12 +181,10 @@ const Home = () => {
               key={photo.id}
               className={index === 0 ? 'selected-item is-lead' : 'selected-item'}
               delay={index === 0 ? 0 : 120 + ((index - 1) % 4) * 70}
-              ref={index === 0 ? leadRef : undefined}
             >
               <Link
                 to={`/works?photo=${encodeURIComponent(photo.slug)}`}
                 className="specimen-card"
-                data-cursor="查看 View"
                 style={{ '--frame-color': `var(--color-${photo.frameColor || 'vermillion'}-frame)` }}
                 aria-label={`No.${photo.no} ${photo.displayTitle}`}
               >
@@ -327,7 +278,6 @@ const Home = () => {
                 <Link
                   to={`/works/pets?photo=${encodeURIComponent(photo.slug)}`}
                   className="pets-strip-item"
-                  data-cursor="拖动 / 查看"
                   draggable={false}
                   style={{ '--frame-color': `var(--color-${photo.frameColor || 'vermillion'}-frame)` }}
                   aria-label={`No.${photo.no}`}

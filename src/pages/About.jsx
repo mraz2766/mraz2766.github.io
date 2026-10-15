@@ -97,7 +97,6 @@ const About = () => {
             <Reveal>
             <Link
               to={`/works?photo=${encodeURIComponent(photo.slug)}`}
-              data-cursor="查看 View"
               className="specimen-card about-photo"
               style={{ '--frame-color': `var(--color-${photo.frameColor || 'cobalt'}-frame)` }}
               aria-label={`No.${photo.no} ${photo.displayTitle}`}

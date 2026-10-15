@@ -60,7 +60,6 @@ const MasonryGrid = ({ photos, onPhotoClick }) => {
               className="masonry-tile specimen-card"
               delay={columnIndex * 80}
               data-photo-slug={photo.slug}
-              data-cursor="查看 View"
               style={{ '--frame-color': `var(--color-${photo.frameColor || 'vermillion'}-frame)` }}
               onClick={(event) => onPhotoClick(photo.slug, event.currentTarget)}
               aria-label={`No.${photo.no} ${photo.displayTitle}`}
