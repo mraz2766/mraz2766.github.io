@@ -279,7 +279,7 @@ const Lightbox = ({
           className="lightbox-sheet"
           onClick={(event) => event.stopPropagation()}
         >
-          <SpecimenLabel photo={photo} />
+          <SpecimenLabel photo={photo} detailed />
 
           {labelItems.length ? (
             <dl className="sheet-list">

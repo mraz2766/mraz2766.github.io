@@ -1,16 +1,15 @@
 # mraz — 收藏图鉴 · A Catalog
 
 Personal photo catalog of toys, pets and light, deployed to GitHub Pages at <https://mraz2766.github.io/>.
-Design system (Swiss grid + museum labels, bilingual, light/dark) is documented in [`DESIGN.md`](./DESIGN.md).
+Design reference (dark room, minimal type) is in [`DESIGN.md`](./DESIGN.md).
 
 ## Features
 
-*   **Home 首页** — masthead, a curated "Selected 精选" set on the first screen, a franchise index (目录) and a pets special collection.
-*   **Catalog 图鉴** — `/works`, `/works/toys`, `/works/pets`; franchise filter (`?f=marvel`) and Grid / Index table views (`?view=index`). Masonry keeps tiles in place as more load.
-*   **Specimen sheet** — the lightbox shows the catalog label (name, series, maker, scale, year) next to the photo plus EXIF. The open photo lives in the URL (`?photo=<slug>`); arrow keys, Esc, swipe and Back all work.
-*   **Light / dark** — follows the system, with a toggle in the header (circular reveal transition).
-*   **Motion & interaction** — curtain reveals on scroll, tile → viewer flight, zoom & pan, swipe that follows the finger, index hover previews, random pick (随机一件), draggable pets strip, footer ticker. All respect "reduce motion". See DESIGN.md.
-*   **Static image pipeline** — WebP thumbnails (720px) and viewing images (1920px), EXIF-aware dimensions, per-photo frame colour, orphan cleanup.
+*   **Home 首页** — a dark-room exhibit: one large photo with name / series / EXIF that slowly cycles through the selection, then horizontal strips for 精选, the largest series and 猫与狗.
+*   **Catalog 图鉴** — `/works`, `/works/toys`, `/works/pets`; franchise filter (`?f=marvel`), Grid / Index table views (`?view=index`), 随机一件 random pick.
+*   **Viewer** — specimen sheet beside the photo; the open photo lives in the URL (`?photo=<slug>`). Arrow keys, Esc, swipe, click / double-tap zoom with pan, tile ↔ viewer flight.
+*   **Dark by default** — light room available from the header dot.
+*   **Static image pipeline** — WebP thumbnails (720px) and viewing images (1920px), EXIF-aware dimensions, orphan cleanup.
 
 ## Tech Stack
 

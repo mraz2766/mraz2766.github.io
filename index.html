@@ -6,19 +6,17 @@
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="color-scheme" content="light dark" />
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#0e0e0d" media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0f0f0e" />
   <title>收藏图鉴 · A Catalog — mraz</title>
   <meta name="description"
     content="收藏图鉴：桌上的玩具，家里的猫狗，和偶尔落在它们身上的光。A catalog of toys, pets and light." />
 
-  <!-- Apply the saved light/dark choice before first paint (no flash). -->
+  <!-- Dark by default; apply a saved light choice before first paint (no flash). -->
   <script>
     (function () {
       try {
-        var theme = localStorage.getItem('mraz-theme');
-        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+        if (localStorage.getItem('mraz-theme') === 'light') document.documentElement.dataset.theme = 'light';
       } catch (error) { /* storage unavailable: follow the system */ }
     }());
   </script>

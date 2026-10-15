@@ -6,7 +6,7 @@ import { SpecimenLabel } from '../Specimen';
 const TWO_COLUMN_QUERY = '(max-width: 900px)';
 // Approximate caption height as a fraction of tile width, so columns balance
 // on what is actually rendered rather than on image area alone.
-const LABEL_RATIO = 0.16;
+const LABEL_RATIO = 0.08;
 
 function subscribe(callback) {
   const query = window.matchMedia(TWO_COLUMN_QUERY);

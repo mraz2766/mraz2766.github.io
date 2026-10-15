@@ -1,79 +1,50 @@
-# mraz 收藏图鉴 — Design Reference
+# 收藏图鉴 — Design Reference
 
-> A Swiss-grid photo site that reads like a museum catalog: every photograph is an item with a number and a label.
+> A dark room for looking at toys: one photo on show, quiet strips to browse, almost no words.
 
 ## Concept
 
-- **Content first.** 116 of 125 photos are toys and figures, so the site is organised as a *collection catalog*, not a fashion-style portfolio. Pets appear as a "special collection" (特别收录).
-- **Name kept small.** "mraz" appears only in the header logo, the browser title and the footer copyright; the masthead and footer use 收藏图鉴 instead.
-- **Swiss base.** Flat surfaces, hairline rules, a strict grid, one strong grotesk wordmark. No shadows, gradients, rounded corners or cards.
-- **Museum labels.** Under every photo sits a specimen label: catalog number in mono, Chinese name in serif, English name in grotesk, franchise in small caps.
-- **Bilingual.** Chinese leads, English follows on the same line (`图鉴 CATALOG`). Chinese uses a serif (Songti), English uses Helvetica-style grotesk, numbers use mono.
-- **Light + dark.** Follows the OS; a toggle in the header overrides it (remembered per browser). The photo viewer is always near-black.
+- **The photo is the only loud thing.** Dark, warm-neutral room (`#0f0f0e`); no frames, borders or decoration around photos. Text is small (11–14px, one 20px exhibit name) and sparse.
+- **Exhibit + strips.** Home opens on one large photo with three quiet lines beside it (name; English name · series; No. · camera · exposure). It advances every 7s with a hairline timer, pauses on hover/focus, and has ← 01 / 09 → controls. Below, horizontal strips: 精选, the four largest series, 猫与狗. Strips scroll/drag sideways; names appear only on hover.
+- **Catalog.** Masonry grid with one-line labels (name ··· No.). Series filters, franchise select, Grid / Index views, 随机一件. The viewer shows the full specimen sheet.
+- **Bilingual, but Chinese first and minimal.** Navigation and filters are Chinese only; English appears as small uppercase secondary labels where helpful.
+- **Name kept small.** "mraz" appears only in the browser title and the footer copyright.
+- **Light room optional.** Dark is the default; the header dot switches to a light room (remembered per browser).
 
 ## Tokens
 
-| Token | Light | Dark | Use |
+| Token | Dark (default) | Light | Use |
 |---|---|---|---|
-| `--bg` | `#ffffff` | `#0e0e0d` | Page background |
-| `--fg` | `#0b0b0b` | `#ecebe6` | Text, structural rules |
-| `--muted` | `#6f6f6c` | `#8d8c87` | Secondary text, English sub-labels |
-| `--line` | = fg | = fg | Section rules, label top rule |
-| `--line-soft` | fg @ 14% | fg @ 16% | Row dividers, idle photo frames |
-| `--tile` | `#ecebe7` | `#1b1b19` | Image placeholder |
-| `--accent` | `#e5251d` | `#ff4a3d` | Active nav / link underline, focus ring |
+| `--bg` | `#0f0f0e` | `#f6f5f2` | Room |
+| `--fg` | `#e9e7e1` | `#171716` | Names, active nav |
+| `--muted` | `#7f7d77` | `#86837c` | Everything secondary |
+| `--line` | fg @ 28% | fg @ 24% | Rare structural rules |
+| `--line-soft` | fg @ 10% | fg @ 9% | Row dividers |
+| `--tile` | `#1a1a18` | `#e7e5e0` | Image placeholder |
+| `--accent` | `#d6ad68` | `#a2702a` | Progress bar, focus, link underline (sparingly) |
 
-Chromatic frames (`--color-{vermillion,cobalt,marigold,fern,brass}-frame`) are sampled per photo by `scripts/update-gallery.js` and only appear on hover/focus.
-
-### Type
-
-| Role | Family | Notes |
-|---|---|---|
-| Masthead 收藏图鉴 | `--font-serif` 700 | 64–156px, characters rise in one by one |
-| Logo `mraz` | `--font-sans` 700 | Header only, 22px |
-| Chinese | `--font-serif` (Songti SC → Source Han Serif → Noto Serif SC → SimSun) | System fonts only — no web-font download |
-| English labels | `--font-sans` 700, uppercase, ~0.74em of the Chinese | Always follows the Chinese |
-| Numbers | `--font-mono` | Catalog numbers `No.047`, counts, EXIF |
-
-Use the `<Bi zh="…" en="…" />` component for any bilingual label so spacing and sizing stay consistent.
-
-### Spacing
-
-`--gutter` 28px (16px on phones), `--gap` 15px (10px), `--section-gap` 96px (64px).
-
-## Components
-
-- **Specimen card** (`.specimen-card` + `<SpecimenLabel>`): photo in a hairline frame, then a 1px rule and the label. Frame takes the photo's colour on hover.
-- **Section head** (`.section-head`): top rule, mono number (`01`), bilingual title, optional link on the right.
-- **Index list** (`.index-list`): franchise rows with mono number, dotted leader and count — like a book's table of contents.
-- **Catalog toolbar**: sticky; series links, franchise `<select>`, Grid / Index view toggle. All state lives in the URL (`/works/toys?f=marvel&view=index&photo=…`).
-- **Index table**: accession-register view with No., thumbnail, name, series, maker, scale, year, camera.
-- **Specimen sheet** (lightbox): photo left, label + data list right (stacked on phones), always on near-black.
+Type: Chinese in `--font-serif` (Songti SC → Source Han/Noto Serif → SimSun), Latin in Helvetica-style `--font-sans`, numbers in `--font-mono`. Sizes: logo 13px, nav 12px, strip titles 13px, labels 13px / numbers 10–11px, exhibit name 20px (17px on phones). Letter-spacing 0.06–0.2em on Chinese for an airy feel.
 
 ## Motion & interaction
 
-All motion is CSS or native APIs (IntersectionObserver, Web Animations, View Transitions); framer-motion is only used for page/lightbox fades via `LazyMotion`. Everything is disabled under `prefers-reduced-motion`. Helpers live in `src/lib/motion.jsx` and `src/lib/flight.js`.
+All motion is CSS or native APIs; framer-motion only for page/viewer fades via `LazyMotion`. Everything is disabled under `prefers-reduced-motion` (the exhibit also stops auto-advancing).
 
-| Effect | Where | How |
-|---|---|---|
-| Curtain reveal | Photos (catalog, home, about) | `<Reveal>` adds `.is-revealed`; `.specimen-frame` clip-path opens bottom→top, image settles from 1.18 scale, label follows 350ms later; siblings staggered with `delay` |
-| Rule draw | Section heads | `::before` hairline scales in from the left |
-| Character rise | Home masthead | `.stagger-char` with `--i` delay |
-| Count-up | Home meta, About inventory | `<CountUp>` (rAF, ease-out cubic) when first visible |
-| Shared-element flight | Grid tile ↔ viewer | `rememberFlightSource` on click → `fly()` clones the image and animates rect→rect; reverse on close |
-| Directional slide | Viewer prev/next | `.enter-next` / `.enter-prev` keyframes; swipe drags the photo with the finger |
-| Zoom & pan | Viewer | Click (double-tap on phones) → 2.4× scale, `transform-origin` follows the pointer |
-| Theme reveal | Header toggle | View Transitions API circular clip from the click point |
-| Hover preview | Home index | Fixed thumbnail follows the cursor over franchise rows |
-| View cursor | Any `[data-cursor]` | Trailing 78px disc with a bilingual label (desktop only) |
-| Ticker | Footer | Seamless `translateX(-50%)` loop, pauses on hover |
-| Progress | Top of page | 2px accent bar scaled by scroll position |
+| Effect | Where |
+|---|---|
+| Exhibit cross-fade + hairline timer | Home hero |
+| Fade-up reveal on scroll | Strips, headings |
+| Curtain reveal (clip-path) | Catalog grid photos |
+| Shared-element flight tile ↔ viewer, directional slide, finger-follow swipe | Viewer |
+| Click / double-tap zoom with pointer pan (native zoom cursor) | Viewer |
+| Circular theme reveal | Header dot (View Transitions API) |
+| Drag-to-scroll | Home strips |
+| Reading progress | 2px accent bar at the top |
 
-Guidelines: durations 0.4–1.0s with `--ease-editorial`; stagger 40–80ms; never animate layout properties; anything that moves must have a reason (reveal, continuity or feedback).
+No custom cursors, no parallax, no marquee — they compete with the photos.
 
 ## Do / Don't
 
-- Do let the photograph carry colour; chrome stays black/white (or white/black in dark).
-- Do put new item info in `src/data/catalog.js` — labels, index and filters update automatically.
-- Don't add shadows, rounded corners, filled buttons or gradients.
-- Don't show English without Chinese for navigation and headings (long English body copy may stand alone).
+- Do add item info in `src/data/catalog.js`; the hero, strips, labels and filters pick it up.
+- Do keep new text small and muted; if a line isn't needed to enjoy the photo, leave it out.
+- Don't add borders, shadows, rounded corners or coloured UI around photos.
+- Don't enlarge headings to fill space — let the photos fill it.

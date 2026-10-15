@@ -15,12 +15,24 @@ export const Bi = ({ zh, en, className = '' }) => (
  *   蜘蛛侠
  *   Spider-Man
  */
-export const SpecimenLabel = ({ photo, compact = false }) => {
+export const SpecimenLabel = ({ photo, detailed = false }) => {
   const franchise = getFranchise(photo.franchise);
   const series = getSeriesContent(photo.category);
 
+  // Grid / strips: one quiet line — name on the left, number on the right.
+  if (!detailed) {
+    return (
+      <span className="specimen-label is-compact">
+        <span className={photo.name ? 'specimen-name' : 'specimen-name is-placeholder'}>
+          {photo.name || photo.nameEn || series.labelZh}
+        </span>
+        <span className="specimen-no">No.{photo.no}</span>
+      </span>
+    );
+  }
+
   return (
-    <span className={compact ? 'specimen-label is-compact' : 'specimen-label'}>
+    <span className="specimen-label">
       <span className="specimen-label-row">
         <span className="specimen-no">No.{photo.no}</span>
         <span className="specimen-series" lang="en">{franchise ? franchise.en : series.label}</span>
