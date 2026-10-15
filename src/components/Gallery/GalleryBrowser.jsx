@@ -13,6 +13,7 @@ import {
 } from '../../data/siteContent';
 import { getCachedPhotos, loadPhotos } from '../../lib/gallery';
 import { containRect, fly, rememberFlightSource } from '../../lib/flight';
+import { opensPhoto, PAGE_VARIANTS } from '../../lib/motion';
 
 const BATCH_SIZE = 24;
 const PHOTO_PARAM = 'photo';
@@ -225,10 +226,11 @@ const GalleryBrowser = ({ filter = 'All' }) => {
   return (
     <Motion.div
       className="gallery-page page-pad"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: reduceMotion ? 0 : 0.3 }}
+      variants={PAGE_VARIANTS}
+      custom={opensPhoto(location.search)}
+      initial="initial"
+      animate="enter"
+      exit="exit"
     >
       <FilterBar
         categories={categories}
@@ -286,6 +288,9 @@ const GalleryBrowser = ({ filter = 'All' }) => {
             photoIndex={selectedIndex}
             total={filteredPhotos.length}
             direction={direction}
+            // Arriving from another page (home, about, a shared link): show the
+            // viewer at once instead of fading it in over the grid.
+            instant={!location.state?.lightbox}
             onRandom={pickRandom}
             neighbors={[
               filteredPhotos[(selectedIndex - 1 + filteredPhotos.length) % filteredPhotos.length],

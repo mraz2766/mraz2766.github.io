@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { m as Motion, useReducedMotion } from 'framer-motion';
 import { getExifDisplayItems, getLabelItems } from '../../data/siteContent';
-import { containRect, fly, takeFlightSource } from '../../lib/flight';
+import { containRect, fly, isImageReady, takeFlightSource } from '../../lib/flight';
 import { SpecimenLabel } from '../Specimen';
 
 const SWIPE_THRESHOLD = 56;
@@ -22,7 +22,10 @@ function setZoomOrigin(stage, clientX, clientY) {
  * zoom that follows the pointer.
  */
 const LightboxImage = ({ photo, direction, zoomed, onToggleZoom }) => {
-  const [loaded, setLoaded] = useState(false);
+  // If the full image is already in the browser cache (e.g. it was just shown
+  // on the home page), paint it immediately — no blurry thumbnail, no swap.
+  const [readyAtMount] = useState(() => isImageReady(photo.src));
+  const [loaded, setLoaded] = useState(readyAtMount);
   const stageRef = useRef(null);
   const lastTap = useRef(0);
 
@@ -61,7 +64,7 @@ const LightboxImage = ({ photo, direction, zoomed, onToggleZoom }) => {
         }
       }}
     >
-      {photo.thumbnail ? (
+      {photo.thumbnail && !readyAtMount ? (
         <img
           className="lightbox-image lightbox-image-preview"
           src={photo.thumbnail}
@@ -99,6 +102,7 @@ const Lightbox = ({
   total,
   neighbors = [],
   direction = 0,
+  instant = false,
   onClose,
   onNext,
   onPrev,
@@ -230,7 +234,7 @@ const Lightbox = ({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      initial={{ opacity: 0 }}
+      initial={instant ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: reduceMotion ? 0 : 0.25 }}

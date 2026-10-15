@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { m as Motion, useReducedMotion } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import { m as Motion } from 'framer-motion';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   getCameraName,
   getFranchise,
@@ -8,7 +8,8 @@ import {
   HOME_SELECTION,
 } from '../data/siteContent';
 import { getCachedPhotos, loadPhotos } from '../lib/gallery';
-import { prefersReducedMotion, Reveal } from '../lib/motion';
+import { opensPhoto, PAGE_VARIANTS, prefersReducedMotion, Reveal } from '../lib/motion';
+import { rememberFlightSource } from '../lib/flight';
 
 const HERO_INTERVAL = 7000;
 const STRIP_LIMIT = 14;
@@ -81,6 +82,7 @@ const Strip = ({ zh, en, to, count, photos, linkFor }) => {
               to={linkFor(photo)}
               className="strip-item"
               draggable={false}
+              onClick={(event) => rememberFlightSource(photo.slug, event.currentTarget)}
               aria-label={`No.${photo.no} ${photo.displayTitle}`}
             >
               <span className="strip-frame" style={{ aspectRatio: `${photo.width || 4} / ${photo.height || 5}` }}>
@@ -150,7 +152,11 @@ const Hero = ({ photos }) => {
       <button
         type="button"
         className="hero-frame"
-        onClick={() => navigate(`/works?photo=${encodeURIComponent(photo.slug)}`)}
+        onClick={(event) => {
+          // The photo flies from here into the viewer on the next page.
+          rememberFlightSource(photo.slug, event.currentTarget);
+          navigate(`/works?photo=${encodeURIComponent(photo.slug)}`);
+        }}
         aria-label={`查看 ${photo.displayTitle}`}
       >
         <img
@@ -191,7 +197,7 @@ const Hero = ({ photos }) => {
 
 const Home = () => {
   const [photos, setPhotos] = useState(() => getCachedPhotos() || []);
-  const reduceMotion = useReducedMotion();
+  const location = useLocation();
 
   useEffect(() => {
     let active = true;
@@ -214,10 +220,11 @@ const Home = () => {
   return (
     <Motion.div
       className="home-page page-pad"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: reduceMotion ? 0 : 0.3 }}
+      variants={PAGE_VARIANTS}
+      custom={opensPhoto(location.search)}
+      initial="initial"
+      animate="enter"
+      exit="exit"
     >
       <Hero photos={selection} />
 

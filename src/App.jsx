@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, LazyMotion, domAnimation } from 'framer-motion';
+import { AnimatePresence, LazyMotion, MotionConfig, domAnimation } from 'framer-motion';
+import { opensPhoto } from './lib/motion';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Works from './pages/Works';
@@ -18,6 +19,7 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence
       mode="wait"
+      custom={opensPhoto(location.search)}
       // Start each new page at the top once the old one has faded out.
       onExitComplete={() => window.scrollTo(0, 0)}
     >
@@ -36,9 +38,12 @@ function App() {
     <Router>
       {/* LazyMotion + `m` components ship only the animation features we use. */}
       <LazyMotion features={domAnimation} strict>
-        <Layout>
-          <AnimatedRoutes />
-        </Layout>
+        {/* Respect the OS "reduce motion" setting for every framer animation. */}
+        <MotionConfig reducedMotion="user">
+          <Layout>
+            <AnimatedRoutes />
+          </Layout>
+        </MotionConfig>
       </LazyMotion>
     </Router>
   );

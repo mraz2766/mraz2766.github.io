@@ -13,6 +13,25 @@ export function isFinePointer() {
     && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 }
 
+/* ---------- Page transitions ---------- */
+
+/**
+ * Pages cross-fade normally, but when the destination opens a photo
+ * (?photo=…) the switch is instant so the viewer appears straight away
+ * instead of after a fade-out / fade-in through black.
+ * `custom` = true for an instant switch (AnimatePresence passes it to the
+ * exiting page; the entering page receives it as a prop).
+ */
+export const PAGE_VARIANTS = {
+  initial: (instant) => ({ opacity: instant ? 1 : 0 }),
+  enter: (instant) => ({ opacity: 1, transition: { duration: instant ? 0 : 0.3 } }),
+  exit: (instant) => ({ opacity: 0, transition: { duration: instant ? 0 : 0.25 } }),
+};
+
+export function opensPhoto(search) {
+  return new URLSearchParams(search).has('photo');
+}
+
 /* ---------- Reveal on scroll ---------- */
 
 let sharedObserver = null;

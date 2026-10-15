@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { m as Motion, useReducedMotion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { m as Motion } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 import {
   ABOUT_BODY,
   ABOUT_BODY_ZH,
@@ -10,12 +10,12 @@ import {
 } from '../data/siteContent';
 import { getCachedPhotos, loadPhotos } from '../lib/gallery';
 import { Bi, SpecimenLabel } from '../components/Specimen';
-import { CountUp, Reveal } from '../lib/motion';
+import { CountUp, opensPhoto, PAGE_VARIANTS, Reveal } from '../lib/motion';
 
 const ABOUT_PHOTO = 'r0003845';
 
 const About = () => {
-  const reduceMotion = useReducedMotion();
+  const location = useLocation();
   const [photos, setPhotos] = useState(() => getCachedPhotos() || []);
 
   useEffect(() => {
@@ -43,10 +43,11 @@ const About = () => {
   return (
     <Motion.div
       className="about-page page-pad"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: reduceMotion ? 0 : 0.3 }}
+      variants={PAGE_VARIANTS}
+      custom={opensPhoto(location.search)}
+      initial="initial"
+      animate="enter"
+      exit="exit"
     >
       <header className="about-heading">
         <span className="section-no">00</span>

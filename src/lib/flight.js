@@ -18,6 +18,14 @@ export function rememberFlightSource(slug, element) {
   pendingSource = { slug, rect: image.getBoundingClientRect(), src: image.currentSrc || image.src, time: performance.now() };
 }
 
+/** True when `src` is already downloaded and decodable (memory/disk cache). */
+export function isImageReady(src) {
+  if (!src || typeof Image === 'undefined') return false;
+  const probe = new Image();
+  probe.src = src;
+  return probe.complete && probe.naturalWidth > 0;
+}
+
 export function takeFlightSource(slug) {
   const source = pendingSource;
   pendingSource = null;
