@@ -209,6 +209,11 @@ const Home = () => {
 
   const selection = useMemo(() => pickSelection(photos), [photos]);
   const pets = useMemo(() => photos.filter((photo) => photo.category === 'Pets'), [photos]);
+  // Newest first, so the latest outing leads the strip.
+  const daily = useMemo(
+    () => photos.filter((photo) => photo.category === 'Daily').sort((left, right) => right.id - left.id),
+    [photos]
+  );
   const franchiseRows = useMemo(() => getFranchiseIndex(photos).slice(0, FRANCHISE_ROWS).map((franchise) => {
     const items = photos.filter((photo) => photo.franchise === franchise.key);
     return {
@@ -259,6 +264,17 @@ const Home = () => {
           count={pets.length}
           photos={pets}
           linkFor={(photo) => `/works/pets?photo=${encodeURIComponent(photo.slug)}`}
+        />
+      ) : null}
+
+      {daily.length ? (
+        <Strip
+          zh="日常"
+          en="Daily"
+          to="/works/daily"
+          count={daily.length}
+          photos={daily.slice(0, STRIP_LIMIT)}
+          linkFor={(photo) => `/works/daily?photo=${encodeURIComponent(photo.slug)}`}
         />
       ) : null}
 

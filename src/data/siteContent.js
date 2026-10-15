@@ -18,16 +18,18 @@ export const ABOUT_BODY = [
   'Every piece gets a number. Whatever I remember — name, series, the year it arrived — goes on the label. The rest is left to the photograph.',
 ];
 
-export const SERIES_ORDER = ['All', 'Toys', 'Pets'];
+export const SERIES_ORDER = ['All', 'Toys', 'Pets', 'Daily'];
 export const SERIES_SLUGS = {
   toys: 'Toys',
   pets: 'Pets',
+  daily: 'Daily',
 };
 
 export const SERIES_CONTENT = {
   All: { label: 'All', labelZh: '全部', seriesTitle: 'Catalog', seriesTitleZh: '图鉴' },
   Toys: { label: 'Toys', labelZh: '玩具', seriesTitle: 'Toys', seriesTitleZh: '玩具' },
   Pets: { label: 'Pets', labelZh: '宠物', seriesTitle: 'Pets', seriesTitleZh: '宠物' },
+  Daily: { label: 'Daily', labelZh: '日常', seriesTitle: 'Daily', seriesTitleZh: '日常' },
 };
 
 /** Home page "精选 Selected" — order matters; the first one is the lead image. */

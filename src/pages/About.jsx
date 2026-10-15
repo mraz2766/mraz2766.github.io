@@ -31,11 +31,12 @@ const About = () => {
     || photos[0];
   const franchises = useMemo(() => getFranchiseIndex(photos), [photos]);
   const cameras = useMemo(() => getCameraIndex(photos), [photos]);
-  const pets = photos.filter((item) => item.category === 'Pets').length;
+  const countOf = (category) => photos.filter((item) => item.category === category).length;
   const inventory = [
     { zh: '藏品', en: 'Items', value: photos.length },
-    { zh: '玩具', en: 'Toys', value: photos.length - pets },
-    { zh: '宠物', en: 'Pets', value: pets },
+    { zh: '玩具', en: 'Toys', value: countOf('Toys') },
+    { zh: '宠物', en: 'Pets', value: countOf('Pets') },
+    { zh: '日常', en: 'Daily', value: countOf('Daily') },
     { zh: '已编目', en: 'Catalogued', value: photos.filter((item) => item.catalogued).length },
     { zh: '系列', en: 'Series', value: franchises.length },
   ];

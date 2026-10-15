@@ -211,8 +211,22 @@ async function generateGallery() {
   const photos = [];
   const keepDerivatives = new Set();
 
-  for (const [index, sourcePath] of imageFiles.entries()) {
+  // Catalog numbers (No.xxx) must not change when photos are added, removed
+  // or a new series folder sorts in front of the others. Re-use the id each
+  // photo had in the previous photos.json; new photos get the next free ids.
+  const previousIds = new Map();
+  try {
+    for (const record of JSON.parse(fs.readFileSync(OUTPUT_FILE, 'utf8'))) {
+      if (record?.thumbnail && Number.isInteger(record.id)) previousIds.set(record.thumbnail, record.id);
+    }
+  } catch {
+    // No previous manifest: ids start from 1.
+  }
+  let nextId = Math.max(0, ...previousIds.values()) + 1;
+
+  for (const sourcePath of imageFiles) {
     const info = getRelativeInfo(sourcePath);
+    const id = previousIds.get(info.thumbWebPath) ?? nextId++;
 
     await buildDerivative(sourcePath, info.thumbPath, 720, 72);
     await buildDerivative(sourcePath, info.optimizedPath, 1920, 84);
@@ -221,7 +235,8 @@ async function generateGallery() {
 
     const metadata = await sharp(sourcePath).metadata();
     const { width, height } = getDisplaySize(metadata);
-    const frameColor = await getFrameColor(sourcePath, index);
+    // Fallback colour keyed on the stable id (not file position) so it never shifts.
+    const frameColor = await getFrameColor(sourcePath, id - 1);
     const fileBuffer = fs.readFileSync(sourcePath);
     let tags = {};
 
@@ -232,14 +247,14 @@ async function generateGallery() {
     }
 
     const basePhoto = {
-      id: index + 1,
+      id,
       src: info.optimizedWebPath,
       thumbnail: info.thumbWebPath,
       width,
       height,
       category: info.category,
       title: info.baseName,
-      displayTitle: formatDisplayTitle({ id: index + 1, title: info.baseName, category: info.category }),
+      displayTitle: formatDisplayTitle({ id, title: info.baseName, category: info.category }),
       frameColor,
       exif: {
         camera: cleanExifValue(getTag(tags, 'Model') || getTag(tags, 'Make')),
@@ -253,6 +268,7 @@ async function generateGallery() {
     photos.push(enrichPhoto(basePhoto));
   }
 
+  photos.sort((left, right) => left.id - right.id);
   fs.writeFileSync(OUTPUT_FILE, `${JSON.stringify(photos, null, 2)}\n`);
   console.log(`Generated ${photos.length} photo records.`);
 

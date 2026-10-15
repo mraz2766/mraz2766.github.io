@@ -6,7 +6,7 @@ Design reference (dark room, minimal type) is in [`DESIGN.md`](./DESIGN.md).
 ## Features
 
 *   **Home 首页** — a dark-room exhibit: one large photo with name / series / EXIF that slowly cycles through the selection, then horizontal strips for 精选, the largest series and 猫与狗.
-*   **Catalog 图鉴** — `/works`, `/works/toys`, `/works/pets`; franchise filter (`?f=marvel`), Grid / Index table views (`?view=index`), 随机一件 random pick.
+*   **Catalog 图鉴** — `/works`, `/works/toys`, `/works/pets`, `/works/daily`; franchise filter (`?f=marvel`), Grid / Index table views (`?view=index`), 随机一件 random pick.
 *   **Viewer** — specimen sheet beside the photo; the open photo lives in the URL (`?photo=<slug>`). Arrow keys, Esc, swipe, click / double-tap zoom with pan, tile ↔ viewer flight.
 *   **Dark by default** — light room available from the header dot.
 *   **Static image pipeline** — WebP thumbnails (720px) and viewing images (1920px), EXIF-aware dimensions, orphan cleanup.
@@ -28,7 +28,10 @@ npm run build         # gen-gallery + vite build + trim (also writes dist/404.ht
 
 ### Adding photos
 
-Put originals under `public/photos/<series>/` (e.g. `pets`, `toys`) and run `npm run gen-gallery`.
+Put originals under `public/photos/<series>/` (`toys`, `pets`, `daily`) and run `npm run gen-gallery`.
+Catalog numbers are stable: existing photos keep their No. (read back from `public/photos.json`), new photos get the next free numbers.
+
+Before adding camera originals, shrink them and strip GPS (the repo is public). The import used for the October 2026 batch: rotate upright, long edge 4000px, JPEG q86, keep all EXIF except GPS.
 Supported: JPEG / PNG / WebP. HEIC is skipped (the script lists skipped files) — convert first, e.g. on macOS:
 
 ```bash

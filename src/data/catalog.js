@@ -40,6 +40,8 @@ export const CATALOG = {
   r0004526: { name: '布罗利', nameEn: 'Broly', franchise: 'dragon-ball' },
   r0004944: { name: '布罗利', nameEn: 'Broly', franchise: 'dragon-ball' },
   r0004919: { name: '魔人布欧', nameEn: 'Majin Buu', franchise: 'dragon-ball' },
+  r0005366: { name: '孙悟空', nameEn: 'Son Goku (Super Saiyan)', franchise: 'dragon-ball' },
+  r0005421: { name: '孙悟空', nameEn: 'Son Goku (Super Saiyan)', franchise: 'dragon-ball' },
 
   // Marvel 漫威
   '20210918-095509-01': { name: '格鲁特', nameEn: 'Groot', franchise: 'marvel' },
@@ -86,6 +88,7 @@ export const CATALOG = {
   r0001823: { name: '特瑞·博加德', nameEn: 'Terry Bogard', franchise: 'fighting-games' },
   r0001830: { name: '特瑞·博加德', nameEn: 'Terry Bogard', franchise: 'fighting-games' },
   r0001870: { name: '布鲁·玛丽与特瑞', nameEn: 'Blue Mary & Terry Bogard', franchise: 'fighting-games' },
+  r0005418: { name: '沙加特', nameEn: 'Sagat', franchise: 'fighting-games' },
 
   // Anime 动画
   'fullsizerender-vsco': { name: '明日香', nameEn: 'Asuka Langley', franchise: 'anime' },

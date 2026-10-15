@@ -4,8 +4,9 @@ import { SITE_TITLE_ZH } from '../data/siteContent';
 import { useTheme } from '../lib/theme';
 
 const navItems = [
-  { to: '/works', label: '图鉴', match: (path) => path.startsWith('/works') && !path.startsWith('/works/pets') },
+  { to: '/works', label: '图鉴', match: (path) => path.startsWith('/works') && !/^\/works\/(pets|daily)/.test(path) },
   { to: '/works/pets', label: '宠物', match: (path) => path.startsWith('/works/pets') },
+  { to: '/works/daily', label: '日常', match: (path) => path.startsWith('/works/daily') },
   { to: '/about', label: '关于', match: (path) => path === '/about' },
 ];
 
