@@ -8,7 +8,8 @@ Design system (Swiss grid + museum labels, bilingual, light/dark) is documented 
 *   **Home 首页** — masthead, a curated "Selected 精选" set on the first screen, a franchise index (目录) and a pets special collection.
 *   **Catalog 图鉴** — `/works`, `/works/toys`, `/works/pets`; franchise filter (`?f=marvel`) and Grid / Index table views (`?view=index`). Masonry keeps tiles in place as more load.
 *   **Specimen sheet** — the lightbox shows the catalog label (name, series, maker, scale, year) next to the photo plus EXIF. The open photo lives in the URL (`?photo=<slug>`); arrow keys, Esc, swipe and Back all work.
-*   **Light / dark** — follows the system, with a toggle in the header.
+*   **Light / dark** — follows the system, with a toggle in the header (circular reveal transition).
+*   **Motion & interaction** — curtain reveals on scroll, tile → viewer flight, zoom & pan, swipe that follows the finger, index hover previews, random pick (随机一件), draggable pets strip, footer ticker. All respect "reduce motion". See DESIGN.md.
 *   **Static image pipeline** — WebP thumbnails (720px) and viewing images (1920px), EXIF-aware dimensions, per-photo frame colour, orphan cleanup.
 
 ## Tech Stack

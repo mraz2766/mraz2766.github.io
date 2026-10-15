@@ -29,7 +29,8 @@ const IndexTable = ({ photos, onPhotoClick }) => (
                   type="button"
                   className="index-thumb"
                   data-photo-slug={photo.slug}
-                  onClick={() => onPhotoClick(photo.slug)}
+                  onClick={(event) => onPhotoClick(photo.slug, event.currentTarget)}
+                  data-cursor="查看 View"
                   aria-label={`No.${photo.no} ${photo.displayTitle}`}
                   style={{ '--frame-color': `var(--color-${photo.frameColor || 'vermillion'}-frame)` }}
                 >

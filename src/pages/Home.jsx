@@ -1,19 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { m as Motion, useReducedMotion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   getFranchiseIndex,
   HOME_SELECTION,
   SITE_DESCRIPTION,
   SITE_DESCRIPTION_ZH,
   SITE_SUBTITLE,
-  SITE_TITLE,
   SITE_TITLE_ZH,
 } from '../data/siteContent';
 import { getCachedPhotos, loadPhotos } from '../lib/gallery';
+import { CountUp, isFinePointer, prefersReducedMotion, Reveal } from '../lib/motion';
 import { Bi, SpecimenLabel } from '../components/Specimen';
-
-const PETS_STRIP_COUNT = 6;
 
 function pickSelection(photos) {
   const bySlug = new Map(photos.map((photo) => [photo.slug, photo]));
@@ -23,17 +21,123 @@ function pickSelection(photos) {
   return [...picked, ...fill].slice(0, HOME_SELECTION.length);
 }
 
+/** Section heading whose top rule draws itself in when it scrolls into view. */
 const SectionHead = ({ no, zh, en, action }) => (
-  <header className="section-head">
+  <Reveal as="header" className="section-head">
     <span className="section-no">{no}</span>
     <h2><Bi zh={zh} en={en} /></h2>
-    {action}
-  </header>
+    {action ? <div className="section-actions">{action}</div> : null}
+  </Reveal>
 );
+
+/** Title whose characters rise in one after another. */
+const StaggerTitle = ({ text }) => (
+  <span className="stagger-title" aria-label={text}>
+    {Array.from(text).map((char, index) => (
+      <span key={`${char}-${index}`} className="stagger-char" style={{ '--i': index }} aria-hidden="true">
+        {char}
+      </span>
+    ))}
+  </span>
+);
+
+/** Lead image drifts slightly against the pointer (desktop only). */
+function useParallax() {
+  const [element, setElement] = useState(null);
+
+  useEffect(() => {
+    if (!element || !isFinePointer() || prefersReducedMotion()) return undefined;
+    let frame = 0;
+    const onMove = (event) => {
+      const rect = element.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        element.style.setProperty('--px', `${(-x * 18).toFixed(1)}px`);
+        element.style.setProperty('--py', `${(-y * 18).toFixed(1)}px`);
+      });
+    };
+    const onLeave = () => {
+      element.style.setProperty('--px', '0px');
+      element.style.setProperty('--py', '0px');
+    };
+    element.addEventListener('pointermove', onMove);
+    element.addEventListener('pointerleave', onLeave);
+    return () => {
+      cancelAnimationFrame(frame);
+      element.removeEventListener('pointermove', onMove);
+      element.removeEventListener('pointerleave', onLeave);
+    };
+  }, [element]);
+
+  return setElement;
+}
+
+/** Floating preview photo that follows the cursor over the index list. */
+function useHoverPreview() {
+  const previewRef = useRef(null);
+  const [preview, setPreview] = useState(null);
+
+  const handlers = {
+    onPointerMove: (event) => {
+      const element = previewRef.current;
+      if (!element || event.pointerType !== 'mouse') return;
+      element.style.transform = `translate3d(${event.clientX + 24}px, ${event.clientY - 90}px, 0)`;
+    },
+    onPointerLeave: () => setPreview(null),
+  };
+
+  const show = (photo) => (event) => {
+    if (event.pointerType !== 'mouse' || prefersReducedMotion()) return;
+    setPreview(photo || null);
+  };
+
+  return { previewRef, preview, handlers, show };
+}
+
+/** Horizontal strip that can be dragged with the mouse (touch scrolls natively). */
+function useDragScroll() {
+  const ref = useRef(null);
+  const dragState = useRef({ active: false, moved: false, startX: 0, scroll: 0 });
+
+  const onPointerDown = (event) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    dragState.current = { active: true, moved: false, startX: event.clientX, scroll: ref.current.scrollLeft };
+  };
+  const onPointerMove = (event) => {
+    const state = dragState.current;
+    if (!state.active) return;
+    const delta = event.clientX - state.startX;
+    if (Math.abs(delta) > 4) {
+      state.moved = true;
+      ref.current.classList.add('is-dragging');
+    }
+    ref.current.scrollLeft = state.scroll - delta;
+  };
+  const end = () => {
+    dragState.current.active = false;
+    ref.current?.classList.remove('is-dragging');
+  };
+  // Swallow the click that ends a drag so it doesn't open a photo.
+  const onClickCapture = (event) => {
+    if (dragState.current.moved) {
+      event.preventDefault();
+      event.stopPropagation();
+      dragState.current.moved = false;
+    }
+  };
+
+  return { ref, onPointerDown, onPointerMove, onPointerUp: end, onPointerLeave: end, onClickCapture };
+}
 
 const Home = () => {
   const [photos, setPhotos] = useState(() => getCachedPhotos() || []);
   const reduceMotion = useReducedMotion();
+  const navigate = useNavigate();
+  const leadRef = useParallax();
+  const { previewRef, preview, handlers: previewHandlers, show } = useHoverPreview();
+  const drag = useDragScroll();
 
   useEffect(() => {
     let active = true;
@@ -46,10 +150,29 @@ const Home = () => {
   const selection = useMemo(() => pickSelection(photos), [photos]);
   const franchises = useMemo(() => getFranchiseIndex(photos), [photos]);
   const pets = useMemo(() => photos.filter((photo) => photo.category === 'Pets'), [photos]);
+  const uncatalogued = useMemo(
+    () => photos.filter((photo) => photo.category === 'Toys' && !photo.franchise),
+    [photos]
+  );
+  const coverFor = useMemo(() => {
+    const covers = new Map();
+    photos.forEach((photo) => {
+      if (!photo.franchise) return;
+      const current = covers.get(photo.franchise);
+      if (!current || (photo.featured && !current.featured)) covers.set(photo.franchise, photo);
+    });
+    return covers;
+  }, [photos]);
+
   const toysCount = photos.length - pets.length;
   const cataloguedCount = photos.filter((photo) => photo.catalogued).length;
-  const uncataloguedToys = photos.filter((photo) => photo.category === 'Toys' && !photo.franchise).length;
-  const count = (value) => (photos.length ? value : '—');
+  const count = (value) => (photos.length ? <CountUp value={value} /> : '—');
+
+  const openRandom = () => {
+    if (!photos.length) return;
+    const photo = photos[Math.floor(Math.random() * photos.length)];
+    navigate(`/works?photo=${encodeURIComponent(photo.slug)}`);
+  };
 
   return (
     <Motion.div
@@ -61,22 +184,25 @@ const Home = () => {
     >
       <section className="home-masthead" aria-labelledby="home-title">
         <div className="masthead-title">
-          <h1 id="home-title">
-            <span className="masthead-wordmark" lang="en">{SITE_TITLE}</span>
-            <span className="masthead-zh">{SITE_TITLE_ZH}</span>
+          <p className="masthead-kicker" lang="en">
+            <span>{SITE_SUBTITLE}</span>
+            <span className="masthead-vol">Vol. 2026</span>
+          </p>
+          <h1 id="home-title" className="masthead-heading">
+            <StaggerTitle text={SITE_TITLE_ZH} />
           </h1>
           <p className="masthead-sub">
             <span>{SITE_DESCRIPTION_ZH}</span>
-            <span lang="en">{SITE_SUBTITLE}. {SITE_DESCRIPTION}</span>
+            <span lang="en">{SITE_DESCRIPTION}</span>
           </p>
         </div>
 
         <dl className="masthead-meta">
-          <div><dt><Bi zh="卷" en="Vol." /></dt><dd>2026</dd></div>
           <div><dt><Bi zh="藏品" en="Items" /></dt><dd>{count(photos.length)}</dd></div>
           <div><dt><Bi zh="玩具" en="Toys" /></dt><dd>{count(toysCount)}</dd></div>
           <div><dt><Bi zh="宠物" en="Pets" /></dt><dd>{count(pets.length)}</dd></div>
           <div><dt><Bi zh="已编目" en="Catalogued" /></dt><dd>{count(cataloguedCount)}</dd></div>
+          <div><dt><Bi zh="系列" en="Series" /></dt><dd>{count(franchises.length)}</dd></div>
         </dl>
       </section>
 
@@ -85,21 +211,29 @@ const Home = () => {
           no="01"
           zh="精选"
           en="Selected"
-          action={<Link to="/works" className="text-link"><Bi zh="全部图鉴" en="View all" /> →</Link>}
+          action={(
+            <>
+              <button type="button" className="random-button" onClick={openRandom}>
+                <span className="random-dice" aria-hidden="true">⁂</span>
+                <Bi zh="随机一件" en="Random" />
+              </button>
+              <Link to="/works" className="text-link"><Bi zh="全部图鉴" en="View all" /> →</Link>
+            </>
+          )}
         />
 
         <div className="selected-grid">
           {selection.map((photo, index) => (
-            <Motion.div
+            <Reveal
               key={photo.id}
               className={index === 0 ? 'selected-item is-lead' : 'selected-item'}
-              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : index * 0.04, ease: [0.22, 1, 0.36, 1] }}
+              delay={index === 0 ? 0 : 120 + ((index - 1) % 4) * 70}
+              ref={index === 0 ? leadRef : undefined}
             >
               <Link
                 to={`/works?photo=${encodeURIComponent(photo.slug)}`}
                 className="specimen-card"
+                data-cursor="查看 View"
                 style={{ '--frame-color': `var(--color-${photo.frameColor || 'vermillion'}-frame)` }}
                 aria-label={`No.${photo.no} ${photo.displayTitle}`}
               >
@@ -116,7 +250,7 @@ const Home = () => {
                 </span>
                 <SpecimenLabel photo={photo} />
               </Link>
-            </Motion.div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -124,38 +258,51 @@ const Home = () => {
       <section className="home-section" aria-label="目录 Index">
         <SectionHead no="02" zh="目录" en="Index" />
 
-        <ol className="index-list">
+        <ol className="index-list" {...previewHandlers}>
           {franchises.map((franchise, index) => (
-            <li key={franchise.key}>
-              <Link to={`/works/toys?f=${encodeURIComponent(franchise.key)}`} className="index-row">
+            <Reveal as="li" key={franchise.key} delay={(index % 8) * 40}>
+              <Link
+                to={`/works/toys?f=${encodeURIComponent(franchise.key)}`}
+                className="index-row"
+                onPointerEnter={show(coverFor.get(franchise.key))}
+              >
                 <span className="index-no">{String(index + 1).padStart(2, '0')}</span>
                 <Bi zh={franchise.zh} en={franchise.en} className="index-name" />
                 <span className="index-leader" aria-hidden="true" />
                 <span className="index-count">{franchise.count}</span>
               </Link>
-            </li>
+            </Reveal>
           ))}
-          {uncataloguedToys ? (
-            <li>
-              <Link to="/works/toys" className="index-row is-muted">
+          {uncatalogued.length ? (
+            <Reveal as="li">
+              <Link to="/works/toys" className="index-row is-muted" onPointerEnter={show(uncatalogued[0])}>
                 <span className="index-no">—</span>
                 <Bi zh="其他玩具 · 待编目" en="Other toys · Uncatalogued" className="index-name" />
                 <span className="index-leader" aria-hidden="true" />
-                <span className="index-count">{uncataloguedToys}</span>
+                <span className="index-count">{uncatalogued.length}</span>
               </Link>
-            </li>
+            </Reveal>
           ) : null}
           {pets.length ? (
-            <li>
-              <Link to="/works/pets" className="index-row">
+            <Reveal as="li">
+              <Link to="/works/pets" className="index-row" onPointerEnter={show(pets[0])}>
                 <span className="index-no">★</span>
                 <Bi zh="特别收录 · 宠物" en="Special · Pets" className="index-name" />
                 <span className="index-leader" aria-hidden="true" />
                 <span className="index-count">{pets.length}</span>
               </Link>
-            </li>
+            </Reveal>
           ) : null}
         </ol>
+
+        <div className={preview ? 'index-preview is-visible' : 'index-preview'} ref={previewRef} aria-hidden="true">
+          {preview ? (
+            <>
+              <img key={preview.slug} src={preview.thumbnail || preview.src} alt="" />
+              <span className="specimen-no">No.{preview.no}</span>
+            </>
+          ) : null}
+        </div>
       </section>
 
       {pets.length ? (
@@ -166,20 +313,31 @@ const Home = () => {
             en="Special: Cats & Dogs"
             action={<Link to="/works/pets" className="text-link"><Bi zh="查看" en="View" /> →</Link>}
           />
-          <div className="pets-strip">
-            {pets.slice(0, PETS_STRIP_COUNT).map((photo) => (
-              <Link
-                key={photo.id}
-                to={`/works/pets?photo=${encodeURIComponent(photo.slug)}`}
-                className="pets-strip-item"
-                style={{ '--frame-color': `var(--color-${photo.frameColor || 'vermillion'}-frame)` }}
-                aria-label={`No.${photo.no}`}
-              >
-                <span className="specimen-frame">
-                  <img src={photo.thumbnail || photo.src} alt="" loading="lazy" decoding="async" />
-                </span>
-                <span className="specimen-no">No.{photo.no}</span>
-              </Link>
+          <div
+            className="pets-strip"
+            ref={drag.ref}
+            onPointerDown={drag.onPointerDown}
+            onPointerMove={drag.onPointerMove}
+            onPointerUp={drag.onPointerUp}
+            onPointerLeave={drag.onPointerLeave}
+            onClickCapture={drag.onClickCapture}
+          >
+            {pets.map((photo, index) => (
+              <Reveal key={photo.id} className="pets-strip-cell" delay={Math.min(index, 5) * 60}>
+                <Link
+                  to={`/works/pets?photo=${encodeURIComponent(photo.slug)}`}
+                  className="pets-strip-item"
+                  data-cursor="拖动 / 查看"
+                  draggable={false}
+                  style={{ '--frame-color': `var(--color-${photo.frameColor || 'vermillion'}-frame)` }}
+                  aria-label={`No.${photo.no}`}
+                >
+                  <span className="specimen-frame">
+                    <img src={photo.thumbnail || photo.src} alt="" loading="lazy" decoding="async" draggable={false} />
+                  </span>
+                  <span className="specimen-no">No.{photo.no}</span>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </section>

@@ -10,6 +10,7 @@ import {
 } from '../data/siteContent';
 import { getCachedPhotos, loadPhotos } from '../lib/gallery';
 import { Bi, SpecimenLabel } from '../components/Specimen';
+import { CountUp, Reveal } from '../lib/motion';
 
 const ABOUT_PHOTO = 'r0003845';
 
@@ -86,15 +87,17 @@ const About = () => {
               {inventory.map((item) => (
                 <div key={item.en}>
                   <dt><Bi zh={item.zh} en={item.en} /></dt>
-                  <dd className="specimen-no">{photos.length ? String(item.value).padStart(3, '0') : '—'}</dd>
+                  <dd className="specimen-no">{photos.length ? <CountUp value={item.value} pad={3} /> : '—'}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
           {photo ? (
+            <Reveal>
             <Link
               to={`/works?photo=${encodeURIComponent(photo.slug)}`}
+              data-cursor="查看 View"
               className="specimen-card about-photo"
               style={{ '--frame-color': `var(--color-${photo.frameColor || 'cobalt'}-frame)` }}
               aria-label={`No.${photo.no} ${photo.displayTitle}`}
@@ -104,6 +107,7 @@ const About = () => {
               </span>
               <SpecimenLabel photo={photo} />
             </Link>
+            </Reveal>
           ) : null}
         </aside>
       </div>

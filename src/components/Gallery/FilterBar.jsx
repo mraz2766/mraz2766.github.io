@@ -14,6 +14,7 @@ const FilterBar = ({
   onFranchiseChange,
   view = 'grid',
   onViewChange,
+  onRandom = null,
 }) => {
   const [searchParams] = useSearchParams();
   // Keep the grid/index choice when switching series; drop franchise + photo.
@@ -61,6 +62,13 @@ const FilterBar = ({
               ))}
             </select>
           </label>
+        ) : null}
+
+        {onRandom ? (
+          <button type="button" className="random-button" onClick={onRandom}>
+            <span className="random-dice" aria-hidden="true">⁂</span>
+            <Bi zh="随机一件" en="Random" />
+          </button>
         ) : null}
 
         <div className="view-toggle" role="group" aria-label="视图 View">

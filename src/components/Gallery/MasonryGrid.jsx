@@ -1,5 +1,5 @@
 import React, { useMemo, useSyncExternalStore } from 'react';
-import { m as Motion, useReducedMotion } from 'framer-motion';
+import { Reveal } from '../../lib/motion';
 import { SpecimenLabel } from '../Specimen';
 
 // Column count mirrors the old CSS `columns` breakpoints.
@@ -45,7 +45,6 @@ function distribute(photos, columnCount) {
 }
 
 const MasonryGrid = ({ photos, onPhotoClick }) => {
-  const reduceMotion = useReducedMotion();
   const columnCount = useColumnCount();
   const columns = useMemo(() => distribute(photos, columnCount), [photos, columnCount]);
 
@@ -54,21 +53,17 @@ const MasonryGrid = ({ photos, onPhotoClick }) => {
       {columns.map((items, columnIndex) => (
         <div className="masonry-column" key={columnIndex}>
           {items.map(({ photo, index }) => (
-            <Motion.button
+            <Reveal
+              as="button"
               key={photo.id}
               type="button"
               className="masonry-tile specimen-card"
+              delay={columnIndex * 80}
               data-photo-slug={photo.slug}
+              data-cursor="查看 View"
               style={{ '--frame-color': `var(--color-${photo.frameColor || 'vermillion'}-frame)` }}
-              onClick={() => onPhotoClick(photo.slug)}
+              onClick={(event) => onPhotoClick(photo.slug, event.currentTarget)}
               aria-label={`No.${photo.no} ${photo.displayTitle}`}
-              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: reduceMotion ? 0 : 0.45,
-                delay: reduceMotion ? 0 : Math.min(index % 8, 4) * 0.025,
-                ease: [0.22, 1, 0.36, 1],
-              }}
             >
               <span className="specimen-frame">
                 <img
@@ -82,7 +77,7 @@ const MasonryGrid = ({ photos, onPhotoClick }) => {
                 />
               </span>
               <SpecimenLabel photo={photo} />
-            </Motion.button>
+            </Reveal>
           ))}
         </div>
       ))}

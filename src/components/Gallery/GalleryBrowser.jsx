@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, m as Motion, useReducedMotion } from 'framer-motion';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import FilterBar from './FilterBar';
@@ -12,6 +12,7 @@ import {
   sortPhotosForDisplay,
 } from '../../data/siteContent';
 import { getCachedPhotos, loadPhotos } from '../../lib/gallery';
+import { containRect, fly, rememberFlightSource } from '../../lib/flight';
 
 const BATCH_SIZE = 24;
 const PHOTO_PARAM = 'photo';
@@ -43,6 +44,7 @@ const GalleryBrowser = ({ filter = 'All' }) => {
   const navigate = useNavigate();
   const sentinelRef = useRef(null);
   const lastOpenedSlug = useRef(null);
+  const [direction, setDirection] = useState(0);
   const reduceMotion = useReducedMotion();
 
   // The open photo lives in the URL (?photo=slug): shareable, survives a
@@ -142,21 +144,38 @@ const GalleryBrowser = ({ filter = 'All' }) => {
     return () => observer.disconnect();
   }, [filteredPhotos.length, hasMore]);
 
-  const openPhoto = useCallback((slug) => {
+  const openPhoto = useCallback((slug, sourceElement) => {
     lastOpenedSlug.current = slug;
+    rememberFlightSource(slug, sourceElement);
+    setDirection(0);
     updateParams({ [PHOTO_PARAM]: slug }, { state: { lightbox: true } });
   }, [updateParams]);
 
-  const showPhotoAt = useCallback((index) => {
+  const showPhotoAt = useCallback((index, nextDirection = 0) => {
     if (!filteredPhotos.length) return;
+    setDirection(nextDirection);
     const wrapped = (index + filteredPhotos.length) % filteredPhotos.length;
     const photo = filteredPhotos[wrapped];
     lastOpenedSlug.current = photo.slug;
     updateParams({ [PHOTO_PARAM]: photo.slug }, { replace: true, state: location.state });
   }, [filteredPhotos, location.state, updateParams]);
 
-  const handleNext = useCallback(() => showPhotoAt(selectedIndex + 1), [selectedIndex, showPhotoAt]);
-  const handlePrev = useCallback(() => showPhotoAt(selectedIndex - 1), [selectedIndex, showPhotoAt]);
+  const handleNext = useCallback(() => showPhotoAt(selectedIndex + 1, 1), [selectedIndex, showPhotoAt]);
+  const handlePrev = useCallback(() => showPhotoAt(selectedIndex - 1, -1), [selectedIndex, showPhotoAt]);
+
+  // Jump to a random item (never the one already open).
+  const pickRandom = useCallback(() => {
+    if (filteredPhotos.length < 2) return;
+    let index = Math.floor(Math.random() * filteredPhotos.length);
+    if (index === selectedIndex) index = (index + 1) % filteredPhotos.length;
+    if (selectedPhoto) {
+      showPhotoAt(index, 1);
+    } else {
+      lastOpenedSlug.current = filteredPhotos[index].slug;
+      setDirection(0);
+      updateParams({ [PHOTO_PARAM]: filteredPhotos[index].slug }, { state: { lightbox: true } });
+    }
+  }, [filteredPhotos, selectedIndex, selectedPhoto, showPhotoAt, updateParams]);
 
   const handleClose = useCallback(() => {
     // Opened from inside the grid: step back so history stays clean.
@@ -168,16 +187,36 @@ const GalleryBrowser = ({ filter = 'All' }) => {
     }
   }, [location.state, navigate, updateParams]);
 
-  // Return keyboard focus (and the scroll position) to the last viewed tile.
-  useEffect(() => {
+  // On close: bring the last viewed tile into view, fly the photo back into
+  // it, and return keyboard focus there. Runs before paint, while the exiting
+  // lightbox is still in the DOM.
+  useLayoutEffect(() => {
     if (selectedPhoto || !lastOpenedSlug.current) return;
-    const tile = document.querySelector(`[data-photo-slug="${CSS.escape(lastOpenedSlug.current)}"]`);
+    const slug = lastOpenedSlug.current;
     lastOpenedSlug.current = null;
-    if (tile) {
-      tile.focus({ preventScroll: true });
-      tile.scrollIntoView({ block: 'nearest' });
-    }
-  }, [selectedPhoto]);
+    const tile = document.querySelector(`[data-photo-slug="${CSS.escape(slug)}"]`);
+    if (!tile) return;
+
+    const lightboxImage = document.querySelector('.lightbox .lightbox-image.is-loaded')
+      || document.querySelector('.lightbox .lightbox-image-preview');
+    const stage = lightboxImage?.closest('.lightbox-image-stage');
+    const photo = filteredPhotos.find((item) => item.slug === slug);
+
+    tile.scrollIntoView({ block: 'nearest' });
+    tile.focus({ preventScroll: true });
+
+    const tileImage = tile.querySelector('img');
+    if (!stage || !tileImage || !photo || stage.classList.contains('is-zoomed')) return;
+    const tileRect = tileImage.getBoundingClientRect();
+    const tileRatio = tileRect.width / tileRect.height;
+    if (Math.abs(tileRatio - photo.width / photo.height) / tileRatio > 0.06) return;
+
+    const from = containRect(stage.getBoundingClientRect(), photo.width, photo.height);
+    stage.classList.add('is-hidden');
+    tileImage.style.visibility = 'hidden';
+    fly({ src: lightboxImage.currentSrc || lightboxImage.src, from, to: tileRect, duration: 460 })
+      .then(() => { tileImage.style.visibility = ''; });
+  }, [selectedPhoto, filteredPhotos]);
 
   const categories = SERIES_ORDER.filter((category) => (
     category === 'All' || !allPhotos.length || allPhotos.some((photo) => photo.category === category)
@@ -201,6 +240,7 @@ const GalleryBrowser = ({ filter = 'All' }) => {
         franchise={franchise}
         onFranchiseChange={(value) => updateParams({ [FRANCHISE_PARAM]: value }, { replace: true })}
         view={view}
+        onRandom={filteredPhotos.length > 1 ? pickRandom : null}
         onViewChange={(value) => updateParams({ [VIEW_PARAM]: value === 'index' ? 'index' : null }, { replace: true })}
       />
 
@@ -245,6 +285,8 @@ const GalleryBrowser = ({ filter = 'All' }) => {
             photo={selectedPhoto}
             photoIndex={selectedIndex}
             total={filteredPhotos.length}
+            direction={direction}
+            onRandom={pickRandom}
             neighbors={[
               filteredPhotos[(selectedIndex - 1 + filteredPhotos.length) % filteredPhotos.length],
               filteredPhotos[(selectedIndex + 1) % filteredPhotos.length],
